@@ -1,4 +1,6 @@
 Grupo 02
+dos Santos Santiago
+Nro alumno: 17928/2
 Lorena Othaz
 Número de alumno 12623/4
 Sofia Marcela Raciti

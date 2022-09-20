@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+{% block title %}Home{% endblock title %}
+{% block importestilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock importestilos %}
+
+{% block body %}
+<h1>Hola</h1>
+{% endblock body %}

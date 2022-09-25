@@ -4,7 +4,7 @@ from pathlib import Path
 static_folder = Path(__file__).parent.joinpath("public")
 
 # Invoca a la funcion del modulo src web
-app = create_app(static_folder)
+app = create_app(static_folder=static_folder)
 
 
 def main():

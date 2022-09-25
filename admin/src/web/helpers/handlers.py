@@ -7,3 +7,12 @@ def not_found_error(e):
     }
 
     return render_template("error.html", **kwargs), 404
+
+
+def internal_server_error(e):
+    kwargs = {
+        "error_name": "500 Internal Server Error",
+        "error_description": "Error interno del servidor",
+    }
+
+    return render_template("error.html",**kwargs), 500

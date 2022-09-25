@@ -3,7 +3,8 @@ from flask import render_template
 
 from src.web.helpers import handlers
 
-def create_app(static_folder="static"):  # Esta funcion es llamada en app.py
+# Esta funcion es llamada en app.py
+def create_app(env="development", static_folder="static"):
 
     # Instancio Flask con el nombre de este modulo y
     # la ruta a la carpeta static folder

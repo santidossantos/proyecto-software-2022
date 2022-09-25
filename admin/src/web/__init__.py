@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
 
+from src.web.helpers import handlers
 
 def create_app(static_folder="static"):  # Esta funcion es llamada en app.py
 
@@ -11,5 +12,7 @@ def create_app(static_folder="static"):  # Esta funcion es llamada en app.py
     @app.get("/")
     def home():
         return render_template("index.html")
+
+    app.register_error_handler(404, handlers.not_found_error)
 
     return app

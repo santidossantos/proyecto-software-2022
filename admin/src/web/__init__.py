@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-
+from src.web.config import config
 from src.web.helpers import handlers
 
 # Esta funcion es llamada en app.py
@@ -9,6 +9,9 @@ def create_app(env="development", static_folder="static"):
     # Instancio Flask con el nombre de este modulo y
     # la ruta a la carpeta static folder
     app = Flask(__name__, static_folder=static_folder)
+
+    # Agarra lo que esta en el diccionario config en config.py
+    app.config.from_object(config[env])
 
     @app.get("/")
     def home():

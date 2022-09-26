@@ -25,7 +25,7 @@ class DevelopmentConfig(Config):
     """Development configuration"""
 
     DEBUG = True
-
+    
     DB_USER = "postgres"
     DB_PASS = "password"
     DB_HOST = "localhost"

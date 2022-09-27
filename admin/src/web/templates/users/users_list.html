@@ -1,3 +1,7 @@
-{% extends 'layout/layout.html' %} {% block content %}
+{% extends 'layout/layout.html' %}
+{% block content %}
 <h1>Listado de Usuarios</h1>
+{% for user in users  %}
+{{ user.email }}
+{% endfor %}
 {% endblock content %}

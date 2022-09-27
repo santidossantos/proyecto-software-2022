@@ -1,8 +1,10 @@
-{% extends 'layout.html' %}
+{% extends 'layout/layout.html' %}
 {% block title %}Error!{% endblock title %}
-{% block cssimports %}
-<link rel="stylesheet" href="{{ url_for('static', filename='error.css') }}">{% endblock cssimports %}
-{% block body %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='error.css') }}">
+{% endblock head %}
+{% block menu %}{% endblock menu %}
+{% block content %}
 <div class="container">
     <h1>{{ error_name }}</h1>
     <p class="zoom-area"><b>Error! </b>{{ error_description }}</p>
@@ -10,4 +12,4 @@
         <a href="{{ url_for('home') }}" class="more-link">Go to the homepage</a>
     </div>
 </div>
-{% endblock body %}
+{% endblock content %}

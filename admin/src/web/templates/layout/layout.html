@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}layout{% endblock %}</title>
+    {% block head %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='layout/css/style.css') }}"
+    />
+    {% endblock %}
+  </head>
+  <body>
+    {% block menu %} {% include 'navbar/navbar.html' %} {% endblock menu %}
+    <main>{% block content %} {% endblock %}</main>
+    <footer>{% block footer %} {% endblock %}</footer>
+  </body>
+</html>

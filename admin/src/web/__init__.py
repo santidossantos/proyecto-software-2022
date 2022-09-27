@@ -19,10 +19,9 @@ def create_app(env="development", static_folder="static"):
     app.register_error_handler(404, handlers.not_found_error)
     app.register_error_handler(500, handlers.internal_server_error)
 
-
     @app.get("/")
     def home():
-        return render_template("index.html")
+        return render_template("login.html")
 
     @app.cli.command(name="resetdb")
     def resetdb():

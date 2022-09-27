@@ -14,4 +14,3 @@ def main():
 # "cuando ejecuten este archivo (__name__) llama a la funcion name"
 if __name__ == "__main__":
     main()
-

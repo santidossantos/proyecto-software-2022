@@ -1,0 +1,17 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
+{%block content %}
+<h1 class="h1center">Agregar Usuario</h1>
+<form action="" method="post">
+  <div>
+    <label class="label" for="name">Nombre</label>
+    <input class="input_text" type="text" id="name" name="user_name" />
+  </div>
+  <div>
+    <label class="label" for="name">Email</label>
+    <input class="input_text" type="text" id="name" name="user_name" />
+  </div>
+  <div>
+    <button type="submit">Guardar</button>
+  </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,109 @@
+/* botones */
+
+.button_add {
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-color: black;
+  background: #0090af;
+  color: withe;
+  color: aliceblue;
+  cursor: pointer;
+  float: right;
+}
+
+.button_add a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+/* titulos */
+
+h1 {
+  padding: 2rem;
+  color: #4b4b4b;
+}
+
+.h1center {
+  text-align: center;
+}
+
+/* tablas */
+
+/* table {
+  table-layout: fixed;
+  width: 100%;
+  border-collapse: collapse;
+} */
+
+thead th:nth-child(1) {
+  width: 10%;
+}
+
+thead th:nth-child(2) {
+  width: 10%;
+}
+
+thead th:nth-child(3) {
+  width: 10%;
+}
+
+thead th:nth-child(4) {
+  width: 10%;
+}
+
+th {
+  letter-spacing: 0.5px;
+}
+
+table tr {
+  outline: lightgrey solid 0.0625rem;
+  border-radius: 0.625rem;
+}
+
+th,
+td {
+  text-align: center;
+  width: 69.125rem;
+  height: 4.0625rem;
+}
+
+.name {
+  color: #0090af;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+form {
+  /* Centrar el formulario en la página */
+  margin: 0 auto;
+  width: 400px;
+  /* Esquema del formulario */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+}
+
+.label {
+  margin: 0;
+  display: block;
+  padding: 10px;
+  padding-left: 0;
+}
+
+.input_text {
+  width: 10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+  height: 40px;
+  padding: 1rem;
+  border: 1px solid rgb(153, 147, 147);
+  outline: none;
+}

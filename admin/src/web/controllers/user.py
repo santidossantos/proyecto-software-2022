@@ -9,3 +9,8 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 def user_index():
     users = auth.list_users()
     return render_template("users/users_list.html", users=users)
+
+
+@users_blueprint.get("/create")
+def create():
+    return render_template("users/create.html")

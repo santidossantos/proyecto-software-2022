@@ -18,6 +18,8 @@ def config_db(app):
 
 
 def reset_db():
+    print("Deleting database...")
     db.drop_all()
+    print("Creating database...")
     db.create_all()
     print("Done")

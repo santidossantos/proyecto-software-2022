@@ -2,8 +2,8 @@ from src.core.auth.user import User
 from src.core.database import db
 
 
-def list_users():
-    return User.query.all()
+def list_users(page_num, per_page):
+    return User.query.paginate(page_num, per_page, True)
 
 
 def create_user(**kwargs):

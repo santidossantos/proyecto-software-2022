@@ -1,13 +1,9 @@
 {% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
 {%block content %}
 <button class="button_add">
-  <a href="{{ url_for('users.create') }}"
-    ><img
-      alt="agregar"
-      src="{{ url_for('static', filename='images/Adduser.png') }}"
-    />
-    Nuevo Usuario</a
-  >
+  <a href="{{ url_for('users.create') }}"><img alt="agregar"
+      src="{{ url_for('static', filename='images/Adduser.png') }}" />
+    Nuevo Usuario</a>
 </button>
 <h1>Listado de usuarios</h1>
 <table class="index-table box">
@@ -26,15 +22,18 @@
       <th>{{ user.email }}</th>
       <th>{{ user.email}}</th>
       <th>
-        <img
-          class="icon"
-          alt="editar"
-          title="Editar"
-          src="{{ url_for('static', filename='images/edit.svg') }}"
-        />
+        <img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}" />
       </th>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+
+<!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
+paginacion  para enviarselos al template paginacion.html 
+que usa por defecto la variable  pagination_items -->
+{% set pagination_items = users %}
+{% set url_redirect = '/users' %}
+{% include 'layout/pagination.html' %}
+
 {% endblock content %}

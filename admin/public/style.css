@@ -80,30 +80,25 @@ td {
   cursor: pointer;
 }
 
-form {
-  /* Centrar el formulario en la página */
-  margin: 0 auto;
-  width: 400px;
-  /* Esquema del formulario */
-  padding: 1em;
-  border: 1px solid #ccc;
-  border-radius: 1em;
-}
 
-.label {
-  margin: 0;
-  display: block;
-  padding: 10px;
-  padding-left: 0;
-}
+/* Flash Messages */
 
-.input_text {
-  width: 10px;
+p.flash {
   width: 100%;
-  height: 100%;
-  border-radius: 0.5rem;
-  height: 40px;
-  padding: 1rem;
-  border: 1px solid rgb(153, 147, 147);
-  outline: none;
+  padding: 5px;
+}
+
+p.flash.error {
+  border: 3px solid red;
+  background-color: rgb(242, 53, 6);
+}
+
+p.flash.success {
+  border: 3px solid green;
+  background-color: rgb(89, 237, 9);
+}
+
+p.flash.info {
+  border: 3px solid rgb(6, 53, 193);
+  background-color: rgba(2, 11, 116, 0.498);
 }

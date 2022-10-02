@@ -1,17 +1,17 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
-{%block content %}
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
+block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head%} {%block content %}
 <h1 class="h1center">Agregar Usuario</h1>
-<form action="" method="post">
-  <div>
-    <label class="label" for="name">Nombre</label>
-    <input class="input_text" type="text" id="name" name="user_name" />
-  </div>
-  <div>
+<div class="form_container">
+  <form action="{{ url_for('users.create') }}" method="post">
     <label class="label" for="name">Email</label>
-    <input class="input_text" type="text" id="name" name="user_name" />
-  </div>
-  <div>
-    <button type="submit">Guardar</button>
-  </div>
-</form>
+    <input class="input_text" type="text" id="email" name="email" />
+
+    <label class="label" for="name">Contraseña</label>
+    <input class="input_text" type="text" id="password" name="password" />
+
+    <button type="submit" id="submit" class="btn">Guardar</button>
+  </form>
+</div>
 {% endblock content %}

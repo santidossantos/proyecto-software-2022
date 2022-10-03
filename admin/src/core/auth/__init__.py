@@ -10,7 +10,24 @@ def create_user(**kwargs):
     user = User(**kwargs)
     db.session.add(user)
     db.session.commit()
+    return user
 
+def delete_user(id):
+    user = User.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user
+
+def get_user(id):
+    user = User.query.get(id)
+    return user
+
+#en futuro va haber que implementar lo de kwargs xq sino se va a tener que recibir muchos parametros
+def update_user(id,email,password):
+    user = User.query.get(id)
+    user.email=email
+    user.password=password
+    db.session.commit()
     return user
 
 

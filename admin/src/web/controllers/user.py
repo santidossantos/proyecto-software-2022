@@ -29,3 +29,20 @@ def create():
     auth.create_user(email=email, password=password)
     flash("Usuario Creado Correctamente", "success")
     return redirect((url_for("users.user_index")))
+
+@users_blueprint.route("/delete/<id>")
+def delete(id):
+    auth.delete_user(id=id)
+    flash("Usuario Eliminado Correctamente", "success")
+    return redirect((url_for("users.user_index")))
+
+@users_blueprint.route("/update/<id>", methods=["POST", "GET"])
+def update(id):
+    if request.method == "POST":
+        email=request.form["email"]
+        password=request.form["password"]
+        auth.update_user(id=id,email=email,password=password)
+        return redirect((url_for("users.user_index")))
+
+    user = auth.get_user(id=id)  
+    return render_template('users/update.html', user=user)

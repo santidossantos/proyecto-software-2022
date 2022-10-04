@@ -26,6 +26,10 @@
           title="Editar"
           src="{{ url_for('static', filename='images/edit.svg') }}"
         />
+        <div>
+            <a href="{{ url_for('users.delete', id=user.id )}}">Eliminar</a>
+            <a href="{{ url_for('users.update', id=user.id )}}">Actualizar</a>
+        </div>
       </th>
     </tr>
     {% endfor %}

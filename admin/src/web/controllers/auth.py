@@ -32,6 +32,7 @@ def authenticate():
         flash("Sesión iniciada", "success")
         return redirect(url_for("home"))
     else:
+        flash("Email no válido", "error")
         return redirect(url_for("auth.login"))
 
 

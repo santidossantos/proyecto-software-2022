@@ -5,7 +5,6 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import auth
-from src.core.auth.user import User
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
@@ -17,18 +16,17 @@ def user_index(page_num=1, per_page=1):
     return render_template("users/users_list.html", users=paginated_users)
 
 
-@users_blueprint.get("/create")
-def render():
-    return render_template("users/create.html")
-
-
-@users_blueprint.post("/create")
+@users_blueprint.route("/create", methods=("GET", "POST"))
 def create():
-    email = request.form.get("email")
-    password = request.form.get("password")
-    auth.create_user(email=email, password=password)
-    flash("Usuario Creado Correctamente", "success")
-    return redirect((url_for("users.user_index")))
+
+    if request.method == "POST":
+        email = request.form.get("email")
+        password = request.form.get("password")
+        auth.create_user(email=email, password=password)
+        flash("Usuario Creado Correctamente", "success")
+        return redirect((url_for("users.user_index")))
+
+    return render_template("users/create.html")
 
 @users_blueprint.route("/delete/<id>")
 def delete(id):

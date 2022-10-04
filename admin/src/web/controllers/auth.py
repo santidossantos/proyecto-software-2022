@@ -15,7 +15,11 @@ auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
 @auth_blueprint.get("/")
 def login():
+    
     return render_template("auth/login.html")
+
+    if session:
+        return redirect(url_for("user.index"))
 
 
 @auth_blueprint.post("/authenticate")
@@ -28,12 +32,13 @@ def authenticate():
             flash("Email o clave incorrecta", "error")
             return redirect(url_for("auth.login"))
 
-        session["user"] = user.email
-        flash("Sesión iniciada", "success")
-        return redirect(url_for("home"))
     else:
         flash("Email no válido", "error")
         return redirect(url_for("auth.login"))
+
+    session["user"] = user.email
+    flash("Sesión iniciada", "success")
+    return redirect(url_for("users.user_index"))
 
 
 @auth_blueprint.get("/logout")

@@ -6,7 +6,9 @@ from src.web.config import config
 from src.core import seeds
 from src.web.controllers.user import users_blueprint
 from src.web.controllers.auth import auth_blueprint
-
+from flask import url_for
+from flask import redirect
+from src.core import auth
 
 def create_app(env="development", static_folder="static"):
     app = Flask(__name__, static_folder=static_folder)
@@ -22,8 +24,8 @@ def create_app(env="development", static_folder="static"):
     app.register_error_handler(500, handlers.internal_server_error)
 
     @app.get("/")
-    def home():
-        return render_template("home.html")
+    def entry_point():
+        return redirect(url_for("auth.login"))
 
     @app.cli.command(name="resetdb")
     def resetdb():

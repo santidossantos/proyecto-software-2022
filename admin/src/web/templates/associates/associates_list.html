@@ -1,0 +1,65 @@
+{% extends 'layout/layout.html' %} {% block title %}Asociados{% endblock %}
+{%block content %} {{ super() }}
+<button class="button_add">
+  <a href="{{ url_for('users.create') }}"
+    ><img
+      alt="agregar"
+      src="{{ url_for('static', filename='images/Adduser.png') }}"
+    />Nuevo Asociado</a
+  >
+</button>
+<h1>Listado de Asociados</h1>
+<div class="filter_user">
+  <input type="search" class="search-field" placeholder="Buscar" />
+  <select type="search" class="search-field" placeholder="Buscar">
+    <option>Activo</option>
+    <option>Inactivo</option>
+  </select>
+</div>
+{% if associates %}
+<table class="index-table box">
+  <thead>
+    <tr>
+      <th class="name">Nombre</th>
+      <th class="name">Apellido</th>
+      <th class="name">Email</th>
+      <th class="name">Dni</th>
+      <th class="name">Direccion</th>
+      <th class="name">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for associate in associates.items %}
+    <tr>
+      <th>{{ associate.name }}</th>
+      <th>{{ associate.last_name}}</th>
+      <th>{{ associate.email}}</th>
+      <th>{{ associate.dni}}</th>
+      <th>{{ associate.address}}</th>
+      <th>
+        <img
+          class="icon"
+          alt="editar"
+          title="Editar"
+          src="{{ url_for('static', filename='images/edit.svg') }}"
+        />
+        <img
+          class="icon"
+          alt="editar"
+          title="Eliminar"
+          src="{{ url_for('static', filename='images/delete.svg') }}"
+        />
+      </th>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No hay listado para mostrar</p>
+{% endif %}
+
+<!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
+paginacion  para enviarselos al template paginacion.html 
+que usa por defecto la variable  pagination_items -->
+{% set pagination_items = associates %} {% set url_redirect = '/associates' %}
+{% include'layout/pagination.html' %} {% endblock content %}

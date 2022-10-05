@@ -1,0 +1,17 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
+block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head%} {%block content %}
+<h1 class="h1center">Agregar disciplina</h1>
+<div class="form_container">
+  <form action="{{ url_for('disciplines.create') }}" method="post">
+    <label class="label" for="name">Nombre</label>
+    <input class="input_text" type="text" id="email" name="nombre" />
+
+    <label class="label" for="name">Categoria</label>
+    <input class="input_text" type="text" id="password" name="categoria" />
+
+    <button type="submit" id="submit" class="btn">Guardar</button>
+  </form>
+</div>
+{% endblock content %}

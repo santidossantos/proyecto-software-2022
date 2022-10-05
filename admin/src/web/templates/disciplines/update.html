@@ -1,0 +1,17 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
+block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head%} {%block content %}
+<h1 class="h1center">Actualizar Usuario</h1>
+<div class="form_container">
+  <form action="/disciplines/update/{{discipline.id}}" method="POST">
+    <label class="label" for="name">Nombre</label>
+    <input class="input_text" type="text" id="nombre" name="nombre" value="{{discipline.nombre}}" />
+
+    <label class="label" for="name">Categoria</label>
+    <input class="input_text" type="text" id="categoria" name="categoria" value="{{discipline.categoria}}" />
+
+    <button type="submit" id="submit" class="btn">Actualizar</button>
+  </form>
+</div>
+{% endblock content %}

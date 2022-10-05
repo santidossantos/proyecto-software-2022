@@ -104,3 +104,171 @@ p.flash.info {
   display: inline-block;
   margin: 0rem 0.3125rem 0.375rem 0rem;
 }
+
+/* ok */
+.alertsuccess {
+  background: #bff394;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  border-left: 8px solid #32530c;
+}
+
+.alertsuccess.showsuccess {
+  animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-10%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+.alertsuccess.hidesuccess {
+  /*display: none;*/
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.alertsuccess .material-symbols-outlinedsuccess {
+  position: absolute;
+  left: 10px;
+  top: 46%;
+  transform: translateY(-50%);
+  color: #32530c;
+  font-size: 30px;
+}
+
+.alertsuccess .msgsuccess {
+  font-size: 18px;
+  color: #32530c;
+  padding: 0.5rem;
+}
+
+.alertsuccess .close-btnsuccess {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 25px;
+  cursor: pointer;
+}
+
+.close-btnsuccess:hover {
+  background: #f0a486;
+}
+
+.close-btn .material-symbols-outlinedsuccess {
+  font-size: 22px;
+  line-height: 40px;
+}
+
+/* error */
+.alerterror {
+  background: #f0a486;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  border-left: 8px solid #f0463a;
+}
+
+.alerterror.showerror {
+  animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-10%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+.alerterror.hideerror {
+  /*display: none;*/
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.alerterror .material-symbols-outlinederror {
+  position: absolute;
+  left: 10px;
+  top: 46%;
+  transform: translateY(-50%);
+  color: #f0463a;
+  font-size: 30px;
+}
+
+.alerterror .msgerror {
+  font-size: 18px;
+  color: #f0463a;
+  padding: 0.5rem;
+}
+
+.alerterror .close-btnerror {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 25px;
+  cursor: pointer;
+}
+
+.close-btnerror:hover {
+  background: #f0a486;
+}
+
+.close-btn .material-symbols-outlinederror {
+  font-size: 22px;
+  line-height: 40px;
+}

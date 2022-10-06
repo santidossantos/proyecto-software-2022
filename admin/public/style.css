@@ -80,7 +80,6 @@ td {
   cursor: pointer;
 }
 
-
 /* Flash Messages */
 
 p.flash {
@@ -101,4 +100,10 @@ p.flash.success {
 p.flash.info {
   border: 3px solid rgb(6, 53, 193);
   background-color: rgba(2, 11, 116, 0.498);
+}
+
+.alink {
+  text-decoration: none;
+  color: #238679;
+  font-weight: 500;
 }

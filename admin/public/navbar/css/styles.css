@@ -99,11 +99,12 @@ body {
 .dropdown-container ul.show {
   padding: 5px;
   max-height: 400px;
-  background-color: rgb(247, 213, 213);
+  background-color: rgb(235, 227, 227);
   margin: 0;
   width: -webkit-fill-available;
   border-radius: 1rem;
   margin-right: 5rem;
+  box-shadow: -10px 0px 0px 0px #238679;
 }
 
 .dropdown-container li {

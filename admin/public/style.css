@@ -279,8 +279,10 @@ p.flash.info {
   display: grid;
   padding: 1rem;
   box-shadow: -10px 0px 0px 0px #34b799;
+  border: 1px solid #34b799;
   border-radius: 0.3rem;
   max-width: 700px;
+  margin-left: 2rem;
 }
 
 .labelShow {

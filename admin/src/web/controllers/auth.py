@@ -47,9 +47,3 @@ def logout():
     flash("La session se cerró correctamene", "success")
 
     return render_template("auth/login.html")
-
-
-def regex(email):
-    return re.match(
-        "^[(a-z0-9\_\-\.)]+@[(a-z0-9\_\-\.)]+\.[(a-z)]{2,15}$", email.lower()
-    )

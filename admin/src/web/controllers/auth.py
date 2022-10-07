@@ -6,7 +6,7 @@ from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import session
-import re
+from src.web.utils.validations import validationEmail
 
 
 auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
@@ -24,7 +24,7 @@ def login():
 @auth_blueprint.post("/authenticate")
 def authenticate():
     params = request.form
-    if regex(params["email"]):
+    if validationEmail(params["email"]):
         user = auth.find_user_by_email_and_pass(params["email"], params["password"])
 
         if not user:

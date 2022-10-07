@@ -1,9 +1,5 @@
 from src.core.database import db
 
-# from flask_wtf import FlaskForm
-# from wtforms import StringField
-# from wtforms.validators import InputRequired
-
 
 class Associate(db.Model):
 
@@ -14,10 +10,6 @@ class Associate(db.Model):
     member_number = db.Column(db.Integer, unique=True)
     dni = db.Column(db.Integer, unique=True)
     address = db.Column(db.String(100))
+    active = db.Column(db.Boolean(), default=False)
     mobile_number = db.Column(db.String(10), unique=True)
     email = db.Column(db.String(50), unique=True)
-    active = db.Column(db.Boolean(), default=False)
-
-
-# class AssociateForm(FlaskForm):
-# name = StringField("Nombre", validators=[InputRequired()])

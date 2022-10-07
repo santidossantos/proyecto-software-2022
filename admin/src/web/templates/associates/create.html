@@ -1,0 +1,27 @@
+{% extends 'layout/layout.html' %} 
+{% block title %} Asociados {% endblock %} 
+{%block head %} 
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
+{% endblock head%} 
+{%block content %}
+{{ super() }}
+<h1 class="h1center">Nuevo Asociado</h1>
+<div class="form_container">
+  <form action="{{ url_for('associates.create') }}" method="post">
+    <label class="label" for="name">Nombre*</label>
+    <input class="input_text" type="text" id="email" name="name" />
+    <label class="label" for="name">Apellido*</label>
+    <input class="input_text" type="text" id="email" name="last_name" />
+    <label class="label" for="name">DNI*</label>
+    <input class="input_text" type="text" id="email" name="dni" />
+    <label class="label" for="name">Direccion*</label>
+    <input class="input_text" type="text" id="email" name="address" />
+    <label class="label" for="name">Email</label>
+    <input class="input_text" type="text" id="email" name="email" />
+    <label class="label" for="name">Telefono</label>
+    <input class="input_text" type="text" id="email" name="mobile_number" />
+    <button type="submit" id="submit" class="btn">Guardar</button>
+  </form>
+</div>
+{% endblock content %}

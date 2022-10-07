@@ -272,3 +272,31 @@ p.flash.info {
   font-size: 22px;
   line-height: 40px;
 }
+
+.sectionShow {
+  flex-direction: column;
+  align-items: center;
+  display: grid;
+  padding: 1rem;
+  box-shadow: -10px 0px 0px 0px #34b799;
+  border-radius: 0.3rem;
+  max-width: 700px;
+}
+
+.labelShow {
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.cancel {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #eff3f2;
+  background: #d6f3ee;
+  border-radius: 8px 8px 8px;
+  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
+  color: #2c7e7c;
+  margin-left: 30%;
+  margin-right: 30%;
+}

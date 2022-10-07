@@ -5,12 +5,17 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import auth
+from flask import abort
+from flask import session
+from src.web.helpers.auth import is_authenticated
+from src.web.helpers.auth import login_required
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
+@login_required
 def user_index(page_num=1, per_page=1):
     paginated_users = auth.list_users(page_num=page_num, per_page=per_page)
     return render_template("users/users_list.html", users=paginated_users)
@@ -18,7 +23,6 @@ def user_index(page_num=1, per_page=1):
 
 @users_blueprint.route("/create", methods=("GET", "POST"))
 def create():
-
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")

@@ -1,0 +1,176 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 90px 20px 0;
+}
+
+.header {
+  background-color: #237871;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 992px;
+  margin: 0 auto;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 0 40px;
+  line-height: 80px;
+}
+
+.nav-menu {
+  display: flex;
+  margin-right: 40px;
+  list-style: none;
+}
+
+.nav-menu-item {
+  font-size: 1.2rem;
+  margin: 0 10px;
+  line-height: 80px;
+  width: max-content;
+}
+
+.nav-menu-link {
+  padding: 8px 12px;
+  border-radius: 3px;
+}
+
+.nav-menu-link:hover,
+.nav-menu-link_active {
+  background-color: #000000;
+  transition: 0.5s;
+}
+
+/* TOGGLE */
+.nav-toggle {
+  color: white;
+  background: none;
+  border: none;
+  font-size: 30px;
+  padding: 0 20px;
+  line-height: 60px;
+  cursor: pointer;
+
+  display: none;
+}
+
+.dropdown-container {
+  cursor: pointer;
+  width: 200px;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-container ul {
+  position: absolute;
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 1s;
+  list-style-type: none;
+}
+
+.dropdown-container ul li {
+  width: 200px;
+  float: center;
+  color: black;
+  padding: 5px;
+}
+
+.dropdown-container ul.show {
+  padding: 5px;
+  max-height: 400px;
+  background-color: rgb(235, 227, 227);
+  margin: 0;
+  width: -webkit-fill-available;
+  border-radius: 1rem;
+  margin-right: 5rem;
+  box-shadow: -10px 0px 0px 0px #238679;
+}
+
+.dropdown-container li {
+  padding: 5px;
+}
+
+.lis::before {
+  background-color: red;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body {
+    padding-top: 70px;
+  }
+
+  .header {
+    height: 60px;
+  }
+
+  .logo {
+    font-size: 25px;
+    padding: 0 20px;
+    line-height: 60px;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    background-color: #000000;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    padding: 20px 0;
+
+    height: calc(100% - 60px);
+    overflow-y: auto;
+
+    left: 100%;
+    transition: left 0.3s;
+  }
+
+  .nav-menu-item {
+    line-height: 70px;
+  }
+
+  .nav-menu-link:hover,
+  .nav-menu-link_active {
+    background: none;
+    color: #83c5f7;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-menu_visible {
+    left: 0;
+  }
+
+  .nav-toggle:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  .dropdown-container {
+    padding: 1rem;
+  }
+}

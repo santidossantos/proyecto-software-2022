@@ -1,0 +1,13 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} 
+{%block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
+{% endblock head %} 
+{%block content %}
+<h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
+<section class="sectionShow">
+  <span class="labelShow"><strong>Email:</strong>     {{associate.email}}</span>
+  <span class="labelShow"><strong>Direccion:</strong> {{associate.address}}</span>
+  <span class="labelShow"><strong>Telefono:</strong>  {{associate.mobile_number}}</span>
+</section>
+{% endblock content %}

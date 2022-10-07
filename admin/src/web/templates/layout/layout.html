@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}layout{% endblock %}</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    {% block head %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='layout/css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      href="
+https://fonts.googleapis.com/css?family=Rock+Salt
+"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    {% endblock %}
+  </head>
+
+  <body>
+    {% block menu %} {% include 'navbar/navbar.html' %} {% endblock menu %}
+    <main>
+      {% block content %} {% with messages =
+      get_flashed_messages(with_categories=true) %} {% if messages %} {% for
+      category, message in messages %}
+      <div class="alert{{category}} show{{category}}">
+        <span class="material-symbols-outlined{{category}}"></span>
+        <span class="msg{{category}}">{{message}}</span>
+        <span class="close-btn{{category}}">
+          <span class="material-symbols-outlined{{category}}">X</span>
+        </span>
+      </div>
+      {% endfor %} {% endif %} {% endwith %} {% endblock %}
+    </main>
+    <footer>{% block footer %} {% endblock %}</footer>
+  </body>
+</html>

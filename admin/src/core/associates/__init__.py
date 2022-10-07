@@ -18,14 +18,9 @@ def get_associate(id):
     return associate
 
 
-def update_associate(id, email, name, last_name, dni, mobile_number, address):
-    associate = get_associate(id)
-    associate.email = email
-    associate.name = name
-    associate.last_name = last_name
-    associate.dni = dni
-    associate.mobile_number = mobile_number
-    associate.address = address
+def update_associate(**kwargs):
+    associate = get_associate(kwargs["id"])
+    associate.update(**kwargs)
     db.session.commit()
     return associate
 

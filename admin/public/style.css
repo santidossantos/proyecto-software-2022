@@ -107,7 +107,7 @@ p.flash.info {
 
 /* ok */
 .alertsuccess {
-  background: #bff394;
+  background: #c0df7e;
   padding: 20px 40px;
   min-width: 420px;
   position: absolute;
@@ -181,7 +181,7 @@ p.flash.info {
 }
 
 .close-btnsuccess:hover {
-  background: #bff394;
+  background: #c0df7e;
 }
 
 .close-btn .material-symbols-outlinedsuccess {
@@ -191,7 +191,7 @@ p.flash.info {
 
 /* error */
 .alerterror {
-  background: #f0a486;
+  background: #fcbaa1;
   padding: 20px 40px;
   min-width: 420px;
   position: absolute;
@@ -199,7 +199,7 @@ p.flash.info {
   top: 10px;
   overflow: hidden;
   border-radius: 4px;
-  border-left: 8px solid #f0463a;
+  border-left: 8px solid #e4382b;
 }
 
 .alerterror.showerror {
@@ -245,13 +245,13 @@ p.flash.info {
   left: 10px;
   top: 46%;
   transform: translateY(-50%);
-  color: #f0463a;
+  color: #e4382b;
   font-size: 30px;
 }
 
 .alerterror .msgerror {
   font-size: 18px;
-  color: #f0463a;
+  color: #e4382b;
   padding: 0.5rem;
 }
 
@@ -265,7 +265,7 @@ p.flash.info {
 }
 
 .close-btnerror:hover {
-  background: #f0a486;
+  background: #fcbaa1;
 }
 
 .close-btn .material-symbols-outlinederror {

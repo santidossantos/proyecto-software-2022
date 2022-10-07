@@ -13,3 +13,7 @@ class Associate(db.Model):
     active = db.Column(db.Boolean(), default=False)
     mobile_number = db.Column(db.String(10), unique=True)
     email = db.Column(db.String(50), unique=True)
+
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)

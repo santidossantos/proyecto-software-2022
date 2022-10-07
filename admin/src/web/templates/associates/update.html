@@ -1,0 +1,26 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
+block head %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='forms/style.css') }}"
+/>
+{% endblock head%} {%block content %}
+<h1 class="h1center">Actualizar Asociado</h1>
+<div class="form_container">
+  <form action="/associates/update/{{associate.id}}" method="post">
+    <label class="label" for="name">Nombre*</label>
+    <input class="input_text" type="text" value="{{associate.name}}" id="email" name="name" />
+    <label class="label" for="name">Apellido*</label>
+    <input class="input_text" type="text" value="{{associate.last_name}}" id="email" name="last_name" />
+    <label class="label" for="name">DNI*</label>
+    <input class="input_text" type="text" value="{{associate.dni}}" id="email" name="dni" />
+    <label class="label" for="name">Direccion*</label>
+    <input class="input_text" type="text" value="{{associate.address}}" id="email" name="address" />
+    <label class="label" for="name">Email</label>
+    <input class="input_text" type="text" value="{{associate.email}}" id="email" name="email" />
+    <label class="label" for="name">Telefono</label>
+    <input class="input_text" type="text" value="{{associate.mobile_number}}" id="email" name="mobile_number" />
+    <button type="submit" id="submit" class="btn">Guardar</button>
+  </form>
+</div>
+{% endblock content %}

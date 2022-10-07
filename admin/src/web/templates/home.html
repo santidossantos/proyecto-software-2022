@@ -1,0 +1,7 @@
+{% extends 'layout/layout.html' %} {% block title %}Home{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head %}
+{% block content %} {{ super() }}
+{% endblock content %}

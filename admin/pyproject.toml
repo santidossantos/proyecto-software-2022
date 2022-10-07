@@ -9,6 +9,8 @@ packages = [{include = "web", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.8"
 Flask = "^2.2.2"
+psycopg2-binary = "^2.9.3"
+Flask-SQLAlchemy = "^2.5.1"
 
 
 [build-system]

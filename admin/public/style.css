@@ -23,6 +23,7 @@
 
 h1 {
   padding: 2rem;
+  padding-left: 0;
   color: #4b4b4b;
 }
 
@@ -37,22 +38,6 @@ h1 {
   width: 100%;
   border-collapse: collapse;
 } */
-
-thead th:nth-child(1) {
-  width: 10%;
-}
-
-thead th:nth-child(2) {
-  width: 10%;
-}
-
-thead th:nth-child(3) {
-  width: 10%;
-}
-
-thead th:nth-child(4) {
-  width: 10%;
-}
 
 th {
   letter-spacing: 0.5px;
@@ -102,8 +87,218 @@ p.flash.info {
   background-color: rgba(2, 11, 116, 0.498);
 }
 
-.alink {
-  text-decoration: none;
-  color: #238679;
-  font-weight: 500;
+.filter_user {
+  padding-bottom: 1rem;
+}
+
+.search-field {
+  height: 2.5rem;
+  padding: 0.625rem 2.1875rem 0.625rem 0.9375rem;
+  border: none;
+  outline: none;
+  background: #fafafa;
+  border: 0.081rem solid #cccccc;
+  box-sizing: border-box;
+  border-radius: 0.4419rem;
+  margin: 0;
+  display: inline-block;
+  margin: 0rem 0.3125rem 0.375rem 0rem;
+}
+
+/* ok */
+.alertsuccess {
+  background: #c0df7e;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  border-left: 8px solid #32530c;
+}
+
+.alertsuccess.showsuccess {
+  animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-10%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+.alertsuccess.hidesuccess {
+  /*display: none;*/
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.alertsuccess .material-symbols-outlinedsuccess {
+  position: absolute;
+  left: 10px;
+  top: 46%;
+  transform: translateY(-50%);
+  color: #32530c;
+  font-size: 30px;
+}
+
+.alertsuccess .msgsuccess {
+  font-size: 18px;
+  color: #32530c;
+  padding: 0.5rem;
+}
+
+.alertsuccess .close-btnsuccess {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 25px;
+  cursor: pointer;
+}
+
+.close-btnsuccess:hover {
+  background: #c0df7e;
+}
+
+.close-btn .material-symbols-outlinedsuccess {
+  font-size: 22px;
+  line-height: 40px;
+}
+
+/* error */
+.alerterror {
+  background: #fcbaa1;
+  padding: 20px 40px;
+  min-width: 420px;
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  overflow: hidden;
+  border-radius: 4px;
+  border-left: 8px solid #e4382b;
+}
+
+.alerterror.showerror {
+  animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+  0% {
+    transform: translateX(100%);
+  }
+  40% {
+    transform: translateX(-10%);
+  }
+  80% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-10px);
+  }
+}
+
+.alerterror.hideerror {
+  /*display: none;*/
+  animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+  0% {
+    transform: translateX(-10px);
+  }
+  40% {
+    transform: translateX(0%);
+  }
+  80% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.alerterror .material-symbols-outlinederror {
+  position: absolute;
+  left: 10px;
+  top: 46%;
+  transform: translateY(-50%);
+  color: #e4382b;
+  font-size: 30px;
+}
+
+.alerterror .msgerror {
+  font-size: 18px;
+  color: #e4382b;
+  padding: 0.5rem;
+}
+
+.alerterror .close-btnerror {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 20px 25px;
+  cursor: pointer;
+}
+
+.close-btnerror:hover {
+  background: #fcbaa1;
+}
+
+.close-btn .material-symbols-outlinederror {
+  font-size: 22px;
+  line-height: 40px;
+}
+
+.sectionShow {
+  flex-direction: column;
+  align-items: center;
+  display: grid;
+  padding: 1rem;
+  box-shadow: -10px 0px 0px 0px #34b799;
+  border: 1px solid #34b799;
+  border-radius: 0.3rem;
+  max-width: 700px;
+  margin-left: 2rem;
+}
+
+.labelShow {
+  padding: 1rem;
+  font-size: 18px;
+}
+
+.cancel {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #eff3f2;
+  background: #d6f3ee;
+  border-radius: 8px 8px 8px;
+  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
+  color: #2c7e7c;
+  margin-left: 30%;
+  margin-right: 30%;
 }

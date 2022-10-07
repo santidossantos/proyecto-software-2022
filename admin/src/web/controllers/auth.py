@@ -15,11 +15,11 @@ auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
 @auth_blueprint.get("/")
 def login():
-    
-    return render_template("auth/login.html")
 
     if session:
-        return redirect(url_for("user.index"))
+        return redirect(url_for("users.user_index"))
+
+    return render_template("auth/login.html")
 
 
 @auth_blueprint.post("/authenticate")
@@ -47,7 +47,7 @@ def logout():
     session.clear()
     flash("La session se cerró correctamene", "success")
 
-    return redirect(url_for("auth.login"))
+    return render_template("auth/login.html")
 
 
 def regex(email):

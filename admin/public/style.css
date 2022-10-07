@@ -121,16 +121,20 @@ p.flash.info {
 .alertsuccess.showsuccess {
   animation: show_slide 1s ease forwards;
 }
+
 @keyframes show_slide {
   0% {
     transform: translateX(100%);
   }
+
   40% {
     transform: translateX(-10%);
   }
+
   80% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-10px);
   }
@@ -145,12 +149,15 @@ p.flash.info {
   0% {
     transform: translateX(-10px);
   }
+
   40% {
     transform: translateX(0%);
   }
+
   80% {
     transform: translateX(-10%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -205,16 +212,20 @@ p.flash.info {
 .alerterror.showerror {
   animation: show_slide 1s ease forwards;
 }
+
 @keyframes show_slide {
   0% {
     transform: translateX(100%);
   }
+
   40% {
     transform: translateX(-10%);
   }
+
   80% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-10px);
   }
@@ -229,12 +240,15 @@ p.flash.info {
   0% {
     transform: translateX(-10px);
   }
+
   40% {
     transform: translateX(0%);
   }
+
   80% {
     transform: translateX(-10%);
   }
+
   100% {
     transform: translateX(100%);
   }
@@ -290,6 +304,7 @@ p.flash.info {
   font-size: 18px;
 }
 
+/* NOT USED */
 .cancel {
   font-weight: bold;
   cursor: pointer;
@@ -301,4 +316,10 @@ p.flash.info {
   color: #2c7e7c;
   margin-left: 30%;
   margin-right: 30%;
+}
+
+.alink {
+  text-decoration: none;
+  color: #2c7e7c;
+  font-size: 18px;
 }

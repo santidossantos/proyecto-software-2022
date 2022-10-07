@@ -1,4 +1,3 @@
-# from urllib import request
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -30,11 +29,11 @@ def authenticate():
 
         if not user:
             flash("Email o clave incorrecta", "error")
-            return redirect(url_for("auth.login"))
+            return render_template("auth/login.html")
 
     else:
         flash("Email no válido", "error")
-        return redirect(url_for("auth.login"))
+        return render_template("auth/login.html")
 
     session["user"] = user.email
     flash("Sesión iniciada", "success")

@@ -1,7 +1,7 @@
 {% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
 block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
-{% endblock head%} {%block content %}
+{% endblock head%} {%block content %} {{ super() }}
 <h1 class="h1center">Agregar Usuario</h1>
 <div class="form_container">
   <form action="{{ url_for('users.create') }}" method="post">

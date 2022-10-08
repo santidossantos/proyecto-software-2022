@@ -6,10 +6,19 @@ block head %}
 <div class="form_container">
   <form action="/disciplines/update/{{discipline.id}}" method="POST">
     <label class="label" for="name">Nombre</label>
-    <input class="input_text" type="text" id="nombre" name="nombre" value="{{discipline.nombre}}" />
+    <input class="input_text" type="text" id="name" name="name" value="{{discipline.name}}" />
 
     <label class="label" for="name">Categoria</label>
-    <input class="input_text" type="text" id="categoria" name="categoria" value="{{discipline.categoria}}" />
+    <input class="input_text" type="text" id="category" name="category" value="{{discipline.category}}" />
+
+    <label class="label" for="name">Nombre instructores</label>
+    <input class="input_text" type="text" id="nameInstructors" name="nameInstructors" value="{{discipline.nameInstructors}}" />
+
+    <label class="label" for="name">Dias y Horarios</label>
+    <input class="input_text" type="text" id="daysAndHours" name="daysAndHours" value="{{discipline.daysAndHours}}" />
+
+    <label class="label" for="name">Cuota Mensual</label>
+    <input class="input_text" type="text" id="monthlyCost" name="monthlyCost" value="{{discipline.monthlyCost}}" />
 
     <button type="submit" id="submit" class="btn">Actualizar</button>
   </form>

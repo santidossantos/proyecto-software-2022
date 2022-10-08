@@ -18,10 +18,13 @@ def discipline_index(page_num=1, per_page=1):
 @discipline_blueprint.route("/create", methods=("GET", "POST"))
 def create():
     if request.method == "POST":
-        nombre = request.form.get("nombre")
-        categoria = request.form.get("categoria")
-        disciplines.create_discipline(nombre=nombre, categoria=categoria)
-        flash("Categoria creada correctamente", "success")
+        name = request.form.get("name")
+        category = request.form.get("category")
+        nameInstructors = request.form.get("nameInstructors")
+        daysAndHours = request.form.get("daysAndHours")
+        monthlyCost = request.form.get("monthlyCost")
+        disciplines.create_discipline(name=name, category=category, nameInstructors=nameInstructors, daysAndHours=daysAndHours, monthlyCost=monthlyCost)
+        flash("Disciplina creada correctamente", "success")
         return redirect((url_for("disciplines.discipline_index")))
 
     return render_template("disciplines/create.html")
@@ -35,9 +38,12 @@ def delete(id):
 @discipline_blueprint.route("/update/<id>", methods=["POST", "GET"])
 def update(id):
     if request.method == "POST":
-        nombre=request.form["nombre"]
-        categoria=request.form["categoria"]
-        disciplines.update_discipline(id=id,nombre=nombre,categoria=categoria)
+        name=request.form["name"]
+        category=request.form["category"]
+        nameInstructors = request.form["nameInstructors"]
+        daysAndHours = request.form["daysAndHours"]
+        monthlyCost = request.form["monthlyCost"]
+        disciplines.update_discipline(id=id,name=name,category=category, nameInstructors=nameInstructors, daysAndHours=daysAndHours, monthlyCost=monthlyCost)
         return redirect((url_for("disciplines.discipline_index")))
 
     discipline = disciplines.get_discipline(id=id)  

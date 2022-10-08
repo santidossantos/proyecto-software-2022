@@ -12,6 +12,6 @@ def run():
     user5 = auth.create_user(email="tincho@gmail.com", password="1234")
     user4 = auth.create_user(email="cata@gmail.com", password="1234")
 
-    disciplina1 = disciplines.create_discipline(nombre="futbol", categoria="primera")
+    disciplina1 = disciplines.create_discipline(name="futbol", category="primera")
 
     print("Seeds cargados!")

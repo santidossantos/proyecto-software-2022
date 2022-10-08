@@ -23,9 +23,12 @@ def get_discipline(id):
     return discipline
 
 #en futuro va haber que implementar lo de kwargs xq sino se va a tener que recibir muchos parametros
-def update_discipline(id,nombre,categoria):
+def update_discipline(id,name,category, nameInstructors, daysAndHours, monthlyCost):
     discipline = Discipline.query.get(id)
-    discipline.nombre=nombre
-    discipline.categoria=categoria
+    discipline.name=name
+    discipline.category=category
+    discipline.nameInstructors=nameInstructors
+    discipline.daysAndHours=daysAndHours
+    discipline.monthlyCost=monthlyCost
     db.session.commit()
     return discipline

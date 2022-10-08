@@ -9,13 +9,19 @@
     <tr>
       <th class="name">Nombre</th>
       <th class="name">Categoria</th>
+      <th class="name">Nombre insctructores</th>
+      <th class="name">Dias y horarios</th>
+      <th class="name">Cuota mensual</th>
     </tr>
   </thead>
   <tbody>
     {% for discipline in disciplines.items %}
     <tr>
-      <th>{{ discipline.nombre }}</th>
-      <th>{{ discipline.categoria }}</th>
+      <th>{{ discipline.name }}</th>
+      <th>{{ discipline.category }}</th>
+      <th>{{ discipline.nameInstructors}}</th>
+      <th>{{ discipline.daysAndHours }}</th>
+      <th>{{ discipline.monthlyCost}}</th>
       <th>
         <img
           class="icon"

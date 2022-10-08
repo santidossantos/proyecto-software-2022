@@ -42,3 +42,9 @@ def update(id):
 
     discipline = disciplines.get_discipline(id=id)  
     return render_template('disciplines/update.html', discipline=discipline)
+
+@discipline_blueprint.route("/show/<id>")
+def show(id):
+    discipline = disciplines.get_discipline(id=id)
+    return render_template("disciplines/show.html", discipline=discipline)
+    

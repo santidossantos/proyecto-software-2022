@@ -1,0 +1,12 @@
+{% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %} 
+{%block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
+{% endblock head %} 
+{%block content %}
+<h1>Disciplina: {{discipline.nombre}}</h1>
+<section class="sectionShow">
+  <span class="labelShow"><strong>Email:</strong>     {{discipline.nombre}}</span>
+  <span class="labelShow"><strong>Direccion:</strong> {{discipline.categoria}}</span>
+</section>
+{% endblock content %}}

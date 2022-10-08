@@ -37,7 +37,7 @@
       <th>
         <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
         <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-        <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm" onclick="functionb()"><img class="icon" alt="editar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+        <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
       </th>
     </tr>
     {% endfor %}

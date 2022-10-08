@@ -1,4 +1,3 @@
-from email.headerregistry import Address
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -28,6 +27,7 @@ def create():
         name = request.form.get("name")
         last_name = request.form.get("last_name")
         dni = request.form.get("dni")
+        genero = request.form.get("genero")
         mobile_number = request.form.get("mobile_number")
         email = request.form.get("email")
         address = request.form.get("address")
@@ -38,6 +38,7 @@ def create():
             name=name,
             last_name=last_name,
             dni=dni,
+            genero=genero,
             mobile_number=mobile_number,
             email=email,
             address=address,

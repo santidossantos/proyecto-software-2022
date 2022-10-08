@@ -27,3 +27,9 @@ def update_associate(**kwargs):
 
 def usWithUserEmail(email):
     return Associate.query.filter_by(email=email).first()
+
+def delete_user(id):
+    user = Associate.query.get(id)
+    db.session.delete(user)
+    db.session.commit()
+    return user

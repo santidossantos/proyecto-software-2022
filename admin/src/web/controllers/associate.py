@@ -57,7 +57,15 @@ def update(id):
         dni = request.form.get("dni")
         mobile_number = request.form.get("mobile_number")
         address = request.form.get("address")
-        associates.update_associate(id=id, email=email, name=name, last_name=last_name, dni=dni,mobile_number=mobile_number,address=address)
+        associates.update_associate(
+            id=id,
+            email=email,
+            name=name,
+            last_name=last_name,
+            dni=dni,
+            mobile_number=mobile_number,
+            address=address,
+        )
         flash("Asociado Modificado Correctamente", "success")
         return redirect((url_for("associates.associate_index")))
 
@@ -69,3 +77,10 @@ def update(id):
 def show(id):
     associate = associates.get_associate(id=id)
     return render_template("associates/show.html", associate=associate)
+
+
+@associates_blueprint.route("/delete/<id>")
+def delete(id):
+    associates.delete_user(id=id)
+    flash("Asociado Eliminado Correctamente", "success")
+    return redirect((url_for("associates.associate_index")))

@@ -1,9 +1,6 @@
 from src.core import auth
-<<<<<<< HEAD
 from src.core import associates
-=======
 from src.core import disciplines
->>>>>>> feature/moduloDisciplinas
 
 
 def run():
@@ -16,10 +13,7 @@ def run():
     user5 = auth.create_user(email="tincho@gmail.com", password="1234")
     user4 = auth.create_user(email="cata@gmail.com", password="1234")
 
-<<<<<<< HEAD
     asociado1 = associates.create_user(email="asociado@gmail.com")
-=======
     disciplina1 = disciplines.create_discipline(name="futbol", category="primera")
->>>>>>> feature/moduloDisciplinas
 
     print("Seeds cargados!")

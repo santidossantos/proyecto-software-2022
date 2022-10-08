@@ -5,13 +5,14 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import auth
+from src.web.utils.validations import NotExistingEmail, validationMailAndPass
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
-def user_index(page_num=1, per_page=1):
+def user_index(page_num=1, per_page=4):
     paginated_users = auth.list_users(page_num=page_num, per_page=per_page)
     return render_template("users/users_list.html", users=paginated_users)
 
@@ -34,13 +35,15 @@ def delete(id):
     flash("Usuario Eliminado Correctamente", "success")
     return redirect((url_for("users.user_index")))
 
+
 @users_blueprint.route("/update/<id>", methods=["POST", "GET"])
 def update(id):
     if request.method == "POST":
-        email=request.form["email"]
-        password=request.form["password"]
-        auth.update_user(id=id,email=email,password=password)
-        return redirect((url_for("users.user_index")))
+        email = request.form["email"]
+        password = request.form["password"]
+        if validationMailAndPass(email, password) and NotExistingEmail(email):
+            auth.update_user(id=id, email=email, password=password)
+            return redirect((url_for("users.user_index")))
 
-    user = auth.get_user(id=id)  
-    return render_template('users/update.html', user=user)
+    user = auth.get_user(id=id)
+    return render_template("users/update.html", user=user)

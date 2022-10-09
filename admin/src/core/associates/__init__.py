@@ -6,6 +6,12 @@ def list_associate(page_num, per_page):
     return Associate.query.paginate(page_num, per_page, True)
 
 
+def list_associate_filtered(search_filter, active_filter):
+    return Associate.query.filter(Associate.active == active_filter).filter(
+        Associate.last_name.ilike(f'%{search_filter}%')
+    )
+
+
 def create_user(**kwargs):
     associate = Associate(**kwargs)
     db.session.add(associate)

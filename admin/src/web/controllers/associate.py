@@ -5,6 +5,7 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import associates
+from src.web.utils import exporters
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -85,3 +86,17 @@ def delete(id):
     associates.delete_user(id=id)
     flash("Asociado Eliminado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.post("/export")
+def call_some_exporter():
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+    doc_type = params["doc_type"]
+
+    records = associates.list_associate_filtered(search_filter, active_filter)
+
+    return doc_type
+    #return exporters.choose_exporter(records, doc_type)

@@ -12,19 +12,32 @@
 
 
 
-<form class="filter_user" action="{{ url_for('exporters.generate_csv_file') }}" method="post">
+<form class="filter_user" action="" method="POST">
 
   <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
   <select name="active_filter" class="search-field">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
-  <button type="submit" class="button_add">
+
+
+
+  <button type="submit" formaction="{{ url_for('associates.call_some_exporter') }}" class="button_add">
+    <input name="doc_type" value="csv" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/export_csv.png') }}">
       Exportar CSV
     </a>
   </button>
+
+  <button type="submit" formaction="{{ url_for('associates.call_some_exporter') }}" class="button_add">
+    <input name="doc_type" value="pdf" hidden />
+    <a>
+      <img alt="agregar" src="{{ url_for('static', filename='images/pdf_export.png') }}">
+      Exportar PDF
+    </a>
+  </button>
+
 </form>
 
 <table class="index-table box">

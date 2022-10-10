@@ -21,8 +21,7 @@
   </select>
 
 
-
-  <button type="submit" formaction="{{ url_for('associates.call_some_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_add">
     <input name="doc_type" value="csv" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/export_csv.png') }}">
@@ -30,7 +29,7 @@
     </a>
   </button>
 
-  <button type="submit" formaction="{{ url_for('associates.call_some_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_add">
     <input name="doc_type" value="pdf" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/pdf_export.png') }}">

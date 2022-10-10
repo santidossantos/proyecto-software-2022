@@ -88,15 +88,22 @@ def delete(id):
     return redirect((url_for("associates.associate_index")))
 
 
-@associates_blueprint.post("/export")
-def call_some_exporter():
+@associates_blueprint.post("/export/csv")
+def call_csv_exporter():
+    return call_some_exporter("csv")
+
+
+@associates_blueprint.post("/export/pdf")
+def call_pdf_exporter():
+    return call_some_exporter("pdf")
+
+
+def call_some_exporter(doc_type):
 
     params = request.form
     active_filter = params["active_filter"]
     search_filter = params["search_field"]
-    doc_type = params["doc_type"]
 
     records = associates.list_associate_filtered(search_filter, active_filter)
 
-    return doc_type
-    #return exporters.choose_exporter(records, doc_type)
+    return exporters.choose_exporter(records, doc_type)

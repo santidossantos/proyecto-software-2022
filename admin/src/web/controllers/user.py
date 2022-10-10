@@ -15,7 +15,6 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
-@login_required
 def user_index(page_num=1, per_page=1):
     paginated_users = auth.list_users(page_num=page_num, per_page=per_page)
     return render_template("users/users_list.html", users=paginated_users)

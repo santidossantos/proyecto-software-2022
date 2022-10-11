@@ -31,7 +31,7 @@ class Associate(db.Model):
     member_number = db.Column(db.Integer,  default=random_integer, unique=True, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
-    dni = db.Column(db.Integer, unique=True, nullable=False)
+    dni = db.Column(db.String(), unique=True, nullable=False)
     address = db.Column(db.String(100), nullable=False)
     active = db.Column(db.Boolean(), default=False, nullable=False)
     mobile_number = db.Column(db.String(10), unique=True)

@@ -35,8 +35,7 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        if CampoVAcio(name,last_name,document_type,dni,genero,address):
-            flash("otro", "error")
+        if not CampoVAcio(name,last_name,document_type,dni,genero,address):
             return redirect(url_for("associates.create"))
         if associates.usWithUserEmail(email):
             flash("el email ingresado está ocupado", "error")

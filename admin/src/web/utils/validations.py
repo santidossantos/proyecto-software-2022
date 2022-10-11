@@ -46,3 +46,13 @@ def NotExistingEmail(newEmail):
         return False
     except:
         return True
+
+def CampoVAcio(*args):
+    for arg in args:
+        if (not len(arg) > 0):
+            return 0
+    return 1
+    
+            
+        #print (len(arg))
+        #flash("Complete todos los campos que son obligatorios", "error")

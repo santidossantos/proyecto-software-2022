@@ -1,3 +1,4 @@
+from src.core.associates.associate import DocumentType, Genero
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -5,6 +6,7 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import associates
+from src.web.utils.validations import CampoVAcio
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -26,17 +28,23 @@ def create():
     if request.method == "POST":
         name = request.form.get("name")
         last_name = request.form.get("last_name")
+        document_type = request.form.get("document_type")
         dni = request.form.get("dni")
         genero = request.form.get("genero")
         mobile_number = request.form.get("mobile_number")
         email = request.form.get("email")
         address = request.form.get("address")
+        genero = request.form.get("genero")
+        if CampoVAcio(name,last_name,document_type,dni,genero,address):
+            flash("otro", "error")
+            return redirect(url_for("associates.create"))
         if associates.usWithUserEmail(email):
             flash("el email ingresado está ocupado", "error")
             return redirect(url_for("associates.create"))
         associates.create_user(
             name=name,
             last_name=last_name,
+            document_type=document_type,
             dni=dni,
             genero=genero,
             mobile_number=mobile_number,
@@ -46,7 +54,13 @@ def create():
         flash("Asociado Creado Correctamente", "success")
         return redirect((url_for("associates.associate_index")))
 
-    return render_template("associates/create.html")
+    document_type = DocumentType
+
+    genero = Genero
+
+    return render_template(
+        "associates/create.html", document_type=document_type, genero=genero
+    )
 
 
 @associates_blueprint.route("/update/<id>", methods=["POST", "GET"])
@@ -55,23 +69,34 @@ def update(id):
         email = request.form.get("email")
         name = request.form.get("name")
         last_name = request.form.get("last_name")
+        document_type = request.form.get("document_type")
         dni = request.form.get("dni")
         mobile_number = request.form.get("mobile_number")
         address = request.form.get("address")
+        genero = request.form.get("genero")
         associates.update_associate(
             id=id,
             email=email,
             name=name,
             last_name=last_name,
+            document_type=document_type,
             dni=dni,
             mobile_number=mobile_number,
             address=address,
+            genero=genero,
         )
         flash("Asociado Modificado Correctamente", "success")
         return redirect((url_for("associates.associate_index")))
 
     associate = associates.get_associate(id=id)
-    return render_template("associates/update.html", associate=associate)
+    document_type = DocumentType
+    genero = Genero
+    return render_template(
+        "associates/update.html",
+        associate=associate,
+        document_type=document_type,
+        genero=genero,
+    )
 
 
 @associates_blueprint.route("/show/<id>")

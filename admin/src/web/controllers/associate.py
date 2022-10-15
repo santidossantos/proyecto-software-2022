@@ -35,7 +35,7 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        if not CampoVAcio(name,last_name,document_type,dni,genero,address):
+        if not CampoVAcio(name, last_name, document_type, dni, genero, address):
             return redirect(url_for("associates.create"))
         if associates.usWithUserEmail(email):
             flash("el email ingresado está ocupado", "error")
@@ -109,3 +109,22 @@ def delete(id):
     associates.delete_user(id=id)
     flash("Asociado Eliminado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.route("/search", methods=["POST", "GET"])
+def search():
+    surname = request.form.get("surname")
+    paginated_associates = associates.searchBySurname(surname, 1, 1)
+    return render_template(
+        "associates/associates_list.html", associates=paginated_associates
+    )
+
+
+@associates_blueprint.route("/searchStatus", methods=["POST", "GET"])
+def searchStatus():
+    isActiveRequest = request.form.get("isActive")
+    print(isActiveRequest)
+    paginated_associates = associates.searchByStatus(isActiveRequest, 1, 4)
+    return render_template(
+        "associates/associates_list.html", associates=paginated_associates
+    )

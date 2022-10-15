@@ -1,20 +1,26 @@
-{% extends 'layout/layout.html' %} 
+{% extends 'layout/layout.html' %}
 {% block title %}Asociados{% endblock %}
-{% block content %} 
+{% block content %}
 {{ super() }}
 <button class="button_add">
   <a href="{{ url_for('associates.create') }}">
-  <img alt="agregar"src="{{ url_for('static', filename='images/Adduser.png') }}"/>Nuevo Asociado</a>
+    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" />Nuevo Asociado</a>
 </button>
 <h1>Listado de Asociados</h1>
-{% if associates.items %}
-<div class="filter_user">
-  <input type="search" class="search-field" placeholder="Buscar" />
-  <select type="search" class="search-field" placeholder="Buscar">
-    <option>Activo</option>
-    <option>Inactivo</option>
+<form action="{{ url_for('associates.search') }}" method="post">
+  <div class="filter_user">
+    <input type="search" class="search-field" name="surname" placeholder="Buscar" />
+    <input type="submit" value="Buscar">
+  </div>
+</form>
+<form action="{{ url_for('associates.searchStatus') }}" method="post">
+  <select type="search" class="search-field" name="isActive" placeholder="Buscar">
+    <option value="True">Activo</option>
+    <option value="False">Inactivo</option>
+    <input type="submit" value="Buscar">
   </select>
-</div>
+</form>
+{% if associates %}
 <table class="index-table box">
   <thead>
     <tr>
@@ -35,24 +41,24 @@
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
-        <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
-        <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-        <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+        <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion"
+            title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
+        <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
+            src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
+        <a href="{{ url_for('users.delete', id=associate.id )}}"><img class="icon" alt="editar" title="Eliminar"
+            src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
       </th>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 {% else %}
-<section class="containernotresult">
-  <img img class="notresultimg" src="{{ url_for('static', filename='images/feedback-animate.svg') }}"/>
-  <span class="notresultext">No se encontraron resultados</span>
-</section>
+<p>No hay listado para mostrar</p>
 {% endif %}
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
 paginacion  para enviarselos al template paginacion.html 
 que usa por defecto la variable  pagination_items -->
 {% set pagination_items = associates %} {% set url_redirect = '/associates' %}
-{% include'layout/pagination.html' %} 
+{% include'layout/pagination.html' %}
 
 {% endblock content %}

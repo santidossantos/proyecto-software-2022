@@ -35,10 +35,11 @@ def validationPassword(password):
 def validationMailAndPass(email, password):
     return validationEmail(email) and validationPassword(password)
 
+
 # Falta que un usuario pueda modificar solo su contrasenia - LORE
 def NotExistingEmail(newEmail):
     try:
-        user = db.session.query(User).filter(User.email == newEmail ).first().email
+        user = db.session.query(User).filter(User.email == newEmail).first().email
         flash(
             "Ya existe ese email registrado",
             "error",
@@ -46,3 +47,13 @@ def NotExistingEmail(newEmail):
         return False
     except:
         return True
+
+
+def CampoVAcio(*args):
+
+    for arg in args:
+        if not len(arg):
+            flash("Los campos marcados con * son obligatorios", "error")
+            return False
+
+    return True

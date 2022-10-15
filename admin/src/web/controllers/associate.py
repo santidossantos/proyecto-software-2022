@@ -1,4 +1,3 @@
-from email.headerregistry import Address
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -6,6 +5,7 @@ from flask import flash
 from flask import url_for
 from flask import redirect
 from src.core import associates
+from src.web.utils import exporters
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -28,6 +28,7 @@ def create():
         name = request.form.get("name")
         last_name = request.form.get("last_name")
         dni = request.form.get("dni")
+        genero = request.form.get("genero")
         mobile_number = request.form.get("mobile_number")
         email = request.form.get("email")
         address = request.form.get("address")
@@ -38,6 +39,7 @@ def create():
             name=name,
             last_name=last_name,
             dni=dni,
+            genero=genero,
             mobile_number=mobile_number,
             email=email,
             address=address,
@@ -57,7 +59,15 @@ def update(id):
         dni = request.form.get("dni")
         mobile_number = request.form.get("mobile_number")
         address = request.form.get("address")
-        associates.update_associate(id=id, email=email, name=name, last_name=last_name, dni=dni,mobile_number=mobile_number,address=address)
+        associates.update_associate(
+            id=id,
+            email=email,
+            name=name,
+            last_name=last_name,
+            dni=dni,
+            mobile_number=mobile_number,
+            address=address,
+        )
         flash("Asociado Modificado Correctamente", "success")
         return redirect((url_for("associates.associate_index")))
 
@@ -69,3 +79,31 @@ def update(id):
 def show(id):
     associate = associates.get_associate(id=id)
     return render_template("associates/show.html", associate=associate)
+
+
+@associates_blueprint.route("/delete/<id>")
+def delete(id):
+    associates.delete_user(id=id)
+    flash("Asociado Eliminado Correctamente", "success")
+    return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.post("/export/csv")
+def call_csv_exporter():
+    return call_some_exporter("csv")
+
+
+@associates_blueprint.post("/export/pdf")
+def call_pdf_exporter():
+    return call_some_exporter("pdf")
+
+
+def call_some_exporter(doc_type):
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    records = associates.list_associate_filtered(search_filter, active_filter)
+
+    return exporters.choose_exporter(records, doc_type)

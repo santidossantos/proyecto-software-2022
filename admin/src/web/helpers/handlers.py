@@ -1,5 +1,14 @@
 from flask import render_template
 
+def unauthorized(e):
+    kwargs = {
+        "error_name": "401 Unauthorized",
+        "error_description": "Debe iniciar sesión para acceder al recurso",
+    }
+
+    return render_template("error.html", **kwargs), 401
+
+
 def not_found_error(e):
     kwargs = {
         "error_name": "404 Not Found Error",

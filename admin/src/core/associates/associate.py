@@ -1,11 +1,6 @@
 from src.core.database import db
-import datetime
-import enum
 
-class Genero(enum.Enum):
-     M = "Masculino"
-     F = "Femenino"
-     O = "Otro"
+
 class Associate(db.Model):
 
     __tablename__ = "associates"
@@ -18,11 +13,6 @@ class Associate(db.Model):
     active = db.Column(db.Boolean(), default=False)
     mobile_number = db.Column(db.String(10), unique=True)
     email = db.Column(db.String(50), unique=True)
-    create_at = db.Column(
-        db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()
-    )
-    update_at = db.Column(db.DateTime, default=datetime.datetime.now())
-    genero = db.Column(db.Enum(Genero), default="O")
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

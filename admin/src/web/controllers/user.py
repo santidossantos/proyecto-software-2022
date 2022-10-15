@@ -6,6 +6,10 @@ from flask import url_for
 from flask import redirect
 from src.core import auth
 from src.web.utils.validations import NotExistingEmail, validationMailAndPass
+from flask import abort
+from flask import session
+from src.web.helpers.auth import is_authenticated
+from src.web.helpers.auth import login_required
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
@@ -19,7 +23,6 @@ def user_index(page_num=1, per_page=4):
 
 @users_blueprint.route("/create", methods=("GET", "POST"))
 def create():
-
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")

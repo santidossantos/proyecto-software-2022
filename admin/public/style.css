@@ -323,3 +323,18 @@ p.flash.info {
   color: #2c7e7c;
   font-size: 18px;
 }
+
+.containernotresult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.notresultimg {
+  width: 24rem;
+  height: 24rem;
+}
+
+.notresultext {
+  font-size: 1.5rem;
+}

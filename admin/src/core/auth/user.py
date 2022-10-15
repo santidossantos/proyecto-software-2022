@@ -1,5 +1,6 @@
 from src.core.database import db
-from src.core.permissions.role import Role
+from src.core.permissions import role  # Importante este import
+
 
 users_roles = db.Table(
     "users_roles",
@@ -9,8 +10,8 @@ users_roles = db.Table(
 
 
 class User(db.Model):
+    __tablename__ = 'users'
 
-    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, unique=True)
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))

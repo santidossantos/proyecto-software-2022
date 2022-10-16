@@ -112,7 +112,7 @@ def delete(id):
     return redirect((url_for("associates.associate_index")))
 
 
-@associates_blueprint.route("/search", methods=["POST", "GET"])
+@associates_blueprint.post("/search")
 def search():
 
     params = request.form

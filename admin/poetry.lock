@@ -389,7 +389,7 @@ test = ["pytest"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "40b08a7e219b296b6bba75dc8524f0dc6e08f3f5a9297ea864be47925385dbae"
+content-hash = "d5010e38ade7aa37ef3ecdd3aa9571500ff029a4b1610d20302d528721ef144f"
 
 [metadata.files]
 Brotli = [

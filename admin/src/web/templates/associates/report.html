@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='report/css/report-pdf.css') }}" />
+<title>Listado de Socios</title>
+<img src="{{ url_for('static', filename='images/favicon.ico') }}">
+<div class="titulo">
+    <h2>Listado de Socios</h2>
+</div>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>N°Socio</th>
+                <th>DNI</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Género</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for associate in associates %}
+            <tr>
+                <td>{{ associate.last_name}}</td>
+                <td>{{ associate.name}}</td>
+                <td>{{ associate.member_number}}</td>
+                <td>{{ associate.dni}}</td>
+                <td>{{ associate.email}}</td>
+                <td>{{ associate.address}}</td>
+                <td>{{ associate.mobile_number}}</td>
+                <td>{{ associate.genero.value}}</td>
+            </tr>
+            {% endfor %}
+        <tbody>
+    </table>
+</div>

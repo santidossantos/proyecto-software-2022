@@ -4,23 +4,46 @@
 {{ super() }}
 <button class="button_add">
   <a href="{{ url_for('associates.create') }}">
-    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" />Nuevo Asociado</a>
+    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Nuevo Asociado</a>
 </button>
+
 <h1>Listado de Asociados</h1>
-<form action="{{ url_for('associates.search') }}" method="post">
-  <div class="filter_user">
-    <input type="search" class="search-field" name="surname" placeholder="Buscar" />
-    <input type="submit" value="Buscar">
-  </div>
-</form>
-<form action="{{ url_for('associates.searchStatus') }}" method="post">
-  <select type="search" class="search-field" name="isActive" placeholder="Buscar">
+{% if associates.items %}
+
+
+<form class="filter_user" action="" method="POST">
+
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
+  <select name="active_filter" class="search-field">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
-    <input type="submit" value="Buscar">
   </select>
+
+  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_add">
+    <a>
+      Buscar
+    </a>
+  </button>
+
+  
+  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_add">
+    <input name="doc_type" value="csv" hidden />
+    <a>
+      <img alt="agregar" src="{{ url_for('static', filename='images/export_csv.png') }}">
+      Exportar CSV
+    </a>
+  </button>
+
+  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_add">
+    <input name="doc_type" value="pdf" hidden />
+    <a>
+      <img alt="agregar" src="{{ url_for('static', filename='images/pdf_export.png') }}">
+      Exportar PDF
+    </a>
+  </button>
+
 </form>
-{% if associates %}
+
 <table class="index-table box">
   <thead>
     <tr>
@@ -45,15 +68,18 @@
             title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
         <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
             src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
-        <a href="{{ url_for('users.delete', id=associate.id )}}"><img class="icon" alt="editar" title="Eliminar"
-            src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
+        <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
+            alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
       </th>
     </tr>
     {% endfor %}
   </tbody>
 </table>
 {% else %}
-<p>No hay listado para mostrar</p>
+<section class="containernotresult">
+  <img img class="notresultimg" src="{{ url_for('static', filename='images/feedback-animate.svg') }}" />
+  <span class="notresultext">No se encontraron resultados</span>
+</section>
 {% endif %}
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
 paginacion  para enviarselos al template paginacion.html 

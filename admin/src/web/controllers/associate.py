@@ -7,6 +7,7 @@ from flask import url_for
 from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
+from src.web.utils import exporters
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -113,18 +114,35 @@ def delete(id):
 
 @associates_blueprint.route("/search", methods=["POST", "GET"])
 def search():
-    surname = request.form.get("surname")
-    paginated_associates = associates.searchBySurname(surname, 1, 1)
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    paginated_associates = associates.list_associate_filtered(
+        search_filter, active_filter
+    ).paginate(1, 2)
     return render_template(
         "associates/associates_list.html", associates=paginated_associates
     )
 
 
-@associates_blueprint.route("/searchStatus", methods=["POST", "GET"])
-def searchStatus():
-    isActiveRequest = request.form.get("isActive")
-    print(isActiveRequest)
-    paginated_associates = associates.searchByStatus(isActiveRequest, 1, 4)
-    return render_template(
-        "associates/associates_list.html", associates=paginated_associates
-    )
+@associates_blueprint.post("/export/csv")
+def call_csv_exporter():
+    return call_some_exporter("csv")
+
+
+@associates_blueprint.post("/export/pdf")
+def call_pdf_exporter():
+    return call_some_exporter("pdf")
+
+
+def call_some_exporter(doc_type):
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    records = associates.list_associate_filtered(search_filter, active_filter)
+
+    return exporters.choose_exporter(records, doc_type)

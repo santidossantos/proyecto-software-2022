@@ -7,6 +7,7 @@ from flask import url_for
 from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
+from src.web.utils import exporters
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -35,7 +36,7 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        if not CampoVAcio(name,last_name,document_type,dni,genero,address):
+        if not CampoVAcio(name, last_name, document_type, dni, genero, address):
             return redirect(url_for("associates.create"))
         if associates.usWithUserEmail(email):
             flash("el email ingresado está ocupado", "error")
@@ -109,3 +110,39 @@ def delete(id):
     associates.delete_user(id=id)
     flash("Asociado Eliminado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.route("/search", methods=["POST", "GET"])
+def search():
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    paginated_associates = associates.list_associate_filtered(
+        search_filter, active_filter
+    ).paginate(1, 2)
+    return render_template(
+        "associates/associates_list.html", associates=paginated_associates
+    )
+
+
+@associates_blueprint.post("/export/csv")
+def call_csv_exporter():
+    return call_some_exporter("csv")
+
+
+@associates_blueprint.post("/export/pdf")
+def call_pdf_exporter():
+    return call_some_exporter("pdf")
+
+
+def call_some_exporter(doc_type):
+
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    records = associates.list_associate_filtered(search_filter, active_filter)
+
+    return exporters.choose_exporter(records, doc_type)

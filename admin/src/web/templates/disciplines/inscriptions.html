@@ -44,7 +44,7 @@ block head %}
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
-         <a href="{{ url_for('inscription.doInscription', id=associate.id )}}">Inscribir a disciplina</a>
+         <a href="{{ url_for('inscription.doInscription', id=associate.id , idDisciplina=idDisciplina) }}">Inscribir a disciplina</a>
       </th>
     </tr>
     {% endfor %}

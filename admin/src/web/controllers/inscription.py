@@ -16,10 +16,10 @@ def inscription(page_num=1, per_page=4):
     paginated_associates = associates.list_associate(
         page_num=page_num, per_page=per_page
     )
-    return render_template("disciplines/inscriptions.html", associates=paginated_associates
-    )
+    return render_template("disciplines/inscriptions.html", associates=paginated_associates)
+    
 
-inscription_blueprint.route("/inscription/<id>")
-def inscription(id):
-    associate = associates.get_associate(id=id)
+inscription_blueprint.route("/inscription2/<id>")
+def inscription2(id):
+    print("Hola")
 

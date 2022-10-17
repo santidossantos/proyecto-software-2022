@@ -1,4 +1,5 @@
 from src.core.disciplines.discipline import Discipline
+from src.core.disciplines.discipline import UserDiscipline
 from src.core.database import db
 
 
@@ -32,3 +33,9 @@ def update_discipline(id,name,category, nameInstructors, daysAndHours, monthlyCo
     discipline.monthlyCost=monthlyCost
     db.session.commit()
     return discipline
+
+def createInscription(idAsociado,idDisciplina):
+    user_Discipline = UserDiscipline.insert().values(user_id=idAsociado, discipline_id=idDisciplina)
+    db.session.execute(user_Discipline)
+    db.session.commit()
+    return user_Discipline

@@ -44,8 +44,7 @@ block head %}
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
-        <a href="{{ url_for('inscription.inscription2', id=associate.id )}}"><img class="icon" alt="Inscribir asociado"
-            title="Inscribir asociado" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
+         <a href="{{ url_for('inscription.doInscription', id=associate.id )}}">Inscribir a disciplina</a>
       </th>
     </tr>
     {% endfor %}

@@ -1,7 +1,6 @@
 from src.core.associates.associate import Associate
 from src.core.disciplines.discipline import Discipline
 from src.core.disciplines.discipline import UserDiscipline
-
 from src.core.database import db
 
 def createInscription(idAsociado,idDisciplina):

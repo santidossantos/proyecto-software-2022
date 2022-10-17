@@ -39,3 +39,7 @@ def createInscription(idAsociado,idDisciplina):
     db.session.execute(user_Discipline)
     db.session.commit()
     return user_Discipline
+
+def find_inscription_by_associate_and_discipline(idAssociate, idDiscipline):
+
+    return db.session.query(UserDiscipline).filter_by(user_id=idAssociate, discipline_id=idDiscipline).first()

@@ -56,3 +56,11 @@ def searchBySurname(surname, page_num, per_page):
     return Associate.query.filter(Associate.last_name == surname).paginate(
         page_num, per_page, True
     )
+
+def is_defaulter(id):
+    associate = Associate.query.get(id)
+    return associate.defaulter
+
+def is_active(id):
+    associate = Associate.query.get(id)
+    return associate.active

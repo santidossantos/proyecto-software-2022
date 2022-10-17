@@ -1,4 +1,3 @@
-
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -22,8 +21,16 @@ def inscription(id,page_num=1, per_page=4):
 
 @inscription_blueprint.route("/doInscription/<id>/<idDisciplina>")
 def doInscription(id, idDisciplina):
-    print(id)
-    disciplines.createInscription(idAsociado=id, idDisciplina=idDisciplina)
+    inscription = disciplines.find_inscription_by_associate_and_discipline(idAssociate=id,idDiscipline=idDisciplina)
+    if not inscription:
+        if(associates.is_defaulter(id)):
+            flash("El asociado esta moroso, no se puede inscribir a la disciplina", "error")
+            return redirect((url_for("disciplines.discipline_index")))
+        if(not associates.is_active(id)):
+            flash("El asociado no es activo", "error")
+            return redirect((url_for("disciplines.discipline_index")))
+        disciplines.createInscription(idAsociado=id, idDisciplina=idDisciplina)
+        flash("Inscripcion realizada", "success")
+    else:
+        flash("El asociado ya se encuentra inscripto a la disciplina", "error")
     return redirect((url_for("disciplines.discipline_index")))
-
-    

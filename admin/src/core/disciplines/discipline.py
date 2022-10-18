@@ -1,5 +1,5 @@
 from src.core.database import db
-from src.core.auth.user import User
+from src.core.associates.associate import Associate
 
 class Discipline(db.Model):
 
@@ -14,6 +14,6 @@ class Discipline(db.Model):
 
 UserDiscipline = db.Table(
     "user_discipline",
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), primary_key=True),
+    db.Column("associate_id", db.Integer, db.ForeignKey("associates.id"), primary_key=True),
     db.Column("discipline_id", db.Integer, db.ForeignKey("discipline.id"), primary_key=True),
 )

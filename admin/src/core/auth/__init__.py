@@ -1,4 +1,5 @@
 from src.core.auth.user import User
+from src.core.permissions.role import Role
 from src.core.database import db
 
 
@@ -22,14 +23,46 @@ def get_user(id):
     user = User.query.get(id)
     return user
 
-#en futuro va haber que implementar lo de kwargs xq sino se va a tener que recibir muchos parametros
-def update_user(id,email,password):
-    user = User.query.get(id)
-    user.email=email
-    user.password=password
+
+def update_user(**kwargs):
+    user = get_user(kwargs["id"])
+    user.update(**kwargs)
     db.session.commit()
     return user
 
 
 def find_user_by_email_and_pass(email, password):
     return User.query.filter_by(email=email, password=password).first()
+
+def assigned_roles(user, rolesSelected):
+    for rol in rolesSelected:
+        user.roles.append(rol)
+    db.session.add(user)
+    db.session.commit()
+    return user
+
+def update_roles(user, rolesSelected):
+    user.roles = []
+    db.session.commit()
+    assigned_roles(user,rolesSelected)
+    return user
+
+def usWithUserEmail(email):
+    return User.query.filter_by(email=email).first()
+
+def usWithUsername(user_name):
+    return User.query.filter_by(user_name=user_name).first()
+
+def setStatus(id):
+    user = get_user(id)
+    user.active = not user.active
+    db.session.commit()
+    return user
+
+def NoEsAdmin(id):
+    user = get_user(id)
+    res = Role.query.filter_by(nombre="Admin").first()
+
+    if res in user.roles:
+       return False
+    return True

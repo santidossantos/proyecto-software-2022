@@ -29,4 +29,5 @@ def run():
 
     config.create()
 
+
     print("Seeds cargados!")

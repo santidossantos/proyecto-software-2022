@@ -1,5 +1,6 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
-block head %}
+{% extends 'layout/layout.html' %} 
+{% block title %}Asociados{% endblock %} 
+{%block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
 {% endblock head%} {%block content %}
 {{ super() }}
@@ -11,12 +12,8 @@ block head %}
 <form class="filter_user" action="" method="POST">
 
   <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
-  <select name="active_filter" class="search-field">
-    <option value="True">Activo</option>
-    <option value="False">Inactivo</option>
-  </select>
 
-  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('inscription.search') }}" class="button_add">
     <a>
       Buscar
     </a>

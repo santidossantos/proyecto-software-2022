@@ -14,7 +14,7 @@ inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscript
 @inscription_blueprint.get("/<int:page_num>")
 @inscription_blueprint.get("/<int:id>")
 def inscription(id,page_num=1, per_page=4):
-    paginated_associates = associates.list_associate(
+    paginated_associates = associates.list_associateActive(
         page_num=page_num, per_page=per_page
     )
     return render_template("disciplines/inscriptions.html", associates=paginated_associates, idDisciplina=id)
@@ -34,3 +34,15 @@ def doInscription(id, idDisciplina):
     else:
         flash("El asociado ya se encuentra inscripto a la disciplina", "error")
     return redirect((url_for("disciplines.discipline_index")))
+
+@inscription_blueprint.post("/search")
+def search():
+    params = request.form
+    search_filter = params["search_field"]
+
+    paginated_associates = associates.list_associate_filtered(
+        search_filter, True
+    ).paginate(1, 2)
+    return render_template(
+        "disciplines/inscriptions.html", associates=paginated_associates
+    )

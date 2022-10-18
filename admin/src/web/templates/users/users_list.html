@@ -20,16 +20,14 @@
       <th>{{ user.email }}</th>
       <th>{{ user.email}}</th>
       <th>
-        <img
-          class="icon"
-          alt="editar"
-          title="Editar"
-          src="{{ url_for('static', filename='images/edit.svg') }}"
-        />
-        <div>
-            <a href="{{ url_for('users.delete', id=user.id )}}">Eliminar</a>
-            <a href="{{ url_for('users.update', id=user.id )}}">Actualizar</a>
-        </div>
+        <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
+        <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+        <a href="{{ url_for('users.delete', id=user.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+        {%if  user.active == True %}
+          <a href="{{ url_for('users.setStatus', id=user.id, desactivado=0) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
+        {% else %}
+          <a href="{{ url_for('users.setStatus', id=user.id, desactivado=1) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+        {% endif %}
       </th>
     </tr>
     {% endfor %}

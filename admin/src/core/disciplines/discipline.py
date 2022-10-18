@@ -2,7 +2,7 @@ from src.core.database import db
 
 class Discipline(db.Model):
 
-    __tablename__ = "discipline"
+    __tablename__ = "disciplines"
     id = db.Column(db.Integer, primary_key=True, unique=True)
     name = db.Column(db.String(50), unique=True)
     category = db.Column(db.String(50), unique=True)

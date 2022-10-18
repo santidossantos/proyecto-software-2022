@@ -1,6 +1,7 @@
 from src.core import auth
 from src.core import associates
 from src.core import disciplines
+from src.core import config
 
 
 def run():
@@ -15,5 +16,7 @@ def run():
 
     asociado1 = associates.create_user(name="sofi", last_name="raciti", dni="123456", address="6 y 62", email="asociado@gmail.com")
     disciplina1 = disciplines.create_discipline(name="futbol", category="primera")
+
+    config.create()
 
     print("Seeds cargados!")

@@ -35,8 +35,8 @@ def doInscription(id, idDisciplina):
         flash("El asociado ya se encuentra inscripto a la disciplina", "error")
     return redirect((url_for("disciplines.discipline_index")))
 
-@inscription_blueprint.post("/search")
-def search():
+@inscription_blueprint.post("/search/<id>")
+def search(id):
     params = request.form
     search_filter = params["search_field"]
 
@@ -44,5 +44,5 @@ def search():
         search_filter, True
     ).paginate(1, 2)
     return render_template(
-        "disciplines/inscriptions.html", associates=paginated_associates
+        "disciplines/inscriptions.html", associates=paginated_associates, idDisciplina=id
     )

@@ -1,8 +1,6 @@
 {% extends 'layout/layout.html' %} 
 {% block title %}Asociados{% endblock %} 
-{%block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
-{% endblock head%} {%block content %}
+{% block content %}
 {{ super() }}
 
 <h1>Listado de Asociados</h1>
@@ -13,7 +11,7 @@
 
   <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
 
-  <button type="submit" formaction="{{ url_for('inscription.search') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('inscription.search', id=idDisciplina) }}" class="button_add">
     <a>
       Buscar
     </a>

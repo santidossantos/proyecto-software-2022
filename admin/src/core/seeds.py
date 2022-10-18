@@ -1,8 +1,8 @@
-from uuid import UUID
 from src.core import auth
 from src.core import associates
 from src.core import disciplines
 from src.core import payment
+from src.core import config
 
 
 def run():
@@ -22,8 +22,11 @@ def run():
         address="6 y 62",
         email="asociado@gmail.com",
     )
-    disciplina1 = disciplines.create_discipline(name="futbol", category="primera")
 
-    payment1 = payment.create_payment(total=2000)
+    disciplines.create_discipline(name="futbol", category="primera")
+
+    payment.create_payment(total=2000)
+
+    config.create()
 
     print("Seeds cargados!")

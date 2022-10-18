@@ -1,0 +1,67 @@
+{% extends 'layout/layout.html' %}
+{% block title %}Configuración{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/config-form.css') }}" />
+{% endblock head %}
+{% block content %}
+
+<div class="container">
+    <form action="{{ url_for('config.update_config') }}" method="post">
+        <div class="form-group">
+            <h2>Configuración del Sistema</h2><br>
+            <label>Entradas por página </label>
+            <input type="number" name="per_page" class="form-control" value="{{ config.per_page }}" required />
+        </div>
+        <div class="form-group">
+            <label>Valor de la cuota mensual $</label>
+            <input type="number" name="month_value" class="form-control" value="{{ config.month_value }}" required />
+        </div>
+        <div class="form-group">
+            <label>Porcentaje de recargo %<span class="clue">(opcional)</span></label>
+            <input type="number" name="recharge_percentaje" class="form-control"
+                value="{{config.recharge_percentaje}}" required/>
+        </div>
+        <div class="form-group">
+            <p>Tabla de pagos</p>
+            <select name="is_pay_table_active" class="form-control" required>
+                <option value="True">Habilitar</option>
+                <option value="False">Deshabilitar</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+
+            <p>
+                Información de contacto a mostrar (puede seleccionar más de una)
+            </p>
+            <label><input name="phone" value="phone" {% if 'phone' in config.contact_information %}checked{% endif %}
+                    type="checkbox" class="input-checkbox" />
+                Teléfono
+            </label>
+            <label>
+                <input name="email" value="email" {% if 'email' in config.contact_information %}checked{% endif %}
+                    type="checkbox" class="input-checkbox" />
+                Email
+            </label>
+            <label>
+                <input name="twitter" value="twitter" {% if 'twitter' in config.contact_information %}checked{% endif %}
+                    type="checkbox" class="input-checkbox" />
+                Twitter
+            </label>
+
+        </div>
+
+        <div class="form-group">
+            <p>Texto a mostrar en el el recibo de pago</p>
+            <textarea class="input-textarea" 
+            name="payment_voucher_text" required>{{ config.payment_voucher_text }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="submit-button">
+                Guardar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

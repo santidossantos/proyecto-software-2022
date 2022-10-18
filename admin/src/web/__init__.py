@@ -9,9 +9,12 @@ from src.web.controllers.user import users_blueprint
 from src.web.controllers.associate import associates_blueprint
 from src.web.controllers.auth import auth_blueprint
 from src.web.controllers.discipline import discipline_blueprint
+from src.web.controllers.pagos import payment_blueprint
+from src.web.controllers.config import config_blueprint
 from flask import url_for
 from flask import redirect
 from src.core import auth
+from src.web.helpers import permission as helper_permission
 
 
 def create_app(env="development", static_folder="static"):
@@ -25,13 +28,16 @@ def create_app(env="development", static_folder="static"):
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(associates_blueprint)
     app.register_blueprint(discipline_blueprint)
+    app.register_blueprint(payment_blueprint)
+    app.register_blueprint(config_blueprint)
 
     app.register_error_handler(401, handlers.unauthorized)
     app.register_error_handler(404, handlers.not_found_error)
     app.register_error_handler(500, handlers.internal_server_error)
 
-    #Jinja
+    # Jinja
     app.jinja_env.globals.update(is_authenticated=is_authenticated)
+    app.jinja_env.globals.update(has_permission=helper_permission.has_permission)
 
     @app.get("/")
     def entry_point():

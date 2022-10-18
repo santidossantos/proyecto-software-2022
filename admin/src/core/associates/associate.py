@@ -2,17 +2,22 @@ import uuid
 from src.core.database import db
 import datetime
 import enum
-from random import randint 
+from random import randint
+
+# from src.core.associates import Associate
+from sqlalchemy.orm import relationship
+
 
 class Genero(enum.Enum):
-     M = "Masculino"
-     F = "Femenino"
-     O = "Otro"
+    M = "Masculino"
+    F = "Femenino"
+    O = "Otro"
+
 
 class DocumentType(enum.Enum):
-     DNI = "Documento Nacional de Identidad"
-     LE = "Libreta de Enrolamiento"
-     LC = "Librera Civica"
+    DNI = "Documento Nacional de Identidad"
+    LE = "Libreta de Enrolamiento"
+    LC = "Librera Civica"
 
 
 def random_integer():
@@ -24,11 +29,15 @@ def random_integer():
         rand = randint(min_, max_)
 
     return rand
+
+
 class Associate(db.Model):
 
     __tablename__ = "associates"
     id = db.Column(db.Integer, primary_key=True, unique=True)
-    member_number = db.Column(db.Integer,  default=random_integer, unique=True, nullable=False)
+    member_number = db.Column(
+        db.Integer, default=random_integer, unique=True, nullable=False
+    )
     name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     dni = db.Column(db.String(), unique=True, nullable=False)
@@ -42,6 +51,7 @@ class Associate(db.Model):
     update_at = db.Column(db.DateTime, default=datetime.datetime.now())
     genero = db.Column(db.Enum(Genero), default="O", nullable=False)
     document_type = db.Column(db.Enum(DocumentType), default="DNI", nullable=False)
+    id_payment = db.relationship("Payment", backref="socio")
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

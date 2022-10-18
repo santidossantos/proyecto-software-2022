@@ -1,6 +1,7 @@
 from src.core.database import db
 from src.core.permissions.role import Role
 
+
 users_roles = db.Table(
     "users_roles",
     db.Column("user_id", db.Integer, db.ForeignKey("users.id")),

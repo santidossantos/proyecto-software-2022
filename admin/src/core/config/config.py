@@ -9,7 +9,7 @@ class Config(db.Model):
     is_pay_table_active = db.Column(db.Boolean, default=True)
     contact_information = db.Column(db.String(100), default="phone, twitter")
     payment_voucher_text = db.Column(
-        db.String(200), default="date, username, assoc_numer, description"
+        db.String(200), default="Texto a mostrar en el recibo de pago... (editar)"
     )
     month_value = db.Column(db.Integer, default=5000)
     recharge_percentaje = db.Column(db.Integer, default=5)

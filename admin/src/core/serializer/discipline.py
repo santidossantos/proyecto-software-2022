@@ -1,4 +1,3 @@
-from unicodedata import category
 from marshmallow import Schema, fields
 
 class DisciplineSchema(Schema):

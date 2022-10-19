@@ -1,5 +1,5 @@
 from src.core.disciplines.discipline import Discipline
-from src.core.associates.associate import UserDiscipline
+from src.core.associates.associate import associates_disciplines
 from src.core.database import db
 
 
@@ -35,10 +35,10 @@ def update_discipline(id,name,category, nameInstructors, daysAndHours, monthlyCo
     return discipline
 
 def createInscription(idAsociado,idDisciplina):
-    user_Discipline = UserDiscipline.insert().values(associate_id=idAsociado, discipline_id=idDisciplina)
+    user_Discipline = associates_disciplines.insert().values(associate_id=idAsociado, discipline_id=idDisciplina)
     db.session.execute(user_Discipline)
     db.session.commit()
     return user_Discipline
 
 def find_inscription_by_associate_and_discipline(idAssociate, idDiscipline):
-    return db.session.query(UserDiscipline).filter_by(associate_id=idAssociate, discipline_id=idDiscipline).first()
+    return db.session.query(associates_disciplines).filter_by(associate_id=idAssociate, discipline_id=idDiscipline).first()

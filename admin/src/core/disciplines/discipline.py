@@ -15,5 +15,5 @@ class Discipline(db.Model):
 UserDiscipline = db.Table(
     "user_discipline",
     db.Column("associate_id", db.Integer, db.ForeignKey("associates.id"), primary_key=True),
-    db.Column("discipline_id", db.Integer, db.ForeignKey("discipline.id"), primary_key=True),
+    db.Column("discipline_id", db.Integer, db.ForeignKey("disciplines.id"), primary_key=True),
 )

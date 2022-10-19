@@ -6,6 +6,10 @@ def list_associate(page_num, per_page):
     return Associate.query.paginate(page_num, per_page, True)
 
 
+def list_associateActive(page_num, per_page):
+    return Associate.query.filter(Associate.active == True).paginate(page_num, per_page, True)
+
+
 def list_associate_filtered(search_filter, active_filter):
     return Associate.query.filter(Associate.active == active_filter).filter(
         Associate.last_name.ilike(f'%{search_filter}%')
@@ -56,3 +60,11 @@ def searchBySurname(surname, page_num, per_page):
     return Associate.query.filter(Associate.last_name == surname).paginate(
         page_num, per_page, True
     )
+
+def is_defaulter(id):
+    associate = Associate.query.get(id)
+    return associate.defaulter
+
+def is_active(id):
+    associate = Associate.query.get(id)
+    return associate.active

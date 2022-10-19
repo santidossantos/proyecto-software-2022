@@ -13,11 +13,13 @@ def create_user(**kwargs):
     db.session.commit()
     return user
 
+
 def delete_user(id):
     user = User.query.get(id)
     db.session.delete(user)
     db.session.commit()
     return user
+
 
 def get_user(id):
     user = User.query.get(id)
@@ -31,8 +33,9 @@ def update_user(**kwargs):
     return user
 
 
-def find_user_by_email_and_pass(email, password):
-    return User.query.filter_by(email=email, password=password).first()
+def find_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+
 
 def assigned_roles(user, rolesSelected):
     for rol in rolesSelected:
@@ -41,17 +44,21 @@ def assigned_roles(user, rolesSelected):
     db.session.commit()
     return user
 
+
 def update_roles(user, rolesSelected):
     user.roles = []
     db.session.commit()
-    assigned_roles(user,rolesSelected)
+    assigned_roles(user, rolesSelected)
     return user
+
 
 def usWithUserEmail(email):
     return User.query.filter_by(email=email).first()
 
+
 def usWithUsername(user_name):
     return User.query.filter_by(user_name=user_name).first()
+
 
 def setStatus(id):
     user = get_user(id)
@@ -59,10 +66,11 @@ def setStatus(id):
     db.session.commit()
     return user
 
+
 def NoEsAdmin(id):
     user = get_user(id)
     res = Role.query.filter_by(nombre="Admin").first()
 
     if res in user.roles:
-       return False
+        return False
     return True

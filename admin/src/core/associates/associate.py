@@ -24,6 +24,13 @@ def random_integer():
         rand = randint(min_, max_)
 
     return rand
+
+UserDiscipline = db.Table(
+    "user_discipline",
+    db.Column("associate_id", db.Integer, db.ForeignKey("associates.id"), primary_key=True),
+    db.Column("discipline_id", db.Integer, db.ForeignKey("discipline.id"), primary_key=True),
+)
+
 class Associate(db.Model):
 
     __tablename__ = "associates"
@@ -43,6 +50,7 @@ class Associate(db.Model):
     update_at = db.Column(db.DateTime, default=datetime.datetime.now())
     genero = db.Column(db.Enum(Genero), default="O", nullable=False)
     document_type = db.Column(db.Enum(DocumentType), default="DNI", nullable=False)
+    disciplines = db.relationship("Discipline", secondary=UserDiscipline)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

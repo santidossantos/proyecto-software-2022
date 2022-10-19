@@ -1,5 +1,5 @@
 from src.core.disciplines.discipline import Discipline
-from src.core.disciplines.discipline import UserDiscipline
+from src.core.associates.associate import UserDiscipline
 from src.core.database import db
 
 

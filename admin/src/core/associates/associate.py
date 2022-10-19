@@ -26,7 +26,7 @@ def random_integer():
     return rand
 
 associates_disciplines = db.Table(
-    "user_discipline",
+    "user_discipline", #le quiero poner como nombre "associates_disciplines" pero se rompe todo
     db.Column("associate_id", db.Integer, db.ForeignKey("associates.id"), primary_key=True),
     db.Column("discipline_id", db.Integer, db.ForeignKey("discipline.id"), primary_key=True),
 )

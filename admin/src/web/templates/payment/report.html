@@ -1,1 +1,22 @@
-<h1>hecho </h1>
+{% extends 'layout/layout.html' %} {% block title %}Confirmación de pago{% endblock %}
+{%block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head %}
+{%block content %}
+<h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
+<section class="sectionShow">
+    <h1>Disciplinas :</h1>
+    {% for d in associate.disciplines %}
+    <li>{{ d.name | capitalize }} </li>
+    {% endfor %}
+
+    <span class="labelShow"><strong>Mes: </strong>{{month}}</span>
+    <span class="labelShow"><strong>Fecha: </strong>{{ datetime.now().strftime("%d/%m/%y") }}</span>
+    <span class="labelShow"><strong>Total: </strong>{{costo_total}}</span>
+</section>
+<button class="button_registarpago">
+    <a href="{{ url_for('payment.updatePayment',id=associate.id, id_pago=id_pago, total=costo_total )}}">Registrar
+        Pago</a>
+</button>
+{% endblock content %}

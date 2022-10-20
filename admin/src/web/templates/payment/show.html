@@ -3,6 +3,7 @@
 <h1>Registrar Pago<p>Asociado: {{user.name | capitalize }} {{user.last_name | capitalize }}</p>
     <p>Fecha: {{ datetime.now().strftime("%d/%m/%y") }}</p>
 </h1>
+{% if pending %}
 <main class="section_table_and_disciplines">
     <div class="info_container">
         <p class="text_discipline">Disciplinas que realiza</p>
@@ -33,4 +34,10 @@
         </tbody>
     </table>
 </main>
+{% else %}
+<section class="containernotresult">
+    <img img class="notresultimg" src="{{ url_for('static', filename='images/feedback-animate.svg') }}" />
+    <span class="notresultext">No hay cuotas pendientes de pago</span>
+</section>
+{% endif %}
 {% endblock content %}

@@ -24,4 +24,13 @@ def costo_total(costo_disciplines):
     if now.day >= 1 and now.day <= 10:
         return total
     else:
-        return total + config.recharge_percentaje
+        return total + (total * (config.recharge_percentaje / 100))
+
+
+def update_Payment(id_pago, total):
+    payment = get_payment(id_pago)
+    print(payment)
+    setattr(payment, "state", "P")
+    setattr(payment, "total", total)
+    db.session.commit()
+    return payment

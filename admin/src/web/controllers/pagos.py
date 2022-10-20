@@ -36,11 +36,25 @@ def result(id, id_pago):
     costo_disciplines = associates.cost_disciplines(id)
     costo_total = payment.costo_total(costo_disciplines)
     pago = payment.get_payment(id_pago)
-    if pago.mes.value == pending_payments[0].mes.value:
-        return render_template(
-            "payment/report.html", associate=associate, costo_total=costo_total
-        )
+    if pending_payments:
+        if pago.mes.value == pending_payments[0].mes.value:
+            return render_template(
+                "payment/report.html",
+                associate=associate,
+                costo_total=costo_total,
+                month=pago.mes.value,
+                id_pago=id_pago,
+            )
 
-    else:
-        flash("Debe pagar las cuotas vencidas", "error")
-        return redirect(url_for('payment.show', id=id))
+        else:
+            flash("Debe pagar las cuotas vencidas", "error")
+            return redirect(url_for("payment.show", id=id))
+    return redirect(url_for("payment.show", id=id))
+
+
+@payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
+def updatePayment(id, id_pago, total):
+    print("EE")
+    payment.update_Payment(id_pago, total)
+    flash("Pago realizado con éxito", "success")
+    return redirect(url_for("payment.show", id=id))

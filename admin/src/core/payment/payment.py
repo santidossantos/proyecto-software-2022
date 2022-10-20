@@ -24,12 +24,17 @@ class Payment(db.Model):
     total = db.Column(db.Integer)
     state = db.Column(db.Enum(State), default="I", nullable=False)
 
-    date_pago = db.Column(
+    update_at = db.Column(
         db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()
     )
     create_at = db.Column(
         db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()
     )
+
+
+def update(self, **kwargs):
+    for key, value in kwargs.items():
+        setattr(self, key, value)
 
 
 def create_month_registers(id_user):

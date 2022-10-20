@@ -66,3 +66,8 @@ def NoEsAdmin(id):
     if res in user.roles:
        return False
     return True
+
+def list_users_filtered(search_filter, active_filter):
+    return User.query.filter(User.active == active_filter).filter(
+        User.email.ilike(f'%{search_filter}%')
+    )

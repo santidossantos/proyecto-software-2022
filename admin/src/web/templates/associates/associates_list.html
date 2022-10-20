@@ -18,15 +18,12 @@
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
-
-  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_add">
-    <a>
+  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_search">
       Buscar
-    </a>
   </button>
 
   
-  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_exporter">
     <input name="doc_type" value="csv" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/export_csv.png') }}">
@@ -34,7 +31,7 @@
     </a>
   </button>
 
-  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_exporter">
     <input name="doc_type" value="pdf" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/pdf_export.png') }}">

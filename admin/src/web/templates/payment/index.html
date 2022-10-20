@@ -17,11 +17,8 @@
             <th>{{ user.last_name }}</th>
             <th>{{ user.email}}</th>
             <th>
-                <button class="button_add">
+                <button class="button_registarpago">
                     <a href="{{ url_for('payment.show', id=user.id )}}">Registrar Pago</a>
-                </button>
-                <button class="button_add">
-                    <a href="">Ver Disciplinas</a>
                 </button>
             </th>
         </tr>

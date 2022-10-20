@@ -43,9 +43,4 @@ def result(id, id_pago):
 
     else:
         flash("Debe pagar las cuotas vencidas", "error")
-    return render_template(
-        "payment/show.html",
-        pending=pending_payments,
-        user=associate,
-        costo_total=costo_total,
-    )
+        return redirect(url_for('payment.show', id=id))

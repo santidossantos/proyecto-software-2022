@@ -6,13 +6,10 @@ def list_payment(page_num, per_page):
     return Payment.query.paginate(page_num, per_page, True)
 
 
-def create_payment(**kwargs):
-    payment = Payment(**kwargs)
-    db.session.add(payment)
-    db.session.commit()
-    return payment
-
-
 def get_payment(id):
     payment = Payment.query.get(id)
     return payment
+
+
+def pending_payments(id):
+    return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()

@@ -1,13 +1,15 @@
 {% extends 'layout/layout.html' %} {% block title %}Pagos{% endblock %}
 {%block content %} {{ super() }}
-<h1>Registrar Pago<p>Asociado: {{user.name | capitalize }} {{user.last_name | capitalize }}</p><p>Fecha: {{ datetime.now().strftime("%d/%m/%y") }}</p></h1>
+<h1>Registrar Pago<p>Asociado: {{user.name | capitalize }} {{user.last_name | capitalize }}</p>
+    <p>Fecha: {{ datetime.now().strftime("%d/%m/%y") }}</p>
+</h1>
 <main class="section_table_and_disciplines">
     <div class="info_container">
-    <p class="text_discipline">Disciplinas que realiza</p>
+        <p class="text_discipline">Disciplinas que realiza</p>
         {% for d in user.disciplines %}
-            <li>{{ d.name | capitalize  }} </li>
+        <li>{{ d.name | capitalize }} </li>
         {% endfor %}
-        <h2 class="text_pago">Total a pagar: $5000 </h2>
+        <h2 class="text_pago">Total a pagar: ${{ costo_total }} </h2>
     </div>
     <table class="index-table box">
         <thead>
@@ -17,16 +19,17 @@
             </tr>
         </thead>
         <tbody>
-        {% for payment in pending %}
+            {% for payment in pending %}
             <tr>
                 <th>{{ payment.mes.value }}</th>
                 <th>
                     <button class="button_registarpago">
-                        <a href="{{ url_for('payment.show', id=payment.id )}}">Registrar Pago</a>
+                        <a href="{{ url_for('payment.result', id=user.id , id_pago=payment.id )}}">Registrar
+                            Pago</a>
                     </button>
                 </th>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
 </main>

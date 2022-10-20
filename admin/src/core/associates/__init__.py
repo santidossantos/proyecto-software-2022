@@ -72,3 +72,12 @@ def is_defaulter(id):
 def is_active(id):
     associate = Associate.query.get(id)
     return associate.active
+
+
+def cost_disciplines(id):
+    print(id)
+    associate = get_associate(id)
+    total_cost = 0
+    for disciplina in associate.disciplines:
+        total_cost = total_cost + disciplina.monthlyCost
+    return total_cost

@@ -8,6 +8,7 @@ from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
 from src.web.utils import exporters
+from src.web.helpers.permission import role_required
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -23,7 +24,9 @@ def associate_index(page_num=1, per_page=4):
     )
 
 
+
 @associates_blueprint.route("/create", methods=("GET", "POST"))
+@role_required('admin')
 def create():
 
     if request.method == "POST":

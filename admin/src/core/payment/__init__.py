@@ -7,6 +7,7 @@ from datetime import datetime
 def list_payment(page_num, per_page):
     return Payment.query.paginate(page_num, per_page, True)
 
+
 def list_assoc_payments(id):
     return Payment.query.filter(Payment.associated_id == id)
 
@@ -14,6 +15,14 @@ def list_assoc_payments(id):
 def get_payment(id):
     payment = Payment.query.get(id)
     return payment
+
+
+def get_payment_by_assoc_id_and_month(id_assoc, mes):
+    return (
+        Payment.query.filter(Payment.associated_id == id_assoc)
+        .filter(Payment.mes == mes)
+        .first()
+    )
 
 
 def pending_payments(id):
@@ -37,3 +46,11 @@ def update_Payment(id_pago, total):
     setattr(payment, "total", total)
     db.session.commit()
     return payment
+
+
+def create_payment(id_associate, mes, total):
+    payment = get_payment_by_assoc_id_and_month(id_associate, mes)
+    setattr(payment, "state", "P")
+    setattr(payment, "total", total)
+    db.session.commit()
+    return True

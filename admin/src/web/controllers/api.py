@@ -40,11 +40,11 @@ def get_payments_by_id(id):
 @me_blueprint.post("/payments")
 def register_payment_by_id():
     data = request.get_json()
-    date = data["date"]
+    month = data["month"]
     total = data["total"]
     associated_id = data["associated_id"]
 
-    payment.create_payment(total=total, date=date, associated_id=associated_id)
+    payment.create_payment(associated_id , month, total)
 
     resp = make_response(jsonify({"result": "Success"}))
     resp.headers["Content-Type: application/json"] = "*"

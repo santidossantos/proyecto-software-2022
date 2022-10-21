@@ -41,7 +41,6 @@ def doInscription(id, idDisciplina):
             flash("El asociado no es activo", "error")
             return redirect((url_for("disciplines.discipline_index")))
         disciplines.createInscription(idAsociado=id, idDisciplina=idDisciplina)
-        disciplines.generar_pagos(id=id)
         flash("Inscripcion realizada", "success")
     else:
         flash("El asociado ya se encuentra inscripto a la disciplina", "error")

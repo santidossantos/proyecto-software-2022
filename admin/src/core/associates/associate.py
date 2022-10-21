@@ -53,7 +53,7 @@ class Associate(db.Model):
     last_name = db.Column(db.String(100), nullable=False)
     dni = db.Column(db.String(), unique=True, nullable=False)
     address = db.Column(db.String(100), nullable=False)
-    active = db.Column(db.Boolean(), default=False, nullable=False)
+    active = db.Column(db.Boolean(), default=True, nullable=False)
     defaulter = db.Column(db.Boolean(), default=False, nullable=False)
     mobile_number = db.Column(db.String(10), unique=True)
     email = db.Column(db.String(50), unique=True)

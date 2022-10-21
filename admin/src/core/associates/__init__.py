@@ -1,3 +1,4 @@
+from core.payment import Payment
 from src.core.associates.associate import Associate
 from src.core.database import db
 
@@ -81,3 +82,11 @@ def cost_disciplines(id):
     for disciplina in associate.disciplines:
         total_cost = total_cost + disciplina.monthlyCost
     return total_cost
+
+def generar_pagos(id):
+    mes = ["E", "F", "M", "A", "May", "Jun", "Jul", "Ago", "S", "O", "N", "D"]
+    for i in mes:
+        payment = Payment(associated_id=id, mes=i, total=0)
+        db.session.add(payment)
+        db.session.commit()
+    return payment

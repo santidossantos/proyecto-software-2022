@@ -23,16 +23,10 @@
       <th>{{ discipline.daysAndHours }}</th>
       <th>{{ discipline.monthlyCost}}</th>
       <th>
-        <img
-          class="icon"
-          alt="editar"
-          title="Editar"
-          src="{{ url_for('static', filename='images/edit.svg') }}"
-        />
         <div>
-            <a href="{{ url_for('disciplines.show', id=discipline.id )}}">Ver</a>
-            <a href="{{ url_for('disciplines.delete', id=discipline.id )}}">Eliminar</a>
-            <a href="{{ url_for('disciplines.update', id=discipline.id )}}">Actualizar</a>
+            <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
+            <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+            <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
             <a href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
         </div>
       </th>

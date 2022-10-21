@@ -9,14 +9,16 @@ from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
 from src.web.utils import exporters
-from src.web.helpers.permission import role_required
 from src.web.utils.validations import CampoVAcio, validationEmail
+from src.web.helpers.permission import permisson_required
+
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
 
 @associates_blueprint.get("/")
 @associates_blueprint.get("/<int:page_num>")
+@permisson_required("member_index")
 def associate_index(page_num=1, per_page=4):
     paginated_associates = associates.list_associate(
         page_num=page_num, per_page=per_page
@@ -26,9 +28,8 @@ def associate_index(page_num=1, per_page=4):
     )
 
 
-
 @associates_blueprint.route("/create", methods=("GET", "POST"))
-@role_required('admin')
+@permisson_required("member_new")
 def create():
 
     if request.method == "POST":
@@ -42,7 +43,9 @@ def create():
         address = request.form.get("address")
         genero = request.form.get("genero")
 
-        if CampoVAcio(name, last_name, document_type, dni, genero, address) and validationEmail(email):
+        if CampoVAcio(
+            name, last_name, document_type, dni, genero, address
+        ) and validationEmail(email):
             if associates.usWithUserEmail(email):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("associates.create"))
@@ -70,6 +73,7 @@ def create():
 
 
 @associates_blueprint.route("/update/<id>", methods=["POST", "GET"])
+@permisson_required("member_update")
 def update(id):
     if request.method == "POST":
         email = request.form.get("email")
@@ -106,12 +110,14 @@ def update(id):
 
 
 @associates_blueprint.route("/show/<id>")
+@permisson_required("member_show")
 def show(id):
     associate = associates.get_associate(id=id)
     return render_template("associates/show.html", associate=associate)
 
 
 @associates_blueprint.route("/delete/<id>")
+@permisson_required("member_destroy")
 def delete(id):
     associates.delete_user(id=id)
     flash("Asociado Eliminado Correctamente", "success")

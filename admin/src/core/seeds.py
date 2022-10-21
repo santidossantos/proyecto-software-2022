@@ -25,9 +25,6 @@ def run():
 
     disciplines.create_discipline(name="futbol", category="primera")
 
-    payment.create_payment(total=2000)
-
     config.create()
-
 
     print("Seeds cargados!")

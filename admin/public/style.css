@@ -33,7 +33,6 @@
   cursor: pointer;
 }
 
-
 /* titulos */
 
 h1 {
@@ -156,7 +155,6 @@ p.flash.info {
 }
 
 .alertsuccess.hidesuccess {
-  /*display: none;*/
   animation: hide_slide 1s ease forwards;
 }
 
@@ -176,6 +174,10 @@ p.flash.info {
   100% {
     transform: translateX(100%);
   }
+}
+
+.display{
+  display: none;
 }
 
 .alertsuccess .material-symbols-outlinedsuccess {
@@ -247,7 +249,6 @@ p.flash.info {
 }
 
 .alerterror.hideerror {
-  /*display: none;*/
   animation: hide_slide 1s ease forwards;
 }
 
@@ -352,4 +353,65 @@ p.flash.info {
 
 .notresultext {
   font-size: 1.5rem;
+}
+
+.section_table_and_disciplines{
+  display: flex;
+  flex-direction: row;
+}
+
+.info_container{
+  padding: 2rem;
+  margin: 2rem 2rem auto;
+  border: 1px solid #cbbebe;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+  display: flex;
+  flex-direction: column;
+  height: auto ;
+}
+
+.text_discipline{
+  padding: 1rem;
+  text-align: -webkit-center;
+  width: 200px;
+}
+
+.text_pago{
+  text-align: center;
+  padding-top: 0.3rem;
+}
+
+.button_registarpago{
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-color: black;
+  background: #0090af;
+  color: withe;
+  color: aliceblue;
+  cursor: pointer;
+}
+
+.button_search a {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.button_exporter {
+  font-size: 0.8rem;
+  padding: 9px;
+  border-radius: 5px;
+  font-weight: 900;
+  background-color: #62c1ac;
+  border: none;
+  float: right;
+  cursor: pointer;
+  margin: 0 10px;
+}
+.button_registarpago a {
+  text-decoration: none;
+  color: aliceblue;
 }

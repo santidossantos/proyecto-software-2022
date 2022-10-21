@@ -1,0 +1,11 @@
+<section class="sectionShow">
+    <h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
+    <h2>Disciplinas :</h2>
+    {% for d in associate.disciplines %}
+    <li>{{ d.name | capitalize }} </li>
+    {% endfor %}
+
+    <span class="labelShow"><strong>Mes: </strong>{{month}}</span>
+    <span class="labelShow"><strong>Fecha: </strong>{{ datetime.now().strftime("%d/%m/%y") }}</span>
+    <span class="labelShow"><strong>Total: </strong>{{costo_total}}</span>
+</section>

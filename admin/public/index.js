@@ -1,7 +1,8 @@
 /* Cerrar alertas */
+
 setTimeout(function () {
-  $(".alertsuccess").addClass("hidesuccess");
   $(".alertsuccess").removeClass("showsuccess");
+  $(".alertsuccess").addClass("hidesuccess");
 }, 5000);
 
 setTimeout(function () {
@@ -13,13 +14,11 @@ setTimeout(function () {
   $(".alertwarning").addClass("hidewarning");
   $(".alertwarning").removeClass("showwarning");
 }, 5000);
-// $(".close-btn").click(function () {
-//   $(".alert").addClass("hide");
-//   $(".alert").removeClass("show");
-// });
 
-// const clase = document.querySelector(".close-btn");
+setTimeout(function () {
+  $(".alertsuccess").addClass("display");
+}, 6000);
 
-// clase.addEventListener("click", () => {
-//   $(".alert").removeClass("show");
-// });
+setTimeout(function () {
+  $(".alerterror").addClass("display");
+}, 6000);

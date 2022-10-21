@@ -34,7 +34,7 @@ if (btnActiv) {
   const btnArrayActiv = Array.from(btnActiv);
   btnArrayActiv.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      if (!confirm("Esta seguro de querer activar este usuario?")) {
+      if (!confirm("Esta seguro de querer Bloquear este usuario?")) {
         e.preventDefault();
       }
     });
@@ -45,7 +45,7 @@ if (btnBloquo) {
   const btnArrayBloqueo = Array.from(btnBloquo);
   btnArrayBloqueo.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-      if (!confirm("Esta seguro de querer bloquar este usuario?")) {
+      if (!confirm("Esta seguro de querer Activar este usuario?")) {
         e.preventDefault();
       }
     });

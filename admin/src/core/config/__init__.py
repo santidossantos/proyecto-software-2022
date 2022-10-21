@@ -8,9 +8,11 @@ def create(**kwargs):
     db.session.commit()
     return config
 
+
 def get_config():
     config = Config.query.first()
     return config
+
 
 def update_config(**kwargs):
     get_config().update(**kwargs)
@@ -19,7 +21,7 @@ def update_config(**kwargs):
 
 
 def get_per_page():
-    return get_config().per_page
+    return int(get_config().per_page)
 
 
 def get_pay_table_status():
@@ -40,4 +42,3 @@ def get_month_value():
 
 def get_recharge_percentaje():
     return get_config().recharge_percentaje
-   

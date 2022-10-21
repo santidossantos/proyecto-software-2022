@@ -33,8 +33,9 @@ def update_user(**kwargs):
     return user
 
 
-def find_user_by_email_and_pass(email, password):
-    return User.query.filter_by(email=email, password=password).first()
+def find_user_by_email(email):
+    return User.query.filter_by(email=email).first()
+
 
 
 def assigned_roles(user, rolesSelected):

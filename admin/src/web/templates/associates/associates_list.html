@@ -18,15 +18,12 @@
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
-
-  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_add">
-    <a>
+  <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_search">
       Buscar
-    </a>
   </button>
 
   
-  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_exporter">
     <input name="doc_type" value="csv" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/export_csv.png') }}">
@@ -34,7 +31,7 @@
     </a>
   </button>
 
-  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_add">
+  <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_exporter">
     <input name="doc_type" value="pdf" hidden />
     <a>
       <img alt="agregar" src="{{ url_for('static', filename='images/pdf_export.png') }}">
@@ -64,12 +61,18 @@
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
+        {% if has_permission("member_show") %}
         <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion"
             title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
+        {% endif %}
+        {% if has_permission("member_update") %}
         <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
             src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
+        {% endif %}
+        {% if has_permission("member_destroy") %}
         <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
             alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
+        {% endif %}
       </th>
     </tr>
     {% endfor %}

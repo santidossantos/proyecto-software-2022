@@ -61,12 +61,18 @@
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
+        {% if has_permission("member_show") %}
         <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion"
             title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
+        {% endif %}
+        {% if has_permission("member_update") %}
         <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
             src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
+        {% endif %}
+        {% if has_permission("member_destroy") %}
         <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
             alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
+        {% endif %}
       </th>
     </tr>
     {% endfor %}

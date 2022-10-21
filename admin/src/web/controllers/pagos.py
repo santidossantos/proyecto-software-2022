@@ -4,6 +4,7 @@ from src.core import payment
 from src.core import associates
 from flask import url_for
 from flask import redirect
+from src.web.utils.exporters.pdf import generate_pdf_file_payment
 
 payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 
@@ -54,7 +55,12 @@ def result(id, id_pago):
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
 def updatePayment(id, id_pago, total):
-    print("EE")
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")
+
+    associate = associates.get_associate(id)
+    month = payment.get_payment(id).mes.value
+
+    #generate_pdf_file_payment(associate, total, month)
+
     return redirect(url_for("payment.show", id=id))

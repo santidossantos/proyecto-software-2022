@@ -15,6 +15,7 @@
     <span class="labelShow"><strong>Fecha: </strong>{{ datetime.now().strftime("%d/%m/%y") }}</span>
     <span class="labelShow"><strong>Total: </strong>{{costo_total}}</span>
 </section>
+
 <button class="button_registarpago">
     <a href="{{ url_for('payment.updatePayment',id=associate.id, id_pago=id_pago, total=costo_total )}}">Registrar
         Pago</a>

@@ -24,7 +24,7 @@ def costo_total(costo_disciplines):
     if now.day >= 1 and now.day <= 10:
         return total
     else:
-        return total + (total * (config.recharge_percentaje / 100))
+        return total + (int(total * (config.recharge_percentaje / 100)))
 
 
 def update_Payment(id_pago, total):

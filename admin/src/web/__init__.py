@@ -16,6 +16,7 @@ from flask import url_for
 from flask import redirect
 from src.core import auth
 from src.web.helpers import permission as helper_permission
+from datetime import datetime 
 
 
 def create_app(env="development", static_folder="static"):
@@ -40,6 +41,7 @@ def create_app(env="development", static_folder="static"):
     # Jinja
     app.jinja_env.globals.update(is_authenticated=is_authenticated)
     app.jinja_env.globals.update(has_permission=helper_permission.has_permission)
+    app.jinja_env.globals.update(datetime=datetime)
 
     @app.get("/")
     def entry_point():

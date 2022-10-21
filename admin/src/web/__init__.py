@@ -12,6 +12,7 @@ from src.web.controllers.discipline import discipline_blueprint
 from src.web.controllers.pagos import payment_blueprint
 from src.web.controllers.config import config_blueprint
 from src.web.controllers.inscription import inscription_blueprint
+from src.web.controllers.api import api_blueprint
 from flask import url_for
 from flask import redirect
 from src.core import auth
@@ -33,6 +34,7 @@ def create_app(env="development", static_folder="static"):
     app.register_blueprint(payment_blueprint)
     app.register_blueprint(config_blueprint)
     app.register_blueprint(inscription_blueprint)
+    app.register_blueprint(api_blueprint)
 
     app.register_error_handler(401, handlers.unauthorized)
     app.register_error_handler(404, handlers.not_found_error)

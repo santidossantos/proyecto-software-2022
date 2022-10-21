@@ -7,6 +7,9 @@ from datetime import datetime
 def list_payment(page_num, per_page):
     return Payment.query.paginate(page_num, per_page, True)
 
+def list_assoc_payments(id):
+    return Payment.query.filter(Payment.associated_id == id)
+
 
 def get_payment(id):
     payment = Payment.query.get(id)

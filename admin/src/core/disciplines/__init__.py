@@ -8,6 +8,10 @@ def list_disciplines(page_num, per_page):
     return Discipline.query.paginate(page_num, per_page, True)
 
 
+def list_disciplines_plain():
+    return Discipline.query.all()
+
+
 def create_discipline(**kwargs):
     discipline = Discipline(**kwargs)
     db.session.add(discipline)

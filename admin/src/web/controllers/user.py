@@ -107,3 +107,14 @@ def setStatus(id, desactivado):
     else:
         flash("No se puede Bloquear un usuario Admin", "error")
     return redirect((url_for("users.user_index")))
+
+@users_blueprint.post("/search")
+def search():
+    params = request.form
+    active_filter = params["active_filter"]
+    search_filter = params["search_field"]
+
+    paginated_users = auth.list_users_filtered(
+        search_filter, active_filter
+    ).paginate(1, 2)
+    return render_template("users/users_list.html", users=paginated_users)

@@ -31,6 +31,17 @@ def random_integer():
     return rand
 
 
+associates_disciplines = db.Table(
+    "user_discipline",  # le quiero poner como nombre "associates_disciplines" pero se rompe todo
+    db.Column(
+        "associate_id", db.Integer, db.ForeignKey("associates.id"), primary_key=True
+    ),
+    db.Column(
+        "discipline_id", db.Integer, db.ForeignKey("disciplines.id"), primary_key=True
+    ),
+)
+
+
 class Associate(db.Model):
 
     __tablename__ = "associates"
@@ -43,6 +54,7 @@ class Associate(db.Model):
     dni = db.Column(db.String(), unique=True, nullable=False)
     address = db.Column(db.String(100), nullable=False)
     active = db.Column(db.Boolean(), default=False, nullable=False)
+    defaulter = db.Column(db.Boolean(), default=False, nullable=False)
     mobile_number = db.Column(db.String(10), unique=True)
     email = db.Column(db.String(50), unique=True)
     create_at = db.Column(
@@ -51,7 +63,7 @@ class Associate(db.Model):
     update_at = db.Column(db.DateTime, default=datetime.datetime.now())
     genero = db.Column(db.Enum(Genero), default="O", nullable=False)
     document_type = db.Column(db.Enum(DocumentType), default="DNI", nullable=False)
-    id_payment = db.relationship("Payment", backref="socio")
+    disciplines = db.relationship("Discipline", secondary=associates_disciplines)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

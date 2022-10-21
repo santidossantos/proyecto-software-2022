@@ -3,12 +3,18 @@ from src.core.database import db
 
 
 def list_associate(page_num, per_page):
-    return Associate.query.paginate(page_num, per_page, True)
+    return list_associateActive(page_num, per_page)
+
+
+def list_associateActive(page_num, per_page):
+    return Associate.query.filter(Associate.active == True).paginate(
+        page_num, per_page, True
+    )
 
 
 def list_associate_filtered(search_filter, active_filter):
     return Associate.query.filter(Associate.active == active_filter).filter(
-        Associate.last_name.ilike(f'%{search_filter}%')
+        Associate.last_name.ilike(f"%{search_filter}%")
     )
 
 
@@ -37,7 +43,7 @@ def usWithUserEmail(email):
 
 def delete_user(id):
     user = Associate.query.get(id)
-    db.session.delete(user)
+    user.active = not user.active
     db.session.commit()
     return user
 
@@ -56,3 +62,22 @@ def searchBySurname(surname, page_num, per_page):
     return Associate.query.filter(Associate.last_name == surname).paginate(
         page_num, per_page, True
     )
+
+
+def is_defaulter(id):
+    associate = Associate.query.get(id)
+    return associate.defaulter
+
+
+def is_active(id):
+    associate = Associate.query.get(id)
+    return associate.active
+
+
+def cost_disciplines(id):
+    print(id)
+    associate = get_associate(id)
+    total_cost = 0
+    for disciplina in associate.disciplines:
+        total_cost = total_cost + disciplina.monthlyCost
+    return total_cost

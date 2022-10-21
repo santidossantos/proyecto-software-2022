@@ -173,3 +173,10 @@ form {
   border-radius: 2px;
   cursor: pointer;
 }
+
+.text_mora {
+  color: #eb5d5d;
+  ;
+  text-align: center;
+  padding-top: 1rem;
+}

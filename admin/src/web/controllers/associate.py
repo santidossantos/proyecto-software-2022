@@ -8,6 +8,8 @@ from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
 from src.web.utils import exporters
+from src.web.helpers.permission import role_required
+from src.web.utils.validations import CampoVAcio, validationEmail
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -23,7 +25,9 @@ def associate_index(page_num=1, per_page=4):
     )
 
 
+
 @associates_blueprint.route("/create", methods=("GET", "POST"))
+@role_required('admin')
 def create():
 
     if request.method == "POST":
@@ -36,23 +40,23 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        if not CampoVAcio(name, last_name, document_type, dni, genero, address):
-            return redirect(url_for("associates.create"))
-        if associates.usWithUserEmail(email):
-            flash("el email ingresado está ocupado", "error")
-            return redirect(url_for("associates.create"))
-        associates.create_user(
-            name=name,
-            last_name=last_name,
-            document_type=document_type,
-            dni=dni,
-            genero=genero,
-            mobile_number=mobile_number,
-            email=email,
-            address=address,
-        )
-        flash("Asociado Creado Correctamente", "success")
-        return redirect((url_for("associates.associate_index")))
+
+        if CampoVAcio(name, last_name, document_type, dni, genero, address) and validationEmail(email):
+            if associates.usWithUserEmail(email):
+                flash("el email ingresado está ocupado", "error")
+                return redirect(url_for("associates.create"))
+            associates.create_user(
+                name=name,
+                last_name=last_name,
+                document_type=document_type,
+                dni=dni,
+                genero=genero,
+                mobile_number=mobile_number,
+                email=email,
+                address=address,
+            )
+            flash("Asociado Creado Correctamente", "success")
+            return redirect((url_for("associates.associate_index")))
 
     document_type = DocumentType
 

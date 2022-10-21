@@ -1,0 +1,37 @@
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
+{%block content %} {{ super() }}
+<h1>Seccion de Pagos</h1>
+<table class="index-table box">
+    <thead>
+        <tr>
+            <th class="name">Nombre</th>
+            <th class="name">Apellido</th>
+            <th class="name">Email</th>
+            <th class="name">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users.items %}
+        <tr>
+            <th>{{ user.name }}</th>
+            <th>{{ user.last_name }}</th>
+            <th>{{ user.email}}</th>
+            <th>
+                <button class="button_registarpago">
+                    <a href="{{ url_for('payment.show', id=user.id )}}">Registrar Pago</a>
+                </button>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+<!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
+    paginacion  para enviarselos al template paginacion.html 
+    que usa por defecto la variable  pagination_items -->
+{% set pagination_items = users %}
+{% set url_redirect = '/payment' %}
+{% include'layout/pagination.html' %}
+{% endblock content %}

@@ -35,6 +35,10 @@ def authenticate():
         flash("Email no válido", "error")
         return render_template("auth/login.html")
 
+    if(auth.is_active(user.id)):
+        flash("Su cuenta actualmente se encuntra bloqueada", "error")
+        return render_template("auth/login.html")
+
     session["user"] = user.email
     flash("Sesión iniciada", "success")
     return redirect(url_for("users.user_index"))

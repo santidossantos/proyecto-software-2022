@@ -66,3 +66,7 @@ def NoEsAdmin(id):
     if res in user.roles:
        return False
     return True
+
+def is_active(id):
+    user = get_user(id)
+    return user.active

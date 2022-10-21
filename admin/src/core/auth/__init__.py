@@ -79,7 +79,7 @@ def NoEsAdmin(id):
 
 def is_active(id):
     user = get_user(id)
-    return user.active
+    return not user.active
 
 
 def list_users_filtered(search_filter, active_filter):

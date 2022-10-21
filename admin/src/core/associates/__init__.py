@@ -3,7 +3,7 @@ from src.core.database import db
 
 
 def list_associate(page_num, per_page):
-    return Associate.query.paginate(page_num, per_page, True)
+    return list_associateActive(page_num, per_page)
 
 
 def list_associateActive(page_num, per_page):
@@ -43,7 +43,7 @@ def usWithUserEmail(email):
 
 def delete_user(id):
     user = Associate.query.get(id)
-    db.session.delete(user)
+    user.active = not user.active
     db.session.commit()
     return user
 

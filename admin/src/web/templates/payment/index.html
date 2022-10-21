@@ -1,9 +1,16 @@
 {% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
 {%block content %} {{ super() }}
 <h1>Seccion de Pagos</h1>
+<form class="filter_user" action="" method="POST">
+    <input name="search_field" type="search" class="search-field" placeholder="apellido o Nro de socio" />
+    <button type="submit" formaction="{{ url_for('users.search') }}" class="button_search">
+      Buscar
+    </button>
+</form>
 <table class="index-table box">
     <thead>
         <tr>
+            <th class="name">Nro de Socio</th>
             <th class="name">Nombre</th>
             <th class="name">Apellido</th>
             <th class="name">Email</th>
@@ -13,6 +20,7 @@
     <tbody>
         {% for user in users.items %}
         <tr>
+            <th>{{ user.member_number }}</th>
             <th>{{ user.name }}</th>
             <th>{{ user.last_name }}</th>
             <th>{{ user.email}}</th>

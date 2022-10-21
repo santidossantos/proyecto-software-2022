@@ -1,3 +1,4 @@
+from core.payment import Payment
 from src.core.associates.associate import DocumentType, Genero
 from flask import Blueprint
 from flask import render_template
@@ -45,7 +46,7 @@ def create():
             if associates.usWithUserEmail(email):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("associates.create"))
-            associates.create_user(
+            associate = associates.create_user(
                 name=name,
                 last_name=last_name,
                 document_type=document_type,
@@ -55,6 +56,7 @@ def create():
                 email=email,
                 address=address,
             )
+            associates.generar_pagos(id=associate.id)
             flash("Asociado Creado Correctamente", "success")
             return redirect((url_for("associates.associate_index")))
 

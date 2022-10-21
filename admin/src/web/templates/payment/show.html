@@ -7,9 +7,13 @@
 <main class="section_table_and_disciplines">
     <div class="info_container">
         <p class="text_discipline">Disciplinas que realiza</p>
-        {% for d in user.disciplines %}
-        <li>{{ d.name | capitalize }} </li>
-        {% endfor %}
+        {% if user.disciplines %}
+            {% for d in user.disciplines %}
+                <li>{{ d.name | capitalize }} </li>
+            {% endfor %}
+        {% else %}
+        <p>-No hay disciclinas</p>
+        {% endif %}
         <h2 class="text_pago">Total a pagar: ${{ costo_total }} </h2>
     </div>
     <table class="index-table box">

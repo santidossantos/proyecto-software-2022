@@ -21,15 +21,13 @@
 
 .button_search {
   margin-bottom: 5px;
-  padding: 0.3rem;
+  padding: 0.6rem;
   border-radius: 5px;
   border: none;
   font-size: 1rem;
   font-weight: 500;
-  border-color: black;
   background: #237871;
-  color: withe;
-  color: rgb(0, 0, 0);
+  color: white;
   cursor: pointer;
 }
 
@@ -414,4 +412,9 @@ p.flash.info {
 .button_registarpago a {
   text-decoration: none;
   color: aliceblue;
+}
+
+.inscripcion{
+  text-decoration: none;
+  color: darkcyan;
 }

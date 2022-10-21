@@ -60,13 +60,13 @@ def find_inscription_by_associate_and_discipline(idAssociate, idDiscipline):
     )
 
 
-def generar_pagos(id):
-    mes = ["E", "F", "M"]
-    if not (Payment.query.filter_by(associated_id=id).first()):
-        for i in mes:
-            payment = Payment(associated_id=id, mes=i, total=0)
-            db.session.add(payment)
-            db.session.commit()
-        return payment
+# def generar_pagos(id):
+#     mes = ["E", "F", "M"]
+#     if not (Payment.query.filter_by(associated_id=id).first()):
+#         for i in mes:
+#             payment = Payment(associated_id=id, mes=i, total=0)
+#             db.session.add(payment)
+#             db.session.commit()
+#         return payment
 
-    return 1
+#     return 1

@@ -27,7 +27,7 @@
             <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
             <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
             <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
-            <a href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
+            <a class="inscripcion" href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
         </div>
       </th>
     </tr>

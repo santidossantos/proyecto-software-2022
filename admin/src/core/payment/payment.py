@@ -8,6 +8,17 @@ class Mes(enum.Enum):
     E = "Enero"
     F = "Febrero"
     M = "Marzo"
+    A = "Abril"
+    May = "Mayo"
+    Jun = "Junio"
+    Jul = "Julio"
+    Ago = "Agosto"
+    S = "Septiembre"
+    O = "Ocutubre"
+    N = "Noviembre"
+    D = "Diciembre"
+
+
 
 
 class State(enum.Enum):
@@ -38,7 +49,7 @@ def update(self, **kwargs):
 
 
 def create_month_registers(id_user):
-    mes = ["E", "F", "M"]
+    mes = ["E", "F", "M", "A", "May", "Jun", "Jul", "Ago", "S", "O", "N", "D"]
     for i in mes:
         payment = Payment(associated_id=id_user, mes=i, total=0)
         db.session.add(payment)

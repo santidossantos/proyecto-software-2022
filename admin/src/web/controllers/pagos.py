@@ -46,7 +46,6 @@ def result(id, id_pago):
                 month=pago.mes.value,
                 id_pago=id_pago,
             )
-
         else:
             flash("Debe pagar las cuotas vencidas", "error")
             return redirect(url_for("payment.show", id=id))

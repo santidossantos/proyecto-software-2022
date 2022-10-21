@@ -1,3 +1,4 @@
+from src.core.auth.user import User
 from flask import Blueprint
 from flask import render_template
 from flask import request
@@ -24,9 +25,14 @@ def login():
 @auth_blueprint.post("/authenticate")
 def authenticate():
     params = request.form
+    email = params["email"]
+    password = params["password"]
+    
     if validationEmail(params["email"]):
-        user = auth.find_user_by_email_and_pass(params["email"], params["password"])
+        user = auth.find_user_by_email(email)
+        user.check_password(password)
 
+       
         if not user:
             flash("Email o clave incorrecta", "error")
             return render_template("auth/login.html")

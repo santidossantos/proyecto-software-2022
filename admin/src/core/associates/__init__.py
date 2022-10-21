@@ -1,4 +1,5 @@
 from src.core.associates.associate import Associate
+from src.core.associates.associate import associates_disciplines
 from src.core.database import db
 
 
@@ -75,7 +76,6 @@ def is_active(id):
 
 
 def cost_disciplines(id):
-    print(id)
     associate = get_associate(id)
     total_cost = 0
     for disciplina in associate.disciplines:

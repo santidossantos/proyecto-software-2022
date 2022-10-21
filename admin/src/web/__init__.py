@@ -18,6 +18,7 @@ from flask import redirect
 from src.core import auth
 from src.web.helpers import permission as helper_permission
 from datetime import datetime 
+from src.web.helpers import discipline as helper_discipline
 
 
 def create_app(env="development", static_folder="static"):
@@ -44,6 +45,7 @@ def create_app(env="development", static_folder="static"):
     app.jinja_env.globals.update(is_authenticated=is_authenticated)
     app.jinja_env.globals.update(has_permission=helper_permission.has_permission)
     app.jinja_env.globals.update(datetime=datetime)
+    app.jinja_env.globals.update(find_inscription_by_associate_and_discipline=helper_discipline.find_inscription_by_associate_and_discipline)
 
     @app.get("/")
     def entry_point():

@@ -39,7 +39,11 @@
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
+        {% if find_inscription_by_associate_and_discipline(associate.id,idDisciplina) %}
+          <p>Asociado ya inscripto</p>
+        {% else %}
          <a href="{{ url_for('inscription.doInscription', id=associate.id , idDisciplina=idDisciplina) }}">Inscribir a disciplina</a>
+        {% endif %}
       </th>
     </tr>
     {% endfor %}

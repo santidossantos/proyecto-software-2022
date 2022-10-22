@@ -28,7 +28,7 @@ def random_integer():
     while Associate.query.filter(uuid == rand).limit(1).first() is not None:
         rand = randint(min_, max_)
 
-    return rand
+    return str(rand)
 
 
 associates_disciplines = db.Table(
@@ -47,7 +47,7 @@ class Associate(db.Model):
     __tablename__ = "associates"
     id = db.Column(db.Integer, primary_key=True, unique=True)
     member_number = db.Column(
-        db.Integer, default=random_integer, unique=True, nullable=False
+        db.String(20), default=random_integer, unique=True, nullable=False
     )
     name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)

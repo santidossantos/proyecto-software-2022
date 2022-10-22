@@ -17,16 +17,14 @@ block head %}
 
     <label class="label" for="name">Email</label>
     <input class="input_text" type="text" id="email" name="email" value="{{user.email}}" />
-
-    <label class="label" for="name">Contraseña</label>
-    <input class="input_text" type="text" id="password" name="password" value="{{user.password}}" />
-    <label class="label" for="rol">Roles</label>
+    
     {%for rol in roles%}
-      {% if rol not in user.roles and true %}
+    <label class="label" for="rol">Roles</label>
+      {% if rol not in user.roles and has_permission("usuario_update") %}
           <input type="checkbox" name="rol" value="{{ rol.id }}">  
           <label>{{ rol.nombre }}</label>
       {% else %}
-        {% if true %}
+        {% if has_permission("usuario_update") %}
           <input type="checkbox" name="rol" value="{{ rol.id }}" checked>  
           <label>{{ rol.nombre }}</label>
             {% elif rol in user.roles %}

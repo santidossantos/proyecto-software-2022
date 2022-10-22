@@ -1,5 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask import render_template, flash
+from core import config
 from src.core import payment
 from src.core import associates
 from flask import url_for
@@ -17,6 +18,7 @@ def payment_index(page_num=1, per_page=4):
 
 
 @payment_blueprint.route("/show/<id>")
+#@permisson_required("payment_show")
 def show(id):
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
@@ -31,6 +33,7 @@ def show(id):
 
 
 @payment_blueprint.route("/result/<id>/<id_pago>")
+#@permisson_required("payment_show")
 def result(id, id_pago):
     pending_payments = payment.pending_payments(id)
     associate = associates.get_associate(id)
@@ -53,6 +56,7 @@ def result(id, id_pago):
 
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
+#@permisson_required("payment_show")
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")
@@ -63,3 +67,13 @@ def updatePayment(id, id_pago, total):
     #generate_pdf_file_payment(associate, total, month)
 
     return redirect(url_for("payment.show", id=id))
+
+@payment_blueprint.post("/search")
+def search():
+    params = request.form
+    nro_or_lastaname = params["search_field"]
+    print(nro_or_lastaname)
+
+    paginated_associates = associates.associates_filtered_payment(nro_or_lastaname).paginate(1, config.get_per_page())
+
+    return render_template("payment/index.html", users=paginated_associates)

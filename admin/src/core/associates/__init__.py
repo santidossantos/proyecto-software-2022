@@ -1,6 +1,7 @@
 from core.payment import Payment
 from src.core.associates.associate import Associate
 from src.core.database import db
+from sqlalchemy import or_
 
 
 def list_associate(page_num, per_page):
@@ -90,3 +91,8 @@ def generar_pagos(id):
         db.session.add(payment)
         db.session.commit()
     return payment
+
+def associates_filtered_payment(nro_or_lastname):
+    return Associate.query.filter(Associate.active == True).filter(
+        or_(Associate.last_name.ilike(f"%{nro_or_lastname}%"), Associate.member_number.ilike(f"%{nro_or_lastname}%"))
+    )

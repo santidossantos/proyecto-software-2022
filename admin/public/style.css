@@ -7,11 +7,12 @@
   font-size: 1rem;
   font-weight: 500;
   border-color: black;
-  background: #0090af;
+  background: #313638;
   color: withe;
   color: aliceblue;
   cursor: pointer;
   float: right;
+  margin-right: 1%;
 }
 
 .button_add a {
@@ -21,13 +22,15 @@
 
 .button_search {
   margin-bottom: 5px;
-  padding: 0.6rem;
+  padding: 0.7rem;
   border-radius: 5px;
   border: none;
   font-size: 1rem;
   font-weight: 500;
-  background: #237871;
-  color: white;
+  border-color: black;
+  background: #313638;
+  color: withe;
+  color: aliceblue;
   cursor: pointer;
 }
 
@@ -104,17 +107,28 @@ p.flash.info {
 }
 
 .search-field {
-  height: 2.5rem;
-  padding: 0.625rem 2.1875rem 0.625rem 0.9375rem;
+  
+  padding: 0.6rem;
+  padding: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-color: black;
+  background: #313638;
+  color: withe;
+  color: aliceblue;
+  cursor: pointer;
   border: none;
   outline: none;
-  background: #fafafa;
   border: 0.081rem solid #cccccc;
   box-sizing: border-box;
   border-radius: 0.4419rem;
   margin: 0;
   display: inline-block;
   margin: 0rem 0.3125rem 0.375rem 0rem;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
 }
 
 /* ok */

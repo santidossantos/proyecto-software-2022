@@ -10,4 +10,4 @@ class Discipline(db.Model):
     nameInstructors = db.Column(db.String(100))
     daysAndHours = db.Column(db.String(100))
     monthlyCost = db.Column(db.Integer)
-    active = db.Column(db.Boolean(), default=False)
+    active = db.Column(db.Boolean(), default=True)

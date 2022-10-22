@@ -56,6 +56,6 @@ def logout():
     else:
         del session["user"]
         session.clear()
-        flash("La session se cerró correctamene", "success")
+        flash("La sessión se cerró correctamente", "success")
 
     return render_template("auth/login.html")

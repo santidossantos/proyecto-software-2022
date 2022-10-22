@@ -2,7 +2,7 @@
 {%block content %} {{ super() }}
 <h1>Seccion de Pagos</h1>
 <form class="filter_user" action="" method="POST">
-    <input name="search_field" type="search" class="search-field" placeholder="apellido o Nro de socio" />
+    <input name="search_field" type="search" class="search-field" placeholder="Apellido o N° Socio" />
     <button type="submit" formaction="{{ url_for('payment.search') }}" class="button_search">
       Buscar
     </button>

@@ -4,6 +4,7 @@ from flask import request
 from flask import flash
 from flask import url_for
 from flask import redirect
+from src.core import config
 from src.core import disciplines
 from src.web.helpers.permission import permisson_required
 
@@ -12,9 +13,9 @@ discipline_blueprint = Blueprint("disciplines", __name__, url_prefix="/disciplin
 
 @discipline_blueprint.get("/")
 @discipline_blueprint.get("/<int:page_num>")
-@permisson_required("discipline_index")
-def discipline_index(page_num=1, per_page=1):
-    paginated_disciplines = disciplines.list_disciplines(page_num=page_num, per_page=per_page)
+#@permisson_required("discipline_index")
+def discipline_index(page_num=1):
+    paginated_disciplines = disciplines.list_disciplines(page_num=page_num, per_page=config.get_per_page())
     return render_template("disciplines/disciplines_list.html", disciplines=paginated_disciplines)
 
 

@@ -6,16 +6,19 @@ from flask import redirect
 from flask import request
 from src.core import config
 from distutils.util import strtobool
+from src.web.helpers.permission import permisson_required
 
 config_blueprint = Blueprint("config", __name__, url_prefix="/config")
 
 
 @config_blueprint.get("/")
+@permisson_required("config_index")
 def config_form():
     return render_template("config/config.html", config=config.get_config())
 
 
 @config_blueprint.post("/update-config")
+@permisson_required("config_update")
 def update_config():
 
     params = request.form

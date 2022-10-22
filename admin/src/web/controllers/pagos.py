@@ -5,20 +5,21 @@ from src.core import payment
 from src.core import associates
 from flask import url_for
 from flask import redirect
-from src.web.utils.exporters.pdf import generate_pdf_file_payment
+from src.web.helpers.permission import permisson_required
 
 payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 
 
 @payment_blueprint.get("/")
 @payment_blueprint.get("/<int:page_num>")
-def payment_index(page_num=1, per_page=4):
-    paginated_users = associates.list_associate(page_num=page_num, per_page=per_page)
+@permisson_required("payment_index")
+def payment_index(page_num=1):
+    paginated_users = associates.list_associate(page_num=page_num, per_page=config.get_per_page())
     return render_template("payment/index.html", users=paginated_users)
 
 
 @payment_blueprint.route("/show/<id>")
-#@permisson_required("payment_show")
+@permisson_required("payment_show")
 def show(id):
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
@@ -33,7 +34,7 @@ def show(id):
 
 
 @payment_blueprint.route("/result/<id>/<id_pago>")
-#@permisson_required("payment_show")
+@permisson_required("payment_show")
 def result(id, id_pago):
     pending_payments = payment.pending_payments(id)
     associate = associates.get_associate(id)
@@ -56,7 +57,7 @@ def result(id, id_pago):
 
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
-#@permisson_required("payment_show")
+@permisson_required("payment_show")
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")

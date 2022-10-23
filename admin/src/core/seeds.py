@@ -23,6 +23,12 @@ def run():
     discipline_update = permissions.create_permission(nombre="discipline_update")
     discipline_show = permissions.create_permission(nombre="discipline_show")
 
+    config_index = permissions.create_permission(nombre="config_index")
+    config_update = permissions.create_permission(nombre="config_update")
+
+    payment_index = permissions.create_permission(nombre="payment_index")
+    payment_show = permissions.create_permission(nombre="payment_show")
+
     role_admin = permissions.create_role(nombre="admin")
 
     role_admin.permisos.append(member_index)
@@ -36,6 +42,12 @@ def run():
     role_admin.permisos.append(discipline_destroy)
     role_admin.permisos.append(discipline_update)
     role_admin.permisos.append(discipline_show)
+
+    role_admin.permisos.append(config_index)
+    role_admin.permisos.append(config_update)
+
+    role_admin.permisos.append(payment_index)
+    role_admin.permisos.append(payment_show)
 
     role_operator = permissions.create_role(nombre="operator")
 

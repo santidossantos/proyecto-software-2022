@@ -49,8 +49,7 @@ def create():
         flash("Disciplina creada correctamente", "success")
         return redirect((url_for("disciplines.discipline_index")))
     else:
-        flash("Debe completar los campos", "error")
-    return render_template("disciplines/create.html")
+        return render_template("disciplines/create.html")
 
 
 @discipline_blueprint.route("/delete/<id>")
@@ -62,7 +61,7 @@ def delete(id):
         return redirect((url_for("disciplines.discipline_index")))
     else:
         flash(
-            "No se peude eliminar la disciplina ya que tiene asociados inscriptos",
+            "No se puede eliminar la disciplina ya que tiene asociados inscriptos",
             "error",
         )
         return redirect((url_for("disciplines.discipline_index")))

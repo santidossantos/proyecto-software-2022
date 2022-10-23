@@ -64,5 +64,5 @@ def isInteger(valor):
         valor = int(valor)
         return True
     except:
-        flash("Debe ingresar un importe", "error")
+        flash("Debe ingresar un importe válido", "error")
         return False

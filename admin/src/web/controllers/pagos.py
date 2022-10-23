@@ -50,7 +50,7 @@ def result(id, id_pago):
                 id_pago=id_pago,
             )
         else:
-            flash("Debe pagar las cuotas vencidas", "error")
+            flash("Error! Debe pagar las cuotas vencidas en orden", "error")
             return redirect(url_for("payment.show", id=id))
     return redirect(url_for("payment.show", id=id))
 

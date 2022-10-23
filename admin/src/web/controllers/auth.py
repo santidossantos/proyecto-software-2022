@@ -30,11 +30,16 @@ def authenticate():
 
     if validationEmail(params["email"]):
         user = auth.find_user_by_email(email)
-        user.check_password(password)
+
+        if user:
+            if not user.check_password(password):
+                flash("Email o clave incorrecta", "error")
+                return render_template("auth/login.html")
 
         if not user:
             flash("Email o clave incorrecta", "error")
             return render_template("auth/login.html")
+        
 
     else:
         flash("Email no válido", "error")

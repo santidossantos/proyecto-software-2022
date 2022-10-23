@@ -29,7 +29,7 @@ def associate_index(page_num=1, per_page=4):
 
 
 @associates_blueprint.route("/create", methods=("GET", "POST"))
-@permisson_required("member_new")
+#@permisson_required("member_new")
 def create():
 
     if request.method == "POST":

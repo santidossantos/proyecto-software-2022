@@ -15,7 +15,5 @@ def create_role(**kwargs):
     db.session.add(role)
     db.session.commit()
     return role
-
-
-#def link_role_permission(role, permission):
+    
     

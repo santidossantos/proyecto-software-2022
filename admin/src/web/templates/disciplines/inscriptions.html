@@ -11,10 +11,8 @@
 
   <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
 
-  <button type="submit" formaction="{{ url_for('inscription.search', id=idDisciplina) }}" class="button_add">
-    <a>
+  <button type="submit" formaction="{{ url_for('inscription.search', id=idDisciplina) }}" class="button_search">
       Buscar
-    </a>
   </button>
 
 </form>
@@ -39,7 +37,11 @@
       <th>{{ associate.dni}}</th>
       <th>{{ associate.address}}</th>
       <th>
-         <a href="{{ url_for('inscription.doInscription', id=associate.id , idDisciplina=idDisciplina) }}">Inscribir a disciplina</a>
+        {% if find_inscription_by_associate_and_discipline(associate.id,idDisciplina) %}
+          <p>Asociado ya inscripto</p>
+        {% else %}
+         <a class="inscripcion" href="{{ url_for('inscription.doInscription', id=associate.id , idDisciplina=idDisciplina) }}">Inscribir a disciplina</a>
+        {% endif %}
       </th>
     </tr>
     {% endfor %}
@@ -54,7 +56,8 @@
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
 paginacion  para enviarselos al template paginacion.html 
 que usa por defecto la variable  pagination_items -->
-{% set pagination_items = associates %} {% set url_redirect = '/associates' %}
+{% set pagination_items = associates %} 
+{% set url_redirect = '/inscription' %}
 {% include'layout/pagination.html' %}
 
 

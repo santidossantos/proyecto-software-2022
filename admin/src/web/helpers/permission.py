@@ -26,12 +26,20 @@ def has_role(rol):
     return False
 
 
-def role_required(role_name):
+def permisson_required(*argumentos):
     def decorator(func):
         @wraps(func)
         def authorize(*args, **kwargs):
-            if not session or not has_role(role_name):
+            if not session:
                 abort(401)
+
+            contador = 0
+            for arg in argumentos:
+                if has_permission(arg):
+                    contador += 1
+            if contador == 0:
+                abort(401)
+
             return func(*args, **kwargs)
 
         return authorize

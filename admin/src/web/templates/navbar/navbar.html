@@ -1,41 +1,55 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='navbar/css/styles.css') }}" />
-<script src="https://kit.fontawesome.com/7e5b2d153f.js" crossorigin="anonymous"></script>
-<script defer src="{{ url_for('static', filename='navbar/js/index.js') }}"></script>
-<section class="header">
-  <nav class="nav">
-    <a href="/" class="logo nav-link">Club</a>
-    <button class="nav-toggle" aria-label="Abrir menú">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
     </button>
-    <ul class="nav-menu">
-      <li class="nav-menu-item">
-        <a href="/users" class="nav-menu-link nav-link">Usuarios</a>
-      </li>
-      <li class="nav-menu-item">
-        <a href="/associates" class="nav-menu-link nav-link">Asociados</a>
-      </li>
-      <li class="nav-menu-item">
-        <a href="/disciplines" class="nav-menu-link nav-link">Disciplinas</a>
-      </li>
-      <li class="nav-menu-item">
-        <a href="{{ url_for('config.config_form') }}" class="nav-menu-link nav-link">Configuracion</a>
-      </li>
-      <li class="nav-menu-item">
-        <a href="/payment" class="nav-menu-link nav-link">Pagos</a>
-      </li>
-      <li class="nav-menu-item">
-        <div class="dropdown-container">
-          <a href="#" class="nav-menu-link nav-link">Cuenta</a>
-          <div>
-            <ul>
-              <li class="lis">Mi perfil</li>
-              <li class="lis">Estado Societario</li>
-              <hr /></a>
-              <li class="lis"><a class="alink" href="../auth/logout">Cerrar Sesion</a></li>
-            </ul>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </nav>
-</section>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+
+      <a class="navbar-brand mt-2 mt-lg-0" href="/">
+        <img style="width: 40px" alt="logo" src="{{ url_for('static', filename='images/logo.png') }}" />
+      </a>
+
+      <ul class="nav navbar-nav">
+        <li class="nav-item px-2 ">
+          <a class="nav-link" href="/users">Usuarios</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/associates">Asociados</a>
+        </li>
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/disciplines">Disciplinas</a>
+        </li>
+        {% if has_permission("payment_index") %}
+          <li class="nav-item px-2">
+            <a class="nav-link" href="/payment">Pagos</a>
+          </li>
+        {% endif%}
+        {% if has_permission("config_index") %}
+          <li class="nav-item px-2">
+            <a class="nav-link" href="{{ url_for('config.config_form') }}">Configuración</a>
+          </li>
+        {% endif%}
+      </ul>
+
+    </div>
+
+    <div class="d-flex align-items-center">
+
+      <div class="dropdown">
+        <a style="color: aliceblue" class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
+          id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+          <i style="color: aliceblue" class="fas fa-user"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+          <li>
+            <a class="dropdown-item" href="#">Salir</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</nav>

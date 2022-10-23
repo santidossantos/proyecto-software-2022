@@ -57,3 +57,12 @@ def CampoVAcio(*args):
             return False
 
     return True
+
+
+def isInteger(valor):
+    try:
+        valor = int(valor)
+        return True
+    except:
+        flash("Debe ingresar un importe válido", "error")
+        return False

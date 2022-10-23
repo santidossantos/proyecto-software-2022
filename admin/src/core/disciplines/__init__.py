@@ -70,3 +70,11 @@ def generar_pagos(id):
         return payment
 
     return 1
+
+
+def IsErasable(id):
+    resul = db.session.query(associates_disciplines).filter_by(discipline_id=id).first()
+    if resul:
+        return False
+
+    return True

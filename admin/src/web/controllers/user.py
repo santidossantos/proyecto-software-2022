@@ -8,18 +8,22 @@ from src.core import auth
 from src.core.permissions.role import Role
 from src.web.utils.validations import CampoVAcio, validationMailAndPass
 from sqlalchemy import or_
+from src.core import config
+from src.web.helpers.permission import permisson_required
 
 users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
-def user_index(page_num=1, per_page=4):
-    paginated_users = auth.list_users(page_num=page_num, per_page=per_page)
+#@permisson_required("user_index")
+def user_index(page_num=1):
+    paginated_users = auth.list_users(page_num=page_num, per_page=config.get_per_page())
     return render_template("users/users_list.html", users=paginated_users)
 
 
 @users_blueprint.route("/create", methods=("GET", "POST"))
+#@permisson_required("user_new")
 def create():
     if request.method == "POST":
         user_name = request.form.get("user_name")
@@ -50,6 +54,7 @@ def create():
     return render_template("users/create.html")
 
 @users_blueprint.route("/delete/<id>")
+@permisson_required("user_delete")
 def delete(id):
     auth.delete_user(id=id)
     flash("Usuario Eliminado Correctamente", "success")
@@ -57,6 +62,7 @@ def delete(id):
 
 
 @users_blueprint.route("/update/<id>", methods=["POST", "GET"])
+@permisson_required("user_update")
 def update(id):
     if request.method == "POST":
         user_name = request.form.get("user_name")
@@ -92,6 +98,7 @@ def update(id):
     return render_template("users/update.html", user=user, roles=roles)
 
 @users_blueprint.route("/show/<id>")
+@permisson_required("user_show")
 def show(id):
     user = auth.get_user(id=id)
     return render_template("users/show.html", user=user)
@@ -114,7 +121,6 @@ def search():
     active_filter = params["active_filter"]
     search_filter = params["search_field"]
 
-    paginated_users = auth.list_users_filtered(
-        search_filter, active_filter
-    ).paginate(1, 2)
+    paginated_users = auth.list_users_filtered(search_filter, active_filter).paginate(1, config.get_per_page())
+
     return render_template("users/users_list.html", users=paginated_users)

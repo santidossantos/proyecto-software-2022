@@ -1,5 +1,8 @@
+from core.payment import Payment
 from src.core.associates.associate import Associate
+from src.core.associates.associate import associates_disciplines
 from src.core.database import db
+from sqlalchemy import or_
 
 
 def list_associate(page_num, per_page):
@@ -75,9 +78,21 @@ def is_active(id):
 
 
 def cost_disciplines(id):
-    print(id)
     associate = get_associate(id)
     total_cost = 0
     for disciplina in associate.disciplines:
         total_cost = total_cost + disciplina.monthlyCost
     return total_cost
+
+def generar_pagos(id):
+    mes = ["E", "F", "M", "A", "May", "Jun", "Jul", "Ago", "S", "O", "N", "D"]
+    for i in mes:
+        payment = Payment(associated_id=id, mes=i, total=0)
+        db.session.add(payment)
+        db.session.commit()
+    return payment
+
+def associates_filtered_payment(nro_or_lastname):
+    return Associate.query.filter(Associate.active == True).filter(
+        or_(Associate.last_name.ilike(f"%{nro_or_lastname}%"), Associate.member_number.ilike(f"%{nro_or_lastname}%"))
+    )

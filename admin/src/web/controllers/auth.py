@@ -27,21 +27,26 @@ def authenticate():
     params = request.form
     email = params["email"]
     password = params["password"]
-    
+
     if validationEmail(params["email"]):
         user = auth.find_user_by_email(email)
-        user.check_password(password)
+
+        if user:
+            if not user.check_password(password):
+                flash("Email o clave incorrecta", "error")
+                return render_template("auth/login.html")
 
        
         if not user:
             flash("Email o clave incorrecta", "error")
             return render_template("auth/login.html")
+        
 
     else:
         flash("Email no válido", "error")
         return render_template("auth/login.html")
 
-    if(auth.is_active(user.id)):
+    if auth.is_active(user.id):
         flash("Su cuenta actualmente se encuntra bloqueada", "error")
         return render_template("auth/login.html")
 
@@ -52,8 +57,11 @@ def authenticate():
 
 @auth_blueprint.get("/logout")
 def logout():
-    del session["user"]
-    session.clear()
-    flash("La session se cerró correctamene", "success")
+    if not session:    
+        return render_template("auth/login.html")
+    else:
+        del session["user"]
+        session.clear()
+        flash("La sessión se cerró correctamente", "success")
 
     return render_template("auth/login.html")

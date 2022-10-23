@@ -1,16 +1,57 @@
-{% extends 'layout/layout.html' %} {% block title %} Administración {% endblock
-%} {% block head %}
+{% extends 'layout/layout.html' %} 
+{% block title %} Administración {% endblock %} 
+{% block head %} {{ super() }} {% endblock head%}
+{% block menu %}{% endblock menu %} 
+{% block content %} 
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
-{% endblock head%}{% block menu %}{% endblock menu %}{% block content %} {{ super() }}
-<h1 class="h1center">Inciar Sesion</h1>
-<div class="form_container">
-  <form class="form_inicio" action="{{ url_for('auth.authenticate') }}" method="post">
-    <label class="label" for="name">Usuario</label>
-    <input class="input_text_inicio" type="text" id="email" name="email" placeholder="email@hotmail.com" required />
-    <label class="label" for="name">Contraseña</label>
-    <input class="input_text_inicio" type="password" id="password" name="password" required />
-    <button type="submit" id="submit" class="btn">Ingresar</button>
-  </form>
-</div>
+<section class="vh-100" style="background-color: #272122;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="p-5 col-md-6 col-lg-5 d-none d-md-block align-items-center">
+              <img  class="pt-10" width="105%" src="{{ url_for('static', filename='images/logo.png') }}"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+
+                <form action="{{ url_for('auth.authenticate') }}" method="post">
+
+                  <div class="d-flex align-items-center mb-3 pb-1">
+                    <i class="fas fa-cubes fa-2x me-3" style="color: #ff6219;"></i>
+                    <span class="h1 fw-bold mb-1 m-auto">Administración</span>
+                  </div>
+
+                  <h5 class="fw-normal mb-3 pb-3 fw-bold center" style="letter-spacing: 1px;">Ingresá con tu cuenta</h5>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control form-control-lg" />
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <label class="form-label">Contraseña</label>
+                    <input type="password" id="password" name="password" class="form-control form-control-lg" />  
+                  </div>
+
+                  <div class="pt-1 mb-4">
+                    <button class="btn btn-dark btn-lg btn-block" type="submit">Ingresar</button>
+                  </div>
+
+                
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock content %}
+
+
+

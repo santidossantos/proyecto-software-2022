@@ -1,39 +1,42 @@
 {% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %}
 {%block content %} {{ super() }}
-<button class="button_add">
-  <a href="{{ url_for('disciplines.create') }}"><img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}"/>Nueva disciplina</a>
+<button class="button_add mt-3">
+  <a href="{{ url_for('disciplines.create') }}">Nueva disciplina</a>
 </button>
 <h1>Listado de disciplinas</h1>
-<table class="index-table box">
-  <thead>
-    <tr>
-      <th class="name">Nombre</th>
-      <th class="name">Categoria</th>
-      <th class="name">Nombre insctructores</th>
-      <th class="name">Dias y horarios</th>
-      <th class="name">Cuota mensual</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for discipline in disciplines.items %}
-    <tr>
-      <th>{{ discipline.name }}</th>
-      <th>{{ discipline.category }}</th>
-      <th>{{ discipline.nameInstructors}}</th>
-      <th>{{ discipline.daysAndHours }}</th>
-      <th>{{ discipline.monthlyCost}}</th>
-      <th>
-        <div>
-            <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
-            <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-            <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
-            <a class="inscripcion" href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
-        </div>
-      </th>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<section class="table-container">
+  <table class="index-table box">
+    <thead>
+      <tr>
+        <th class="name">Nombre</th>
+        <th class="name">Categoria</th>
+        <th class="name">Nombre insctructores</th>
+        <th class="name">Dias y horarios</th>
+        <th class="name">Cuota mensual</th>
+        <th class="name">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for discipline in disciplines.items %}
+      <tr>
+        <th>{{ discipline.name }}</th>
+        <th>{{ discipline.category }}</th>
+        <th>{{ discipline.nameInstructors}}</th>
+        <th>{{ discipline.daysAndHours }}</th>
+        <th>{{ discipline.monthlyCost}}</th>
+        <th>
+          <div>
+              <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
+              <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+              <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+              <a class="inscripcion" href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
+          </div>
+        </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
 paginacion  para enviarselos al template paginacion.html 

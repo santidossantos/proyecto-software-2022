@@ -98,7 +98,7 @@ def update(id):
     return render_template("users/update.html", user=user, roles=roles)
 
 @users_blueprint.route("/show/<id>")
-@permisson_required("user_show")
+#@permisson_required("user_show")
 def show(id):
     user = auth.get_user(id=id)
     return render_template("users/show.html", user=user)

@@ -49,10 +49,13 @@ form {
 }
 
 .h1center {
-  padding-top: 1rem;
+  padding: 2rem 1rem 0rem 1rem;
+  padding-left: 0;
+  color: #4b4b4b;
+  font-size: 2rem;
   text-align: center;
-  color: gray;
 }
+
 .btn {
   font-weight: bold;
   cursor: pointer;

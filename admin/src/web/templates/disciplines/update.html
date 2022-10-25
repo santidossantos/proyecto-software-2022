@@ -1,5 +1,5 @@
 {% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %} {%
-block head %}
+block head %} {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
 {% endblock head%} {%block content %}
 <h1 class="h1center">Actualizar Disciplina</h1>

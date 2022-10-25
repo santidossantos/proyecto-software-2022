@@ -1,14 +1,14 @@
 {% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
-{%block content %} {{ super() }}
-
+{%block content %} 
+{{ super() }}
 <h1>Listado de usuarios</h1>
 <button class="button_add">
   <a href="{{ url_for('users.create') }}"><img alt="agregar" 
     src="{{ url_for('static', filename='images/Adduser.png') }}"/> Agregar</a>
 </button>
 <form class="filter_user" action="" method="POST">
-  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email" />
-  <select name="active_filter" class="search-field">
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." />
+  <select name="active_filter" class="search-field cp">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
@@ -18,13 +18,13 @@
 </form>
 
 {% if users.items %}
+<section class="table-container">
   <table class="index-table box">
     <thead>
       <tr>
         <th class="name">Nombre</th>
         <th class="name">Apellido</th>
         <th class="name">Email</th>
-        <th class="name">Usuario</th>
         <th class="name">Acciones</th>
       </tr>
     </thead>
@@ -34,7 +34,6 @@
         <th>{{ user.name }}</th>
         <th>{{ user.last_name }}</th>
         <th>{{ user.email}}</th>
-        <th>{{ user.user_name }}</th>
         <th>
           <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
           <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
@@ -49,6 +48,7 @@
       {% endfor %}
     </tbody>
   </table>
+</section>
 
   <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
   paginacion  para enviarselos al template paginacion.html 
@@ -64,3 +64,4 @@
   </section>
 {% endif %}
 {% endblock content %}
+

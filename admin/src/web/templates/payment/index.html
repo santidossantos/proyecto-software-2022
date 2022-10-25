@@ -7,33 +7,34 @@
       Buscar
     </button>
 </form>
-<table class="index-table box">
-    <thead>
-        <tr>
-            <th class="name">Nro de Socio</th>
-            <th class="name">Nombre</th>
-            <th class="name">Apellido</th>
-            <th class="name">Email</th>
-            <th class="name">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users.items %}
-        <tr>
-            <th>{{ user.member_number }}</th>
-            <th>{{ user.name }}</th>
-            <th>{{ user.last_name }}</th>
-            <th>{{ user.email}}</th>
-            <th>
-                <button class="button_registarpago">
-                    <a href="{{ url_for('payment.show', id=user.id )}}">Registrar Pago</a>
-                </button>
-            </th>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+<section class="table-container">
+    <table class="index-table box">
+        <thead>
+            <tr>
+                <th class="name">Nro de Socio</th>
+                <th class="name">Nombre</th>
+                <th class="name">Apellido</th>
+                <th class="name">Email</th>
+                <th class="name">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users.items %}
+            <tr>
+                <th>{{ user.member_number }}</th>
+                <th>{{ user.name }}</th>
+                <th>{{ user.last_name }}</th>
+                <th>{{ user.email}}</th>
+                <th>
+                    <button class="button_registarpago">
+                        <a href="{{ url_for('payment.show', id=user.id )}}">Registrar Pago</a>
+                    </button>
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
 
 
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 

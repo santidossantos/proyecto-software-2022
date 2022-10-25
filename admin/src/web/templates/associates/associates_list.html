@@ -2,27 +2,21 @@
 {% block title %}Asociados{% endblock %}
 {% block content %}
 {{ super() }}
+<h1>Listado de Asociados</h1>
 <button class="button_add">
   <a href="{{ url_for('associates.create') }}">
-    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Nuevo Asociado</a>
+    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Agregar</a>
 </button>
-
-<h1>Listado de Asociados</h1>
 {% if associates.items %}
-
-
 <form class="filter_user" action="" method="POST">
-
-  <input name="search_field" type="search" class="search-field" placeholder="Buscar" />
-  <select name="active_filter" class="search-field">
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar por apellido..." />
+  <select name="active_filter" class="search-field cp">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
   <button type="submit" formaction="{{ url_for('associates.search') }}" class="button_search">
       Buscar
   </button>
-
-  
   <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_exporter">
     <input name="doc_type" value="csv" hidden />
     <a>
@@ -30,7 +24,6 @@
       Exportar CSV
     </a>
   </button>
-
   <button type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}" class="button_exporter">
     <input name="doc_type" value="pdf" hidden />
     <a>
@@ -38,46 +31,46 @@
       Exportar PDF
     </a>
   </button>
-
 </form>
-
-<table class="index-table box">
-  <thead>
-    <tr>
-      <th class="name">Nombre</th>
-      <th class="name">Apellido</th>
-      <th class="name">Email</th>
-      <th class="name">Dni</th>
-      <th class="name">Direccion</th>
-      <th class="name">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for associate in associates.items %}
-    <tr>
-      <th>{{ associate.name}}</th>
-      <th>{{ associate.last_name}}</th>
-      <th>{{ associate.email}}</th>
-      <th>{{ associate.dni}}</th>
-      <th>{{ associate.address}}</th>
-      <th>
-        {% if has_permission("member_show") %}
-        <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion"
-            title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
-        {% endif %}
-        {% if has_permission("member_update") %}
-        <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
-            src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
-        {% endif %}
-        {% if has_permission("member_destroy") %}
-        <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
-            alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
-        {% endif %}
-      </th>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<section class="table-container">
+  <table class="index-table box">
+    <thead>
+      <tr>
+        <th class="name">Nombre</th>
+        <th class="name">Apellido</th>
+        <th class="name">Email</th>
+        <th class="name">Dni</th>
+        <th class="name">Direccion</th>
+        <th class="name">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for associate in associates.items %}
+      <tr>
+        <th>{{ associate.name}}</th>
+        <th>{{ associate.last_name}}</th>
+        <th>{{ associate.email}}</th>
+        <th>{{ associate.dni}}</th>
+        <th>{{ associate.address}}</th>
+        <th>
+          {% if has_permission("member_show") %}
+          <a href="{{ url_for('associates.show', id=associate.id )}}"><img class="icon" alt="Mas informacion"
+              title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}" /></a>
+          {% endif %}
+          {% if has_permission("member_update") %}
+          <a href="{{ url_for('associates.update', id=associate.id )}}"><img class="icon" alt="editar" title="Editar"
+              src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
+          {% endif %}
+          {% if has_permission("member_destroy") %}
+          <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
+              alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
+          {% endif %}
+        </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 {% else %}
 <section class="containernotresult">
   <img img class="notresultimg" src="{{ url_for('static', filename='images/feedback-animate.svg') }}" />

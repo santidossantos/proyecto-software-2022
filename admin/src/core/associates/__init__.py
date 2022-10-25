@@ -96,3 +96,7 @@ def associates_filtered_payment(nro_or_lastname):
     return Associate.query.filter(Associate.active == True).filter(
         or_(Associate.last_name.ilike(f"%{nro_or_lastname}%"), Associate.member_number.ilike(f"%{nro_or_lastname}%"))
     )
+
+
+def associated_disciplines(id_assoc):
+    return get_associate(id_assoc).disciplines

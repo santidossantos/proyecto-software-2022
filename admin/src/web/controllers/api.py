@@ -1,3 +1,4 @@
+from src.core import associates
 from flask import Blueprint, jsonify, make_response, request
 from src.core import disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
@@ -27,7 +28,9 @@ def get_all_disciplines():
 
 @me_blueprint.get("/disciplines/<id>")
 def get_disciplines_by_id(id):
-    return "Implementar... falta tabla users_disciplines"
+    records =  associates.associated_disciplines(id)
+    serializer = DisciplineSchema(many=True)
+    return JSON_serialized_response(records, serializer)
 
 
 @me_blueprint.get("/payments/<id>")

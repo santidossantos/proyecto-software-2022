@@ -6,6 +6,7 @@ from flask import url_for
 from flask import redirect
 from src.core import associates
 from src.core import disciplines
+from src.core import config
 
 inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscription")
 
@@ -53,7 +54,7 @@ def search(id):
 
     paginated_associates = associates.list_associate_filtered(
         search_filter, True
-    ).paginate(1, 2)
+    ).paginate(1, config.get_per_page())
     return render_template(
         "disciplines/inscriptions.html",
         associates=paginated_associates,

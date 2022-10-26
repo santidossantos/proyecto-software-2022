@@ -11,6 +11,7 @@ from src.web.utils.validations import CampoVAcio
 from src.web.utils import exporters
 from src.web.utils.validations import CampoVAcio, validationEmail
 from src.web.helpers.permission import permisson_required
+from src.core import config
 
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
@@ -19,9 +20,9 @@ associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates
 @associates_blueprint.get("/")
 @associates_blueprint.get("/<int:page_num>")
 @permisson_required("member_index")
-def associate_index(page_num=1, per_page=4):
+def associate_index(page_num=1):
     paginated_associates = associates.list_associate(
-        page_num=page_num, per_page=per_page
+        page_num=page_num, per_page=config.get_per_page()
     )
     return render_template(
         "associates/associates_list.html", associates=paginated_associates
@@ -29,7 +30,7 @@ def associate_index(page_num=1, per_page=4):
 
 
 @associates_blueprint.route("/create", methods=("GET", "POST"))
-#@permisson_required("member_new")
+# @permisson_required("member_new")
 def create():
 
     if request.method == "POST":
@@ -43,9 +44,7 @@ def create():
         address = request.form.get("address")
         genero = request.form.get("genero")
 
-        if CampoVAcio(
-            name, last_name, document_type, dni, genero, address
-        ) and validationEmail(email):
+        if CampoVAcio(name, last_name, document_type, dni, genero, address):
             if associates.usWithUserEmail(email):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("associates.create"))
@@ -133,7 +132,7 @@ def search():
 
     paginated_associates = associates.list_associate_filtered(
         search_filter, active_filter
-    ).paginate(1, 2)
+    ).paginate(1, config.get_per_page())
     return render_template(
         "associates/associates_list.html", associates=paginated_associates
     )

@@ -39,6 +39,9 @@ associates_disciplines = db.Table(
     db.Column(
         "discipline_id", db.Integer, db.ForeignKey("disciplines.id"), primary_key=True
     ),
+    db.Column(
+        "inscriptionDate", db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()
+    )
 )
 
 

@@ -23,7 +23,7 @@ def payment_index(page_num=1):
 def show(id):
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
-    costo_disciplines = associates.cost_disciplines(id)
+    costo_disciplines = associates.cost_disciplines(id,1)
     costo_total = payment.costo_total(costo_disciplines)
     return render_template(
         "payment/show.html",
@@ -38,9 +38,11 @@ def show(id):
 def result(id, id_pago):
     pending_payments = payment.pending_payments(id)
     associate = associates.get_associate(id)
-    costo_disciplines = associates.cost_disciplines(id)
-    costo_total = payment.costo_total(costo_disciplines)
     pago = payment.get_payment(id_pago)
+    mes = mesToInt(pago.mes)
+    costo_disciplines = associates.cost_disciplines(id,mes)
+    costo_total = payment.costo_total(costo_disciplines)
+    todasDisciplinas=associates.getDisciplinas(id,mes)
     if pending_payments:
         if pago.mes.value == pending_payments[0].mes.value:
             return render_template(
@@ -49,11 +51,39 @@ def result(id, id_pago):
                 costo_total=costo_total,
                 month=pago.mes.value,
                 id_pago=id_pago,
+                todasDisciplinas=todasDisciplinas,
             )
         else:
             flash("Error! Debe pagar las cuotas vencidas en orden", "error")
             return redirect(url_for("payment.show", id=id))
     return redirect(url_for("payment.show", id=id))
+
+def mesToInt(mesPago):
+    mes = str(mesPago)
+    if mes == "Mes.E":
+        return 1
+    elif mes == "Mes.F":
+        return 2
+    elif mes == "Mes.M":
+        return 3
+    elif mes == "Mes.A":
+        return 4
+    elif mes == "Mes.May":
+        return 5
+    elif mes == "Mes.Jun":  
+        return 6
+    elif mes == "Mes.Jul":
+        return 7
+    elif mes == "Mes.Ago":
+        return 8
+    elif mes == "Mes.S":
+        return 9
+    elif mes == "Mes.O":
+        return 10
+    elif mes == "Mes.N":
+        return 11
+    elif mes == "Mes.D":
+        return 12
 
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")

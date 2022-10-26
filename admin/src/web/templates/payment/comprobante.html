@@ -1,7 +1,7 @@
 <section class="sectionShow">
     <h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
     <h2>Disciplinas :</h2>
-    {% for d in associate.disciplines %}
+    {% for d in todasDisciplinas %}
     <li>{{ d.name | capitalize }} </li>
     {% endfor %}
 

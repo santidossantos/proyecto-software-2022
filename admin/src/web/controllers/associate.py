@@ -19,7 +19,7 @@ associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates
 
 @associates_blueprint.get("/")
 @associates_blueprint.get("/<int:page_num>")
-@associates_blueprint.get("/<int:page_num>/<search>/<active>")
+@associates_blueprint.get("<int:page_num>/<search>/<active>/")
 @permisson_required("member_index")
 def associate_index(page_num=1):
 

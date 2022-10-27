@@ -96,7 +96,23 @@
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
 paginacion  para enviarselos al template paginacion.html 
 que usa por defecto la variable  pagination_items -->
-{% set pagination_items = associates %} {% set url_redirect = '/associates/' %}
+
+{% set base_url = '/associates' %}
+
+{% if  request.args.get('search_field') %}
+  {% set search = '?search_field=' + request.args.get('search_field') %}
+{% else %}
+  {% set search = "" %}
+{% endif %}
+
+
+{% if  request.args.get('active_filter') %}
+  {% set active = '&active_filter=' + request.args.get('active_filter') %}
+{% else %}
+  {% set active = "" %}
+{% endif %}
+
+{% set pagination_items = associates %} {% set url_redirect = base_url %}
 {% include'layout/pagination.html' %}
 
 {% endblock content %}

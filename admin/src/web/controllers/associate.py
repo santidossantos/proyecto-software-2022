@@ -19,10 +19,16 @@ associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates
 
 @associates_blueprint.get("/")
 @associates_blueprint.get("/<int:page_num>")
+@associates_blueprint.get("/<int:page_num>/<search>/<active>")
 @permisson_required("member_index")
 def associate_index(page_num=1):
+
+    search = request.args.get("search_field")
+    active = request.args.get("active_filter")
+  
+
     paginated_associates = associates.list_associate(
-        page_num=page_num, per_page=config.get_per_page()
+        page_num=page_num, per_page=config.get_per_page(), search=search, active=active
     )
     return render_template(
         "associates/associates_list.html", associates=paginated_associates
@@ -30,7 +36,7 @@ def associate_index(page_num=1):
 
 
 @associates_blueprint.route("/create", methods=("GET", "POST"))
-# @permisson_required("member_new")
+@permisson_required("member_new")
 def create():
 
     if request.method == "POST":
@@ -122,20 +128,6 @@ def delete(id):
     flash("Asociado Eliminado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
 
-
-@associates_blueprint.post("/search")
-def search():
-
-    params = request.form
-    active_filter = params["active_filter"]
-    search_filter = params["search_field"]
-
-    paginated_associates = associates.list_associate_filtered(
-        search_filter, active_filter
-    ).paginate(1, config.get_per_page())
-    return render_template(
-        "associates/associates_list.html", associates=paginated_associates
-    )
 
 
 @associates_blueprint.post("/export/csv")

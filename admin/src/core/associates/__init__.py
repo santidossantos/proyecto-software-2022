@@ -9,8 +9,19 @@ from src.core.database import db
 from sqlalchemy import or_
 
 
-def list_associate(page_num, per_page):
-    return list_associateActive(page_num, per_page)
+def list_associate(page_num, per_page, search, active):
+
+    def activeFilter(active):
+        if active:
+            return (Associate.active == active)
+        return True
+    
+    def searchFilter(search):
+        if search:
+            return Associate.last_name.ilike(f"%{search}%")
+        return True
+
+    return Associate.query.filter(activeFilter(active)).filter(searchFilter(search)).paginate(page_num, per_page, True)
 
 
 def list_associateActive(page_num, per_page):

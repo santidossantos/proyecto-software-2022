@@ -6,6 +6,7 @@ from src.core import associates
 from flask import url_for
 from flask import redirect
 from src.web.helpers.permission import permisson_required
+import datetime
 
 payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 
@@ -23,13 +24,20 @@ def payment_index(page_num=1):
 def show(id):
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
-    costo_disciplines = associates.cost_disciplines(id,1)
-    costo_total = payment.costo_total(costo_disciplines)
+    #para cada pending_payments se debe calcular el costo total
+    total=0
+    for pending_payment in pending_payments:
+        mes = mesToInt(pending_payment.mes)
+        costo_disciplines = associates.cost_disciplines(id,mes)
+        costo_total = payment.costo_total(costo_disciplines)
+        total=total+costo_total
+    disciplines = associates.getDisciplinas(id,datetime.datetime.now().month)
     return render_template(
         "payment/show.html",
         pending=pending_payments,
         user=associate,
-        costo_total=costo_total,
+        total=total,
+        disciplines=disciplines,
     )
 
 

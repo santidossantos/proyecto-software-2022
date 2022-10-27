@@ -2,10 +2,12 @@
 {%block content %} 
 {{ super() }}
 <h1>Listado de usuarios</h1>
-<button class="button_add">
-  <a href="{{ url_for('users.create') }}"><img alt="agregar" 
-    src="{{ url_for('static', filename='images/Adduser.png') }}"/> Agregar</a>
-</button>
+{% if has_permission("user_new") %}
+  <button class="button_add">
+    <a href="{{ url_for('users.create') }}"><img alt="agregar" 
+      src="{{ url_for('static', filename='images/Adduser.png') }}"/> Agregar</a>
+  </button>
+{% endif %}
 <form class="filter_user" action="" method="POST">
   <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." />
   <select name="active_filter" class="search-field cp">
@@ -35,13 +37,21 @@
         <th>{{ user.last_name }}</th>
         <th>{{ user.email}}</th>
         <th>
-          <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
-          <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-          <a href="{{ url_for('users.delete', id=user.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
-          {%if  user.active == True %}
-            <a href="{{ url_for('users.setStatus', id=user.id, desactivado=1) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
-          {% else %}
-            <a href="{{ url_for('users.setStatus', id=user.id, desactivado=0) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+          {% if has_permission("user_show") %}
+            <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_update") %}
+            <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_destroy") %}
+            <a href="{{ url_for('users.delete', id=user.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_activ") %}
+            {%if  user.active == True %}
+              <a href="{{ url_for('users.setStatus', id=user.id, desactivado=1) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
+            {% else %}
+              <a href="{{ url_for('users.setStatus', id=user.id, desactivado=0) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+            {% endif %}
           {% endif %}
         </th>
       </tr>

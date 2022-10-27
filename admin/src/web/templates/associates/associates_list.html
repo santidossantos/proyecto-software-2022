@@ -3,10 +3,12 @@
 {% block content %}
 {{ super() }}
 <h1>Listado de Asociados</h1>
-<button class="button_add">
-  <a href="{{ url_for('associates.create') }}">
-    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Agregar</a>
-</button>
+{% if has_permission("member_new") %}
+  <button class="button_add">
+    <a href="{{ url_for('associates.create') }}">
+      <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Agregar</a>
+  </button>
+{% endif %}
 {% if associates.items %}
 <form class="filter_user" action="" method="POST">
   <input name="search_field" type="search" class="search-field" placeholder="Buscar por apellido..." />

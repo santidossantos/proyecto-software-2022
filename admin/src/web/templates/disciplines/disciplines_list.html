@@ -1,8 +1,11 @@
 {% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %}
+{% block head %} {{super()}} {% endblock %}
 {%block content %} {{ super() }}
-<button class="button_add mt-3">
-  <a href="{{ url_for('disciplines.create') }}">Nueva disciplina</a>
-</button>
+{% if has_permission("discipline_new") %}
+  <button class="button_add mt-3">
+    <a href="{{ url_for('disciplines.create') }}">Nueva disciplina</a>
+  </button>
+{% endif %}
 <h1>Listado de disciplinas</h1>
 <section class="table-container">
   <table class="index-table box">
@@ -26,10 +29,18 @@
         <th>{{ discipline.monthlyCost}}</th>
         <th>
           <div>
-              <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
-              <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-              <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
-              <a class="inscripcion" href="{{ url_for('inscription.inscription', id=discipline.id )}}">Inscribir nuevo asociado</a>
+              {% if has_permission("discipline_new") %}
+                <a href="{{ url_for('disciplines.show', id=discipline.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/discipline.svg') }}"/></a>
+              {% endif %}
+              {% if has_permission("discipline_update") %}
+                <a href="{{ url_for('disciplines.update', id=discipline.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+              {% endif %}
+              {% if has_permission("discipline_destroy") %}
+                <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+              {% endif %}
+              {% if has_permission("discipline_inscription") %}
+                <a href="{{ url_for('inscription.inscription', id=discipline.id )}}"><img class="icon" alt="Realizar Inscripcion" title="Realizar Inscripcion" src="{{ url_for('static', filename='images/add.svg') }}"/></a>
+              {% endif %}
           </div>
         </th>
       </tr>

@@ -91,12 +91,7 @@ def mesToInt(mesPago):
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")
-
-    associate = associates.get_associate(id)
-    month = payment.get_payment(id).mes.value
-
-    #generate_pdf_file_payment(associate, total, month)
-
+    
     return redirect(url_for("payment.show", id=id))
 
 @payment_blueprint.post("/search")

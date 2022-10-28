@@ -14,7 +14,8 @@ payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 @payment_blueprint.get("/<int:page_num>")
 @permisson_required("payment_index")
 def payment_index(page_num=1):
-    paginated_users = associates.list_associate(page_num=page_num, per_page=config.get_per_page())
+    search = request.args.get("search_field")
+    paginated_users = associates.list_associate(page_num=page_num, per_page=config.get_per_page(), search=search, active=True, nroSocio=True)
     return render_template("payment/index.html", users=paginated_users)
 
 
@@ -93,13 +94,3 @@ def updatePayment(id, id_pago, total):
     flash("Pago realizado con éxito", "success")
     
     return redirect(url_for("payment.show", id=id))
-
-@payment_blueprint.post("/search")
-def search():
-    params = request.form
-    nro_or_lastaname = params["search_field"]
-    print(nro_or_lastaname)
-
-    paginated_associates = associates.associates_filtered_payment(nro_or_lastaname).paginate(1, config.get_per_page())
-
-    return render_template("payment/index.html", users=paginated_associates)

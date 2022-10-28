@@ -38,7 +38,7 @@
               {% if has_permission("discipline_destroy") %}
                 <a href="{{ url_for('disciplines.delete', id=discipline.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
               {% endif %}
-              {% if has_permission("discipline_inscription") %}
+              {% if has_permission("discipline_new") %}
                 <a href="{{ url_for('inscription.inscription', id=discipline.id )}}"><img class="icon" alt="Realizar Inscripcion" title="Realizar Inscripcion" src="{{ url_for('static', filename='images/add.svg') }}"/></a>
               {% endif %}
           </div>

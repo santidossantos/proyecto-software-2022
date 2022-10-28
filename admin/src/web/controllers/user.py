@@ -7,7 +7,6 @@ from flask import redirect
 from src.core import auth
 from src.core.permissions.role import Role
 from src.web.utils.validations import CampoVAcio, validationMailAndPass
-from sqlalchemy import or_
 from src.core import config
 from src.web.helpers.permission import permisson_required
 
@@ -18,7 +17,11 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 @users_blueprint.get("/<int:page_num>")
 @permisson_required("user_index")
 def user_index(page_num=1):
-    paginated_users = auth.list_users(page_num=page_num, per_page=config.get_per_page())
+
+    search = request.args.get("search_field")
+    active = request.args.get("active_filter")
+
+    paginated_users = auth.list_users(page_num=page_num, per_page=config.get_per_page(), search=search, active=active)
     return render_template("users/users_list.html", users=paginated_users)
 
 
@@ -115,13 +118,3 @@ def setStatus(id, desactivado):
     else:
         flash("No se puede Bloquear un usuario Admin", "error")
     return redirect((url_for("users.user_index")))
-
-@users_blueprint.post("/search")
-def search():
-    params = request.form
-    active_filter = params["active_filter"]
-    search_filter = params["search_field"]
-
-    paginated_users = auth.list_users_filtered(search_filter, active_filter).paginate(1, config.get_per_page())
-
-    return render_template("users/users_list.html", users=paginated_users)

@@ -6,13 +6,13 @@
   <a href="{{ url_for('users.create') }}"><img alt="agregar" 
     src="{{ url_for('static', filename='images/Adduser.png') }}"/> Agregar</a>
 </button>
-<form class="filter_user" action="" method="POST">
+<form class="filter_user" action="" method="GET">
   <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." />
   <select name="active_filter" class="search-field cp">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
-  <button type="submit" formaction="{{ url_for('users.search') }}" class="button_search">
+  <button type="submit" formaction="{{ url_for('users.user_index') }}" class="button_search">
     Buscar
   </button>
 </form>

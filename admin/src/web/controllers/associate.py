@@ -28,7 +28,7 @@ def associate_index(page_num=1):
   
 
     paginated_associates = associates.list_associate(
-        page_num=page_num, per_page=config.get_per_page(), search=search, active=active
+        page_num=page_num, per_page=config.get_per_page(), search=search, active=active, nroSocio=False
     )
     return render_template(
         "associates/associates_list.html", associates=paginated_associates

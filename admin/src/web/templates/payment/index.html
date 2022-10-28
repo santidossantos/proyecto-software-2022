@@ -1,9 +1,12 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
-{%block content %} {{ super() }}
+{% extends 'layout/layout.html' %} 
+{% block title %}Usuarios{% endblock %}
+{%block content %} 
+{{ super() }}
 <h1>Seccion de Pagos</h1>
-<form class="filter_user" action="" method="POST">
-    <input name="search_field" type="search" class="search-field" placeholder="Apellido o N° Socio" />
-    <button type="submit" formaction="{{ url_for('payment.search') }}" class="button_search">
+<form class="filter_user" action="" method="GET">
+    <input name="search_field" type="search" class="search-field" placeholder="Apellido o N° Socio..." 
+    {% if request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %} />
+    <button type="submit" formaction="{{ url_for('payment.payment_index') }}" class="button_search">
       Buscar
     </button>
 </form>

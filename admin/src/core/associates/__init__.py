@@ -9,7 +9,7 @@ from src.core.database import db
 from sqlalchemy import or_
 
 
-def list_associate(page_num, per_page, search, active):
+def list_associate(page_num, per_page, search, active, nroSocio):
 
     def activeFilter(active):
         if active:
@@ -17,7 +17,9 @@ def list_associate(page_num, per_page, search, active):
         return True
     
     def searchFilter(search):
-        if search:
+        if search and nroSocio:
+            return (or_(Associate.last_name.ilike(f"%{search}%"), Associate.member_number.ilike(f"%{search}%")))
+        elif search:
             return Associate.last_name.ilike(f"%{search}%")
         return True
 

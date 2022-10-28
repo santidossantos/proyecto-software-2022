@@ -3,8 +3,22 @@ from src.core.permissions.role import Role
 from src.core.database import db
 
 
-def list_users(page_num, per_page):
-    return User.query.paginate(page_num, per_page, True)
+def list_users(page_num, per_page, search, active):
+    def activeFilter(active):
+        if active:
+            return User.active == active
+        return True
+
+    def searchFilter(search):
+        if search:
+            return User.email.ilike(f"%{search}%")
+        return True
+
+    return (
+        User.query.filter(activeFilter(active))
+        .filter(searchFilter(search))
+        .paginate(page_num, per_page, True)
+    )
 
 
 def create_user(**kwargs):
@@ -35,7 +49,6 @@ def update_user(**kwargs):
 
 def find_user_by_email(email):
     return User.query.filter_by(email=email).first()
-
 
 
 def assigned_roles(user, rolesSelected):

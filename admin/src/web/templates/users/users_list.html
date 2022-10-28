@@ -9,7 +9,8 @@
 </button>
 {% endif %}
 <form class="filter_user" action="" method="GET">
-  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." />
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." 
+  {% if request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %}/>
   <select name="active_filter" class="search-field cp">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
@@ -63,9 +64,25 @@
   <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
   paginacion  para enviarselos al template paginacion.html 
   que usa por defecto la variable  pagination_items -->
-  {% set pagination_items = users %} 
-  {% set url_redirect = '/users' %} 
-  {% include'layout/pagination.html' %} 
+
+  {% set base_url = '/users' %}
+
+  {% if  request.args.get('search_field') %}
+    {% set search = '?search_field=' + request.args.get('search_field') %}
+  {% else %}
+    {% set search = "?search_field=" %}
+  {% endif %}
+  
+  
+  {% if  request.args.get('active_filter') %}
+    {% set active = '&active_filter=' + request.args.get('active_filter') %}
+  {% else %}
+    {% set active = "" %}
+  {% endif %}
+  
+  {% set pagination_items = users %} {% set url_redirect = base_url %}
+  {% include'layout/pagination.html' %}
+
 
 {% else %}
   <section class="containernotresult">

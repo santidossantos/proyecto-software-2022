@@ -100,7 +100,7 @@ que usa por defecto la variable  pagination_items -->
 {% if  request.args.get('search_field') %}
   {% set search = '?search_field=' + request.args.get('search_field') %}
 {% else %}
-  {% set search = "" %}
+  {% set search = "?search_field=" %}
 {% endif %}
 
 

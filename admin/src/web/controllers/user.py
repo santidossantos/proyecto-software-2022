@@ -15,6 +15,7 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
+@users_blueprint.get("<int:page_num>/<search>/<active>/")
 @permisson_required("user_index")
 def user_index(page_num=1):
 

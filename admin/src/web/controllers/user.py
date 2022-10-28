@@ -16,14 +16,14 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 
 @users_blueprint.get("/")
 @users_blueprint.get("/<int:page_num>")
-#@permisson_required("user_index")
+@permisson_required("user_index")
 def user_index(page_num=1):
     paginated_users = auth.list_users(page_num=page_num, per_page=config.get_per_page())
     return render_template("users/users_list.html", users=paginated_users)
 
 
 @users_blueprint.route("/create", methods=("GET", "POST"))
-#@permisson_required("user_new")
+@permisson_required("user_new")
 def create():
     if request.method == "POST":
         user_name = request.form.get("user_name")
@@ -104,6 +104,7 @@ def show(id):
     return render_template("users/show.html", user=user)
 
 @users_blueprint.route("/setStatus/<id>/<desactivado>")
+@permisson_required("user_activ")
 def setStatus(id, desactivado):
     auth.setStatus(id=id)
     if auth.NoEsAdmin(id):

@@ -9,7 +9,7 @@ from flask import redirect
 from src.core import associates
 from src.web.utils.validations import CampoVAcio
 from src.web.utils import exporters
-from src.web.utils.validations import CampoVAcio, validationEmail
+from src.web.utils.validations import CampoVAcio, validationEmail, isInteger
 from src.web.helpers.permission import permisson_required
 from src.core import config
 
@@ -30,9 +30,8 @@ def associate_index(page_num=1):
 
 
 @associates_blueprint.route("/create", methods=("GET", "POST"))
-# @permisson_required("member_new")
+@permisson_required("member_new")
 def create():
-
     if request.method == "POST":
         name = request.form.get("name")
         last_name = request.form.get("last_name")
@@ -43,9 +42,13 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-
         if CampoVAcio(name, last_name, document_type, dni, genero, address):
-            if associates.usWithUserEmail(email):
+            if not isInteger(request.form.get("dni")):
+                flash("el dni no es valido", "error")
+                return redirect(url_for("associates.create"))
+            if not request.form.get("email") == "" and not validationEmail(request.form.get("email")):
+                return redirect(url_for("associates.create"))
+            if not request.form.get("email") == "" and associates.usWithUserEmail(email):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("associates.create"))
             associate = associates.create_user(
@@ -83,19 +86,28 @@ def update(id):
         mobile_number = request.form.get("mobile_number")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        associates.update_associate(
-            id=id,
-            email=email,
-            name=name,
-            last_name=last_name,
-            document_type=document_type,
-            dni=dni,
-            mobile_number=mobile_number,
-            address=address,
-            genero=genero,
-        )
-        flash("Asociado Modificado Correctamente", "success")
-        return redirect((url_for("associates.associate_index")))
+        if CampoVAcio(name, last_name, document_type, dni, genero, address):
+            if not isInteger(request.form.get("dni")):
+                flash("el dni no es valido", "error")
+                return redirect(url_for("associates.update",id=id))
+            if not request.form.get("email") == "" and not validationEmail(request.form.get("email")):
+                return redirect(url_for("associates.update",id=id))
+            if not request.form.get("email") == "" and associates.usWithUserEmail(email):
+                flash("el email ingresado está ocupado", "error")
+                return redirect(url_for("associates.update",id=id))
+            associates.update_associate(
+                id=id,
+                email=email,
+                name=name,
+                last_name=last_name,
+                document_type=document_type,
+                dni=dni,
+                mobile_number=mobile_number,
+                address=address,
+                genero=genero,
+            )
+            flash("Asociado Modificado Correctamente", "success")
+            return redirect((url_for("associates.associate_index")))
 
     associate = associates.get_associate(id=id)
     document_type = DocumentType

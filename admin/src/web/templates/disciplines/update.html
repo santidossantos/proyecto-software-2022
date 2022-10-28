@@ -1,26 +1,29 @@
-{% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %} {%
-block head %} {{ super() }}
+{% extends 'layout/layout.html' %} {% block title %}Disciplinas{% endblock %} 
+{%block head %} 
+{{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
-{% endblock head%} {%block content %}
+{% endblock head%} 
+{%block content %}
+{{ super () }}
 <h1 class="h1center">Actualizar Disciplina</h1>
 <div class="form_container">
   <form action="/disciplines/update/{{discipline.id}}" method="POST">
-    <label class="label" for="name">Nombre</label>
-    <input class="input_text" type="text" id="name" name="name" value="{{discipline.name}}" />
+    <label class="label" for="name">Nombre*</label>
+    <input class="input_text" type="text" id="name" name="name" value="{{discipline.name}}" required/>
 
-    <label class="label" for="name">Categoria</label>
-    <input class="input_text" type="text" id="category" name="category" value="{{discipline.category}}" />
+    <label class="label" for="name">Categoria*</label>
+    <input class="input_text" type="text" id="category" name="category" value="{{discipline.category}}" required/>
 
-    <label class="label" for="name">Nombre instructores</label>
-    <input class="input_text" type="text" id="nameInstructors" name="nameInstructors" value="{{discipline.nameInstructors}}" />
+    <label class="label" for="name">Nombre instructores*</label>
+    <input class="input_text" type="text" id="nameInstructors" name="nameInstructors" value="{{discipline.nameInstructors}}" required/>
 
-    <label class="label" for="name">Dias y Horarios</label>
-    <input class="input_text" type="text" id="daysAndHours" name="daysAndHours" value="{{discipline.daysAndHours}}" />
+    <label class="label" for="name">Dias y Horarios*</label>
+    <input class="input_text" type="text" id="daysAndHours" name="daysAndHours" value="{{discipline.daysAndHours}}" required/>
 
-    <label class="label" for="name">Cuota Mensual</label>
-    <input class="input_text" type="text" id="monthlyCost" name="monthlyCost" value="{{discipline.monthlyCost}}" />
+    <label class="label" for="name">Cuota Mensual*</label>
+    <input class="input_text" type="number" id="monthlyCost" name="monthlyCost" value="{{discipline.monthlyCost}}" required/>
 
-    <button type="submit" id="submit" class="btn">Actualizar</button>
+    <button type="submit" id="submit" class="button_add mt-3">Actualizar</button>
   </form>
 </div>
 {% endblock content %}

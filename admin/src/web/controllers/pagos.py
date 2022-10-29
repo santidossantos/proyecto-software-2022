@@ -50,7 +50,7 @@ def show(id):
 @payment_blueprint.route("/result/<id>/<id_pago>")
 @permisson_required("payment_show")
 def result(id, id_pago):
-    pending_payments = payment.pending_payments(id)
+    pending_payments = payment.prueba(id)
     associate = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
     mes = mesToInt(pago.mes)
@@ -118,5 +118,5 @@ def generate_voucher():
     pago = payment.get_payment(id_pago)
     texto = config.get_payment_voucher_description()
 
-    return generate_pdf_file_payment(texto=texto, id=id, associate=associado, month=pago.mes.value, costo_total=pago.total, fecha=pago.update_at)
+    return generate_pdf_file_payment(texto=texto, id=id_pago, associate=associado, month=pago.mes.value, costo_total=pago.total, fecha=pago.update_at)
 

@@ -11,12 +11,12 @@ def generate_pdf_file(records):
     )
 
 
-def generate_pdf_file_payment(associate, total, month):
+def generate_pdf_file_payment(associate, costo_total, month, fecha, id, texto):
 
-    html = render_template("payment/comprobante.html", associate=associate, costo_total=total, month=month)
+    html = render_template("payment/certificado-pdf.html", texto=texto, associate=associate, costo_total=costo_total, month=month, fecha=fecha, id=id)
     return render_pdf(
         HTML(string=html),
-        automatic_download=True,
+        automatic_download=False,
         download_filename="comprobate_pago.pdf",
     )
     

@@ -33,9 +33,20 @@ def list_associateActive(page_num, per_page):
 
 
 def list_associate_filtered(search_filter, active_filter):
-    return Associate.query.filter(Associate.active == active_filter).filter(
-        Associate.last_name.ilike(f"%{search_filter}%")
-    )
+
+    def activeFilter(active):
+        if active:
+            return (Associate.active == active)
+        return True
+    
+    def searchFilter(search):
+        if search:
+            return Associate.last_name.ilike(f"%{search}%")
+        return True
+
+
+    return Associate.query.filter(activeFilter(active_filter)).filter(searchFilter(search_filter)).all()
+
 
 
 def create_user(**kwargs):

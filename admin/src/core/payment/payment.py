@@ -14,7 +14,7 @@ class Mes(enum.Enum):
     Jul = "Julio"
     Ago = "Agosto"
     S = "Septiembre"
-    O = "Ocutubre"
+    O = "Octubre"
     N = "Noviembre"
     D = "Diciembre"
 

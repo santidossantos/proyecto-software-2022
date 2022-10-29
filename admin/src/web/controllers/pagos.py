@@ -1,3 +1,5 @@
+from calendar import month
+from src.core.payment import costo_total
 from flask import Blueprint, request
 from flask import render_template, flash
 from core import config
@@ -7,6 +9,7 @@ from flask import url_for
 from flask import redirect
 from src.web.helpers.permission import permisson_required
 import datetime
+from src.web.utils.exporters.pdf import generate_pdf_file_payment
 
 payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 
@@ -28,10 +31,12 @@ def show(id):
     #para cada pending_payments se debe calcular el costo total
     total=0
     for pending_payment in pending_payments:
-        mes = mesToInt(pending_payment.mes)
-        costo_disciplines = associates.cost_disciplines(id,mes)
-        costo_total = payment.costo_total(costo_disciplines)
-        total=total+costo_total
+        print(pending_payment.state.value)
+        if(pending_payment.state.value == 'Impago'):
+            mes = mesToInt(pending_payment.mes)
+            costo_disciplines = associates.cost_disciplines(id,mes)
+            costo_total = payment.costo_total(costo_disciplines)
+            total=total+costo_total
     disciplines = associates.getDisciplinas(id,datetime.datetime.now().month)
     return render_template(
         "payment/show.html",
@@ -102,3 +107,16 @@ def updatePayment(id, id_pago, total):
     flash("Pago realizado con éxito", "success")
     
     return redirect(url_for("payment.show", id=id))
+
+@payment_blueprint.get("/emitir-certificado/")
+def generate_voucher():
+
+    id = request.args.get('id')
+    id_pago = request.args.get('id_pago')
+    
+    associado = associates.get_associate(id)
+    pago = payment.get_payment(id_pago)
+    texto = config.get_payment_voucher_description()
+
+    return generate_pdf_file_payment(texto=texto, id=id, associate=associado, month=pago.mes.value, costo_total=pago.total, fecha=pago.update_at)
+

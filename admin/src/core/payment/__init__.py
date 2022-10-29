@@ -3,10 +3,6 @@ from src.core.database import db
 from src.core.config.config import Config
 from datetime import datetime
 from sqlalchemy import desc
-<<<<<<< HEAD
-=======
-from sqlalchemy import asc
->>>>>>> development
 
 def list_payment(page_num, per_page):
     return Payment.query.paginate(page_num, per_page, True)
@@ -30,10 +26,7 @@ def get_payment_by_assoc_id_and_month(id_assoc, mes):
 
 
 def pending_payments(id):
-    return Payment.query.filter_by(associated_id=id).order_by(desc(Payment.update_at)).all()
-
-def prueba(id):
-    return Payment.query.filter_by(associated_id=id).order_by(asc(Payment.update_at)).all()
+    return Payment.query.filter_by(associated_id=id).order_by(desc(Payment.create_at)).all()
 
 
 def costo_total(costo_disciplines):

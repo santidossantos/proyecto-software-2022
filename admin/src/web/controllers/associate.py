@@ -25,10 +25,13 @@ def associate_index(page_num=1):
 
     search = request.args.get("search_field")
     active = request.args.get("active_filter")
-  
 
     paginated_associates = associates.list_associate(
-        page_num=page_num, per_page=config.get_per_page(), search=search, active=active, nroSocio=False
+        page_num=page_num,
+        per_page=config.get_per_page(),
+        search=search,
+        active=active,
+        nroSocio=False,
     )
     return render_template(
         "associates/associates_list.html", associates=paginated_associates
@@ -52,9 +55,13 @@ def create():
             if not isInteger(request.form.get("dni")):
                 flash("el dni no es valido", "error")
                 return redirect(url_for("associates.create"))
-            if not request.form.get("email") == "" and not validationEmail(request.form.get("email")):
+            if not request.form.get("email") == "" and not validationEmail(
+                request.form.get("email")
+            ):
                 return redirect(url_for("associates.create"))
-            if not request.form.get("email") == "" and associates.usWithUserEmail(email):
+            if not request.form.get("email") == "" and associates.usWithUserEmail(
+                email
+            ):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("associates.create"))
             associate = associates.create_user(
@@ -95,12 +102,16 @@ def update(id):
         if CampoVAcio(name, last_name, document_type, dni, genero, address):
             if not isInteger(request.form.get("dni")):
                 flash("el dni no es valido", "error")
-                return redirect(url_for("associates.update",id=id))
-            if not request.form.get("email") == "" and not validationEmail(request.form.get("email")):
-                return redirect(url_for("associates.update",id=id))
-            if not request.form.get("email") == "" and associates.usWithUserEmail(email):
+                return redirect(url_for("associates.update", id=id))
+            if not request.form.get("email") == "" and not validationEmail(
+                request.form.get("email")
+            ):
+                return redirect(url_for("associates.update", id=id))
+            if not request.form.get("email") == "" and associates.usWithUserEmail(
+                email
+            ):
                 flash("el email ingresado está ocupado", "error")
-                return redirect(url_for("associates.update",id=id))
+                return redirect(url_for("associates.update", id=id))
             associates.update_associate(
                 id=id,
                 email=email,
@@ -141,23 +152,20 @@ def delete(id):
     return redirect((url_for("associates.associate_index")))
 
 
-
-@associates_blueprint.post("/export/csv")
+@associates_blueprint.get("/export/csv")
 def call_csv_exporter():
-    return call_some_exporter("csv")
+    search_filter = request.args.get("search_field")
+    active_filter = request.args.get("active_filter")
+    return call_some_exporter("csv", search_filter, active_filter)
 
 
-@associates_blueprint.post("/export/pdf")
+@associates_blueprint.get("/export/pdf")
 def call_pdf_exporter():
-    return call_some_exporter("pdf")
+    search_filter = request.args.get("search_field")
+    active_filter = request.args.get("active_filter")
+    return call_some_exporter("pdf", search_filter, active_filter)
 
 
-def call_some_exporter(doc_type):
-
-    params = request.form
-    active_filter = params["active_filter"]
-    search_filter = params["search_field"]
-
+def call_some_exporter(doc_type, search_filter, active_filter):
     records = associates.list_associate_filtered(search_filter, active_filter)
-
     return exporters.choose_exporter(records, doc_type)

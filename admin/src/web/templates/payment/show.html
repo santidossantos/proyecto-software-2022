@@ -27,12 +27,28 @@
             {% for payment in pending %}
             <tr>
                 <th>{{ payment.mes.value }}</th>
+
+                {% if payment.state.value == 'Pagado' %}
                 <th>
+                    <button class="button_registarpago">
+                        <a href="#">
+                            Pagado</a>
+                    </button>
+                    <button class="button_registarpago">
+                        <a href="{{ url_for('payment.generate_voucher', id=user.id , id_pago=payment.id )}}">
+                            Emitir Compronte</a>
+                    </button>
+                </th>
+                    
+                {% else %}
+                     <th>
                     <button class="button_registarpago">
                         <a href="{{ url_for('payment.result', id=user.id , id_pago=payment.id )}}">Registrar
                             Pago</a>
                     </button>
                 </th>
+                {% endif %}
+
             </tr>
             {% endfor %}
         </tbody>

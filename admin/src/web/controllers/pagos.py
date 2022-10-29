@@ -50,7 +50,7 @@ def show(id):
 @payment_blueprint.route("/result/<id>/<id_pago>")
 @permisson_required("payment_show")
 def result(id, id_pago):
-    pending_payments = payment.prueba(id)
+    pending_payments = payment.payments_impagos(id)
     associate = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
     mes = mesToInt(pago.mes)

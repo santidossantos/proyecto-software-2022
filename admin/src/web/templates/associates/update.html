@@ -1,15 +1,18 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} {%
-block head %}
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} 
+{%block head %}
+{{ super() }}
 <link
   rel="stylesheet"
   href="{{ url_for('static', filename='forms/style.css') }}"
 />
-{% endblock head%} {%block content %}
+{% endblock head%} 
+{%block content %}
+{{ super () }}
 <h1 class="h1center">Actualizar Asociado</h1>
 <div class="form_container">
   <form action="/associates/update/{{associate.id}}" method="post">
     <label class="label" for="name">Nombre*</label>
-    <input class="input_text" type="text" value="{{associate.name}}" id="email" name="name" />
+    <input class="input_text" type="text" value="{{associate.name}}" name="name" required />
     <label class="label" for="name">Apellido*</label>
     <input class="input_text" type="text" value="{{associate.last_name}}" id="email" name="last_name" />
     <label class="label" for="name">Tipo de documento*</label>
@@ -19,7 +22,7 @@ block head %}
       {%endfor%}
     </select>
     <label class="label" for="name">Numero de Documento*</label>
-    <input class="input_text" type="text" value="{{associate.dni}}" id="email" name="dni" />
+    <input class="input_text" type="number" value="{{associate.dni}}" id="email" name="dni" required/>
     <label class="label" for="name">Genero*</label>
     <select id="genero" name="genero" class="input_select" required>
       {%for gen in genero %}
@@ -27,12 +30,12 @@ block head %}
       {%endfor%}
     </select>
     <label class="label" for="name">Direccion*</label>
-    <input class="input_text" type="text" value="{{associate.address}}" id="email" name="address" />
+    <input class="input_text" type="text" value="{{associate.address}}" id="email" name="address" required/>
     <label class="label" for="name">Email</label>
-    <input class="input_text" type="text" value="{{associate.email}}" id="email" name="email" />
+    <input class="input_text" type="email" value="{{associate.email}}" id="email" name="email" required/>
     <label class="label" for="name">Telefono</label>
-    <input class="input_text" type="text" value="{{associate.mobile_number}}" id="email" name="mobile_number" />
-    <button type="submit" id="submit" class="btn">Guardar</button>
+    <input class="input_text" type="number" value="{{associate.mobile_number}}" id="email" name="mobile_number" required/>
+    <button type="submit" id="submit" class="button_add mt-3">Guardar</button>
   </form>
 </div>
 {% endblock content %}

@@ -11,6 +11,13 @@ def run():
 
     config.create()
 
+    user_index = permissions.create_permission(nombre="user_index")
+    user_new = permissions.create_permission(nombre="user_new")
+    user_destroy = permissions.create_permission(nombre="user_destroy")
+    user_update = permissions.create_permission(nombre="user_update")
+    user_show = permissions.create_permission(nombre="user_show")
+    user_activ = permissions.create_permission(nombre="user_activ")
+
     member_index = permissions.create_permission(nombre="member_index")
     member_new = permissions.create_permission(nombre="member_new")
     member_destroy = permissions.create_permission(nombre="member_destroy")
@@ -31,6 +38,13 @@ def run():
 
     role_admin = permissions.create_role(nombre="admin")
 
+    role_admin.permisos.append(user_index)
+    role_admin.permisos.append(user_new)
+    role_admin.permisos.append(user_destroy)
+    role_admin.permisos.append(user_update)
+    role_admin.permisos.append(user_show)
+    role_admin.permisos.append(user_activ)
+
     role_admin.permisos.append(member_index)
     role_admin.permisos.append(member_new)
     role_admin.permisos.append(member_destroy)
@@ -50,6 +64,8 @@ def run():
     role_admin.permisos.append(payment_show)
 
     role_operator = permissions.create_role(nombre="operator")
+
+    role_operator.permisos.append(user_index)
 
     role_operator.permisos.append(member_index)
     role_operator.permisos.append(member_new)

@@ -1,0 +1,8 @@
+<section class="sectionShow">
+    <h1>Recibo #{{ id }}</h1>
+    <h1>Fecha: </strong>{{ fecha.strftime("%d/%m/%y") }}</h1>
+    <h1>Recibimos de: {{associate.name}} {{associate.last_name}}</h1>
+    <h1>El importe en pesos ${{costo_total}}</h1>
+    <h1>Por el concepto de cuota societaria mes: {{month}}</h1>
+    <p>{{ texto }}</p>
+</section>

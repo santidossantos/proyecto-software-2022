@@ -1,3 +1,7 @@
+import datetime
+from sqlite3 import DatabaseError
+
+from click import DateTime
 from core.payment import Payment
 from src.core.associates.associate import Associate
 from src.core.associates.associate import associates_disciplines
@@ -5,8 +9,21 @@ from src.core.database import db
 from sqlalchemy import or_
 
 
-def list_associate(page_num, per_page):
-    return list_associateActive(page_num, per_page)
+def list_associate(page_num, per_page, search, active, nroSocio):
+
+    def activeFilter(active):
+        if active:
+            return (Associate.active == active)
+        return True
+    
+    def searchFilter(search):
+        if search and nroSocio:
+            return (or_(Associate.last_name.ilike(f"%{search}%"), Associate.member_number.ilike(f"%{search}%")))
+        elif search:
+            return Associate.last_name.ilike(f"%{search}%")
+        return True
+
+    return Associate.query.filter(activeFilter(active)).filter(searchFilter(search)).paginate(page_num, per_page, True)
 
 
 def list_associateActive(page_num, per_page):
@@ -16,9 +33,20 @@ def list_associateActive(page_num, per_page):
 
 
 def list_associate_filtered(search_filter, active_filter):
-    return Associate.query.filter(Associate.active == active_filter).filter(
-        Associate.last_name.ilike(f"%{search_filter}%")
-    )
+
+    def activeFilter(active):
+        if active:
+            return (Associate.active == active)
+        return True
+    
+    def searchFilter(search):
+        if search:
+            return Associate.last_name.ilike(f"%{search}%")
+        return True
+
+
+    return Associate.query.filter(activeFilter(active_filter)).filter(searchFilter(search_filter)).all()
+
 
 
 def create_user(**kwargs):
@@ -77,17 +105,42 @@ def is_active(id):
     return associate.active
 
 
-def cost_disciplines(id):
+def cost_disciplines(id,mesPago):
     associate = get_associate(id)
+    #recupero aquellas disciplinas de user_disciplines
     total_cost = 0
     for disciplina in associate.disciplines:
-        total_cost = total_cost + disciplina.monthlyCost
+                consulta = (
+                     db.session.query(associates_disciplines)
+                    .filter_by(associate_id=id, discipline_id=disciplina.id)
+                    .first()
+                 )
+                datetime=consulta.inscriptionDate.month
+                if mesPago >= datetime:
+                     total_cost += disciplina.monthlyCost
     return total_cost
+
+def getDisciplinas(id,mesPago):
+    associate = get_associate(id)
+    total_cost = 0
+    disciplinas = []
+    for disciplina in associate.disciplines:
+                consulta = (
+                     db.session.query(associates_disciplines)
+                    .filter_by(associate_id=id, discipline_id=disciplina.id)
+                    .first()
+                 )
+                datetime=consulta.inscriptionDate.month
+                #retornar un vector de disciplinas cuyo mesPago sea mayor a datetime
+                if mesPago >= datetime:
+                    disciplinas.append(disciplina)
+    return disciplinas
 
 def generar_pagos(id):
     mes = ["E", "F", "M", "A", "May", "Jun", "Jul", "Ago", "S", "O", "N", "D"]
-    for i in mes:
-        payment = Payment(associated_id=id, mes=i, total=0)
+    i = datetime.datetime.now().month - 1
+    for i in range(i, 12):
+        payment = Payment(associated_id=id, mes=mes[i], total=0)
         db.session.add(payment)
         db.session.commit()
     return payment

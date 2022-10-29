@@ -2,17 +2,20 @@
 {%block content %} 
 {{ super() }}
 <h1>Listado de usuarios</h1>
+{% if has_permission("user_new") %}
 <button class="button_add">
   <a href="{{ url_for('users.create') }}"><img alt="agregar" 
     src="{{ url_for('static', filename='images/Adduser.png') }}"/> Agregar</a>
 </button>
-<form class="filter_user" action="" method="POST">
-  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." />
+{% endif %}
+<form class="filter_user" action="" method="GET">
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar por email..." 
+  {% if request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %}/>
   <select name="active_filter" class="search-field cp">
     <option value="True">Activo</option>
     <option value="False">Inactivo</option>
   </select>
-  <button type="submit" formaction="{{ url_for('users.search') }}" class="button_search">
+  <button type="submit" formaction="{{ url_for('users.user_index') }}" class="button_search">
     Buscar
   </button>
 </form>
@@ -35,13 +38,21 @@
         <th>{{ user.last_name }}</th>
         <th>{{ user.email}}</th>
         <th>
-          <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
-          <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
-          <a href="{{ url_for('users.delete', id=user.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
-          {%if  user.active == True %}
-            <a href="{{ url_for('users.setStatus', id=user.id, desactivado=1) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
-          {% else %}
-            <a href="{{ url_for('users.setStatus', id=user.id, desactivado=0) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+          {% if has_permission("user_show") %}
+            <a href="{{ url_for('users.show', id=user.id )}}"><img class="icon" alt="Mas informacion" title="Mas informacion" src="{{ url_for('static', filename='images/info.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_update") %}
+            <a href="{{ url_for('users.update', id=user.id )}}"><img class="icon" alt="editar" title="Editar" src="{{ url_for('static', filename='images/edit.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_destroy") %}
+            <a href="{{ url_for('users.delete', id=user.id )}}" class="deleteconfirm"><img class="icon" alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}"/></a>
+          {% endif %}
+          {% if has_permission("user_activ") %}
+            {%if  user.active == True %}
+              <a href="{{ url_for('users.setStatus', id=user.id, desactivado=1) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
+            {% else %}
+              <a href="{{ url_for('users.setStatus', id=user.id, desactivado=0) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+            {% endif %}
           {% endif %}
         </th>
       </tr>
@@ -53,9 +64,25 @@
   <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
   paginacion  para enviarselos al template paginacion.html 
   que usa por defecto la variable  pagination_items -->
-  {% set pagination_items = users %} 
-  {% set url_redirect = '/users' %} 
-  {% include'layout/pagination.html' %} 
+
+  {% set base_url = '/users' %}
+
+  {% if  request.args.get('search_field') %}
+    {% set search = '?search_field=' + request.args.get('search_field') %}
+  {% else %}
+    {% set search = "?search_field=" %}
+  {% endif %}
+  
+  
+  {% if  request.args.get('active_filter') %}
+    {% set active = '&active_filter=' + request.args.get('active_filter') %}
+  {% else %}
+    {% set active = "" %}
+  {% endif %}
+  
+  {% set pagination_items = users %} {% set url_redirect = base_url %}
+  {% include'layout/pagination.html' %}
+
 
 {% else %}
   <section class="containernotresult">

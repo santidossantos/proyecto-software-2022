@@ -38,17 +38,21 @@
 
     <div class="d-flex align-items-center">
 
-      <div class="dropdown">
-        <a style="color: aliceblue" class="dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-          id="navbarDropdownMenuAvatar" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-          <i style="color: aliceblue" class="fas fa-user"></i>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-          <li>
-            <a class="dropdown-item" href="#">Salir</a>
-          </li>
-        </ul>
-      </div>
+
+
+        
+          <div class="dropdown">
+            
+            <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i style="color: aliceblue" class="fas fa-user"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+              <li><a class="dropdown-item fa-envelope fas" href="#">  {{ session['user'] }}</a></li>
+              <li><a class="dropdown-item fas fa-sign-out-alt" href="/auth/logout">  Cerrar sesión</a></li>
+           
+            </ul>
+          </div>
+        </html>
 
     </div>
   </div>

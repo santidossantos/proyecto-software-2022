@@ -14,10 +14,9 @@ class Mes(enum.Enum):
     Jul = "Julio"
     Ago = "Agosto"
     S = "Septiembre"
-    O = "Ocutubre"
+    O = "Octubre"
     N = "Noviembre"
     D = "Diciembre"
-
 
 
 
@@ -49,8 +48,11 @@ def update(self, **kwargs):
 
 
 def create_month_registers(id_user):
+    #pasar mes actual a numero integer
+    i = datetime.datetime.now().month
     mes = ["E", "F", "M", "A", "May", "Jun", "Jul", "Ago", "S", "O", "N", "D"]
-    for i in mes:
-        payment = Payment(associated_id=id_user, mes=i, total=0)
+    #crear registro de pago para cada mes desde el mes actual hasta diciembre
+    for i in range(i, 12):
+        payment = Payment(associated_id=id_user, mes=mes[x], total=0)
         db.session.add(payment)
         db.session.commit()

@@ -47,7 +47,7 @@ def authenticate():
         return render_template("auth/login.html")
 
     if auth.is_active(user.id):
-        flash("Su cuenta actualmente se encuntra bloqueada", "error")
+        flash("Su cuenta actualmente se encuentra bloqueada", "error")
         return render_template("auth/login.html")
 
     session["user"] = user.email

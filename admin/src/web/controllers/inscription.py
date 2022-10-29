@@ -14,9 +14,16 @@ inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscript
 @inscription_blueprint.get("/")
 @inscription_blueprint.get("/<int:page_num>")
 @inscription_blueprint.get("/<int:id>")
-def inscription(id, page_num=1, per_page=4):
-    paginated_associates = associates.list_associateActive(
-        page_num=page_num, per_page=per_page
+def inscription(id, page_num=1):
+    
+    search = request.args.get("search_field")
+
+    paginated_associates = associates.list_associate(
+        page_num=page_num,
+        per_page=config.get_per_page(),
+        search=search,
+        active=True,
+        nroSocio=False,
     )
     return render_template(
         "disciplines/inscriptions.html",
@@ -50,11 +57,15 @@ def doInscription(id, idDisciplina):
 @inscription_blueprint.post("/search/<id>")
 def search(id):
     params = request.form
-    search_filter = params["search_field"]
+    search = params["search_field"]
 
-    paginated_associates = associates.list_associate_filtered(
-        search_filter, True
-    ).paginate(1, config.get_per_page())
+    paginated_associates = associates.list_associate(
+        page_num=1,
+        per_page=config.get_per_page(),
+        search=search,
+        active=True,
+        nroSocio=False,
+    )
     return render_template(
         "disciplines/inscriptions.html",
         associates=paginated_associates,

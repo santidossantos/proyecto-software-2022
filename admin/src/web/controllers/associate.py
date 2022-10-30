@@ -107,11 +107,6 @@ def update(id):
                 request.form.get("email")
             ):
                 return redirect(url_for("associates.update", id=id))
-            if not request.form.get("email") == "" and associates.usWithUserEmail(
-                email
-            ):
-                flash("el email ingresado está ocupado", "error")
-                return redirect(url_for("associates.update", id=id))
             associates.update_associate(
                 id=id,
                 email=email,

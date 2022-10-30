@@ -1,13 +1,13 @@
-{% extends 'layout/layout.html' %} 
+{% extends 'layout/layout.html' %}
 {% block title %}Usuarios{% endblock %}
-{%block content %} 
+{%block content %}
 {{ super() }}
 <h1>Seccion de Pagos</h1>
 <form class="filter_user" action="" method="GET">
-    <input name="search_field" type="search" class="search-field" placeholder="Apellido o N° Socio..." 
-    {% if request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %} />
+    <input name="search_field" type="search" class="search-field" placeholder="Apellido o N° Socio..." {% if
+        request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %} />
     <button type="submit" formaction="{{ url_for('payment.payment_index') }}" class="button_search">
-      Buscar
+        Buscar
     </button>
 </form>
 <section class="table-container">
@@ -43,7 +43,18 @@
 <!-- Setteamos el objeto users que tiene los usuarios y a su vez la 
     paginacion  para enviarselos al template paginacion.html 
     que usa por defecto la variable  pagination_items -->
-{% set pagination_items = users %}
-{% set url_redirect = '/payment' %}
+
+{% set base_url = '/payment' %}
+
+{% if request.args.get('search_field') %}
+{% set search = '?search_field=' + request.args.get('search_field') %}
+{% else %}
+{% set search = "?search_field=" %}
+{% endif %}
+
+
+{% set pagination_items = users %} {% set url_redirect = base_url %}
+
+
 {% include'layout/pagination.html' %}
 {% endblock content %}

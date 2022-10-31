@@ -111,8 +111,8 @@ def show(id):
 @users_blueprint.route("/setStatus/<id>/<desactivado>")
 @permisson_required("user_activ")
 def setStatus(id, desactivado):
-    auth.setStatus(id=id)
     if auth.NoEsAdmin(id):
+        auth.setStatus(id=id)
         if (desactivado == '1'):
             flash("Usuario Bloqueado Correctamente", "success")
         else:

@@ -42,6 +42,15 @@ def update_discipline(id, name, category, nameInstructors, daysAndHours, monthly
     db.session.commit()
     return discipline
 
+def setStatus(id):
+    discipline = get_discipline(id)
+    discipline.active = not discipline.active
+    db.session.commit()
+    return discipline
+
+def isActive(id):
+    return get_discipline(id).active
+
 
 def createInscription(idAsociado, idDisciplina):
     user_Discipline = associates_disciplines.insert().values(

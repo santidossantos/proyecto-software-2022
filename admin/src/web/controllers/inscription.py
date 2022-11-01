@@ -15,7 +15,9 @@ inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscript
 @inscription_blueprint.get("/<int:page_num>")
 @inscription_blueprint.get("/<int:id>")
 def inscription(id, page_num=1):
-    
+    if(not disciplines.isActive(id)):
+        flash("La disciplina no esta activa", "error")
+        return redirect((url_for("disciplines.discipline_index")))
     search = request.args.get("search_field")
 
     paginated_associates = associates.list_associate(

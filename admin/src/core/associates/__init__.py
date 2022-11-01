@@ -25,8 +25,17 @@ def list_associate(page_num, per_page, search, active, nroSocio):
 
     return Associate.query.filter(activeFilter(active)).filter(searchFilter(search)).paginate(page_num, per_page, True)
 
+def list_associateActiveAndInactive(page_num, per_page, search, nroSocio):
+    def searchFilter(search):
+        if search and nroSocio:
+            return (or_(Associate.last_name.ilike(f"%{search}%"), Associate.member_number.ilike(f"%{search}%")))
+        elif search:
+            return Associate.last_name.ilike(f"%{search}%")
+        return True
 
-def list_associateActive(page_num, per_page):
+    return Associate.query.filter(searchFilter(search)).paginate(page_num, per_page, True)
+
+
     return Associate.query.filter(Associate.active == True).paginate(
         page_num, per_page, True
     )

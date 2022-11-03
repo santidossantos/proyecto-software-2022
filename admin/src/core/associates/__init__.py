@@ -162,3 +162,15 @@ def associates_filtered_payment(nro_or_lastname):
 
 def associated_disciplines(id_assoc):
     return get_associate(id_assoc).disciplines
+
+def setDefaulter(id):
+    associate = get_associate(id)
+    associate.defaulter = True
+    db.session.commit()
+    return associate
+
+def setNotDefaulter(id):
+    associate = get_associate(id)
+    associate.defaulter = False
+    db.session.commit()
+    return associate

@@ -8,7 +8,7 @@ from src.core import associates
 from src.core import disciplines
 from src.core import config
 from src.core import payment
-
+import datetime
 inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscription")
 
 
@@ -46,7 +46,11 @@ def doInscription(id, idDisciplina):
         mes = mesToInt(pago.mes)
         if mes <= datetime.datetime.now().month:
             flash("Error! el asociado es moroso", "error")
+            #poner asociado en defaulter
+            associates.setDefaulter(id)
             return redirect((url_for("inscription.inscription", id=idDisciplina)))
+        else:
+            associates.setNotDefaulter(id)
         if associates.is_defaulter(id):
             flash(
                 "El asociado esta moroso, no se puede inscribir a la disciplina",

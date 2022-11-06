@@ -4,22 +4,21 @@
 {{ super() }}
 <h1>Listado de Asociados</h1>
 {% if has_permission("member_new") %}
-  <button class="button_add">
-    <a href="{{ url_for('associates.create') }}">
-      <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Agregar</a>
-  </button>
+<button class="button_add">
+  <a href="{{ url_for('associates.create') }}">
+    <img alt="agregar" src="{{ url_for('static', filename='images/Adduser.png') }}" /> Agregar</a>
+</button>
 {% endif %}
-{% if associates.items %}
 <form class="filter_user" action="" method="GET">
-  <input name="search_field" type="search" class="search-field" placeholder="Buscar por apellido..."
-    {% if request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %} />
+  <input name="search_field" type="search" class="search-field" placeholder="Buscar por apellido..." {% if
+    request.args.get('search_field') %} value="{{ request.args.get('search_field') }}" {% endif %} />
 
   <select name="active_filter" class="search-field cp">
 
-    {% if  request.args.get('active_filter') == 'True' %}
+    {% if request.args.get('active_filter') == 'True' %}
     <option value="True" selected>Activo</option>
     <option value="False">Inactivo</option>
-    {% elif  request.args.get('active_filter') == 'False'%}
+    {% elif request.args.get('active_filter') == 'False'%}
     <option value="False" selected>Inactivo</option>
     <option value="True">Activo</option>
     {% else %}
@@ -31,6 +30,7 @@
   <button type="submit" formaction="{{ url_for('associates.associate_index') }}" class="button_search">
     Buscar
   </button>
+  {% if associates.items %}
   <button type="submit" formaction="{{ url_for('associates.call_csv_exporter') }}" class="button_exporter">
     <input name="doc_type" value="csv" hidden />
     <a>
@@ -97,17 +97,17 @@ que usa por defecto la variable  pagination_items -->
 
 {% set base_url = '/associates' %}
 
-{% if  request.args.get('search_field') %}
-  {% set search = '?search_field=' + request.args.get('search_field') %}
+{% if request.args.get('search_field') %}
+{% set search = '?search_field=' + request.args.get('search_field') %}
 {% else %}
-  {% set search = "?search_field=" %}
+{% set search = "?search_field=" %}
 {% endif %}
 
 
-{% if  request.args.get('active_filter') %}
-  {% set active = '&active_filter=' + request.args.get('active_filter') %}
+{% if request.args.get('active_filter') %}
+{% set active = '&active_filter=' + request.args.get('active_filter') %}
 {% else %}
-  {% set active = "" %}
+{% set active = "" %}
 {% endif %}
 
 {% set pagination_items = associates %} {% set url_redirect = base_url %}

@@ -41,6 +41,11 @@
               {% if has_permission("discipline_new") %}
                 <a href="{{ url_for('inscription.inscription', id=discipline.id )}}"><img class="icon" alt="Realizar Inscripcion" title="Realizar Inscripcion" src="{{ url_for('static', filename='images/add.svg') }}"/></a>
               {% endif %}
+              {%if  discipline.active == True %}
+              <a href="{{ url_for('disciplines.setStatus', id=discipline.id, desactivado=1) }}" class="activconfirm"><img class="icon" alt="Bloquear" title="Bloquear" src="{{ url_for('static', filename='images/on.svg') }}"/></a>
+              {% else %}
+              <a href="{{ url_for('disciplines.setStatus', id=discipline.id, desactivado=0) }}" class="bloqueoconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+              {% endif %}
           </div>
         </th>
       </tr>

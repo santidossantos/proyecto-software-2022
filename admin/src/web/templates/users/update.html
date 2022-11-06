@@ -17,9 +17,8 @@ block head %}
 
     <label class="label" for="name">Email</label>
     <input class="input_text" type="text" id="email" name="email" value="{{user.email}}" />
-    
-    {%for rol in roles%}
     <label class="label" for="rol">Roles</label>
+    {%for rol in roles%}
       {% if rol not in user.roles and has_permission("usuario_update") %}
           <input type="checkbox" name="rol" value="{{ rol.id }}">  
           <label>{{ rol.nombre }}</label>

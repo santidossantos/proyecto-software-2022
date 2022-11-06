@@ -94,6 +94,7 @@ def update(id):
             daysAndHours=daysAndHours,
             monthlyCost=monthlyCost,
         )
+        flash("Disciplina editada correctamente", "success")
         return redirect((url_for("disciplines.discipline_index")))
 
     discipline = disciplines.get_discipline(id=id)
@@ -105,3 +106,12 @@ def update(id):
 def show(id):
     discipline = disciplines.get_discipline(id=id)
     return render_template("disciplines/show.html", discipline=discipline)
+
+@discipline_blueprint.route("/setStatus/<id>/<desactivado>")
+def setStatus(id, desactivado):
+    disciplines.setStatus(id=id)
+    if (desactivado == '1'):
+            flash("Disciplina desactivada correctamente", "success")
+    else:
+            flash("Disciplina activada correctamente", "success")
+    return redirect((url_for("disciplines.discipline_index")))

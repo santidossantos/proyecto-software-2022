@@ -26,7 +26,12 @@ def get_payment_by_assoc_id_and_month(id_assoc, mes):
 
 
 def pending_payments(id):
-    return Payment.query.filter_by(associated_id=id).order_by(desc(Payment.create_at)).all()
+    return Payment.query.filter_by(associated_id=id).order_by(asc(Payment.id)).all()
+
+def payments_impagos(id):
+    #filtrar aquellos pagos que esten impagos
+    return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()
+
 
 
 def costo_total(costo_disciplines):

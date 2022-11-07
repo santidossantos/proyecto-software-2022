@@ -95,6 +95,7 @@ def update(id):
             for rol in rolesSelected:
                 print(rol.id)
             auth.update_roles(user=user,rolesSelected=rolesSelected)
+            flash("Usuario Modificado Correctamente", "success")
             return redirect((url_for("users.user_index")))
 
     user = auth.get_user(id=id)

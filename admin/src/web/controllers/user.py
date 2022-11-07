@@ -7,7 +7,7 @@ from flask import url_for
 from flask import redirect
 from src.core import auth
 from src.core.permissions.role import Role
-from src.web.utils.validations import CampoVAcio, validationMailAndPass
+from src.web.utils.validations import CampoVAcio, validationMailAndPass,validationEmail
 from src.core import config
 from src.web.helpers.permission import permisson_required
 
@@ -74,8 +74,7 @@ def update(id):
         name = request.form.get("name")
         last_name = request.form.get("last_name")
         email = request.form.get("email")
-        password = request.form.get("password")
-        if CampoVAcio(name,last_name,email,password) and validationMailAndPass(email, password):
+        if CampoVAcio(name,last_name,email) and validationEmail(email):
             rolesSelected=[]
             for rolId in request.form.getlist('rol'):
                 unRol = Role.query.filter_by(id=rolId).first()
@@ -83,23 +82,24 @@ def update(id):
             if not rolesSelected:
                 flash("No se puede elimiar todos los roles de un usuario", "error")
                 return redirect(url_for("users.update",id=id))
-
-            if (auth.usWithUsername(user_name)):
+            user_edit = auth.get_user(id)
+            if (auth.usWithUsername(user_name) and auth.usWithUsername(user_name).id != user_edit.id):
                 flash("el nombre de usuario ingresado está ocupado", "error")
                 return redirect(url_for("users.update",id=id))
             
-            if (auth.usWithUserEmail(email)):
+            if (auth.usWithUserEmail(email) and auth.usWithUserEmail(email).id != user_edit.id):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("users.update", id=id))
 
-            user = auth.update_user(id=id, email=email, password=password,user_name=user_name,name=name,last_name=last_name)
+            user = auth.update_user(id=id, email=email,user_name=user_name,name=name,last_name=last_name)
             for rol in rolesSelected:
                 print(rol.id)
             auth.update_roles(user=user,rolesSelected=rolesSelected)
+            flash("Usuario Modificado Correctamente", "success")
             return redirect((url_for("users.user_index")))
 
     user = auth.get_user(id=id)
-    roles = Role.query.filter(or_(Role.nombre == 'Admin', Role.nombre == 'Operador'))
+    roles = Role.query.filter(or_(Role.nombre == 'admin', Role.nombre == 'operator'))
     return render_template("users/update.html", user=user, roles=roles)
 
 @users_blueprint.route("/show/<id>")

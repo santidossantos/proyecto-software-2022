@@ -80,6 +80,9 @@ def update_associate(**kwargs):
 def usWithUserEmail(email):
     return Associate.query.filter_by(email=email).first()
 
+def usWithUserDni(dni):
+    return Associate.query.filter_by(dni=dni).first()
+
 
 def delete_user(id):
     user = Associate.query.get(id)

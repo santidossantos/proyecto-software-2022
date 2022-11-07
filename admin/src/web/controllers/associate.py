@@ -100,12 +100,16 @@ def update(id):
         address = request.form.get("address")
         genero = request.form.get("genero")
         if CampoVAcio(name, last_name, document_type, dni, genero, address):
+            user_edit = associates.get_associate(id)
             if not isInteger(request.form.get("dni")):
                 flash("el dni no es valido", "error")
                 return redirect(url_for("associates.update", id=id))
             if not request.form.get("email") == "" and not validationEmail(
                 request.form.get("email")
             ):
+                return redirect(url_for("associates.update", id=id))
+            if (associates.usWithUserDni(dni) and associates.usWithUserDni(dni).id != user_edit.id):
+                flash("el dni ingresado ya existe", "error")
                 return redirect(url_for("associates.update", id=id))
             associates.update_associate(
                 id=id,

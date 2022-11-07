@@ -83,7 +83,7 @@ def setStatus(id):
 
 def NoEsAdmin(id):
     user = get_user(id)
-    res = Role.query.filter_by(nombre="Admin").first()
+    res = Role.query.filter_by(nombre="admin").first()
 
     if res in user.roles:
         return False

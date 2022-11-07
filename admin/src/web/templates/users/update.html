@@ -19,11 +19,11 @@ block head %}
     <input class="input_text" type="text" id="email" name="email" value="{{user.email}}" />
     <label class="label" for="rol">Roles</label>
     {%for rol in roles%}
-      {% if rol not in user.roles and has_permission("usuario_update") %}
+      {% if rol not in user.roles and has_permission("user_update") %}
           <input type="checkbox" name="rol" value="{{ rol.id }}">  
           <label>{{ rol.nombre }}</label>
       {% else %}
-        {% if has_permission("usuario_update") %}
+        {% if has_permission("user_update") %}
           <input type="checkbox" name="rol" value="{{ rol.id }}" checked>  
           <label>{{ rol.nombre }}</label>
             {% elif rol in user.roles %}

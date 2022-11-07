@@ -82,12 +82,12 @@ def update(id):
             if not rolesSelected:
                 flash("No se puede elimiar todos los roles de un usuario", "error")
                 return redirect(url_for("users.update",id=id))
-            user = auth.get_user(id)
-            if (auth.usWithUsername(user_name) and auth.usWithUsername(user_name).id != user.id):
+            user_edit = auth.get_user(id)
+            if (auth.usWithUsername(user_name) and auth.usWithUsername(user_name).id != user_edit.id):
                 flash("el nombre de usuario ingresado está ocupado", "error")
                 return redirect(url_for("users.update",id=id))
             
-            if (auth.usWithUserEmail(email) and auth.usWithUserEmail(email).id != user.id):
+            if (auth.usWithUserEmail(email) and auth.usWithUserEmail(email).id != user_edit.id):
                 flash("el email ingresado está ocupado", "error")
                 return redirect(url_for("users.update", id=id))
 

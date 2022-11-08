@@ -10,7 +10,7 @@
 {{ super () }}
 <h1 class="h1center">Actualizar Asociado</h1>
 <div class="form_container">
-  <form action="/associates/update/{{associate.id}}" method="post">
+  <form action="/associates/update/{{associate.id}}" enctype="multipart/form-data" method="post">
     <label class="label" for="name">Nombre*</label>
     <input class="input_text" type="text" value="{{associate.name}}" name="name" required />
     <label class="label" for="name">Apellido*</label>
@@ -35,6 +35,8 @@
     <input class="input_text" type="email" value="{{associate.email}}" id="email" name="email"/>
     <label class="label" for="name">Telefono</label>
     <input class="input_text" type="number" value="{{associate.mobile_number}}" id="email" name="mobile_number"/>
+    <br><label class="label" for="name">Foto de perfil</label>
+    <input type="file" class="" name="profile_picture" accept="image/*" />
     <button type="submit" id="submit" class="button_add mt-3">Guardar</button>
   </form>
 </div>

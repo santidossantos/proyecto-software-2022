@@ -128,6 +128,12 @@ def update(id):
                 address=address,
                 genero=genero,
             )
+
+            if request.files["profile_picture"] != None:
+                profile_picture = b64encode(request.files["profile_picture"].read())
+                associates.update_associate(id=id, profile_picture=profile_picture)
+
+
             flash("Asociado Modificado Correctamente", "success")
             return redirect((url_for("associates.associate_index")))
 

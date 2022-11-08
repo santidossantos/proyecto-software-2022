@@ -1,11 +1,8 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} 
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
 {%block head %}
 {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='forms/style.css') }}"
-/>
-{% endblock head%} 
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head%}
 {%block content %}
 {{ super () }}
 <h1 class="h1center">Actualizar Asociado</h1>
@@ -18,23 +15,24 @@
     <label class="label" for="name">Tipo de documento*</label>
     <select id="document_type" name="document_type" class="input_select" required>
       {%for tipo in document_type %}
-        <option value="{{tipo.name}}" {% if associate.document_type.name == tipo.name %}selected{% endif %}>{{tipo.value}}</option>
+      <option value="{{tipo.name}}" {% if associate.document_type.name == tipo.name %}selected{% endif %}>{{tipo.value}}
+      </option>
       {%endfor%}
     </select>
     <label class="label" for="name">Numero de Documento*</label>
-    <input class="input_text" type="number" value="{{associate.dni}}" id="email" name="dni" required/>
+    <input class="input_text" type="number" value="{{associate.dni}}" id="email" name="dni" required />
     <label class="label" for="name">Genero*</label>
     <select id="genero" name="genero" class="input_select" required>
       {%for gen in genero %}
-        <option value="{{gen.name}}" {% if associate.genero.name == gen.name %}selected{% endif %}>{{gen.value}}</option>
+      <option value="{{gen.name}}" {% if associate.genero.name == gen.name %}selected{% endif %}>{{gen.value}}</option>
       {%endfor%}
     </select>
     <label class="label" for="name">Direccion*</label>
-    <input class="input_text" type="text" value="{{associate.address}}" id="email" name="address" required/>
+    <input class="input_text" type="text" value="{{associate.address}}" id="email" name="address" required />
     <label class="label" for="name">Email</label>
-    <input class="input_text" type="email" value="{{associate.email}}" id="email" name="email"/>
+    <input class="input_text" type="email" value="{{associate.email}}" id="email" name="email" />
     <label class="label" for="name">Telefono</label>
-    <input class="input_text" type="number" value="{{associate.mobile_number}}" id="email" name="mobile_number"/>
+    <input class="input_text" type="number" value="{{associate.mobile_number}}" id="email" name="mobile_number" />
     <br><label class="label" for="name">Foto de perfil</label>
     <input type="file" class="" name="profile_picture" accept="image/*" />
     <button type="submit" id="submit" class="button_add mt-3">Guardar</button>

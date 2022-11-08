@@ -129,7 +129,7 @@ def update(id):
                 genero=genero,
             )
 
-            if request.files["profile_picture"] != None:
+            if request.files["profile_picture"]:
                 profile_picture = b64encode(request.files["profile_picture"].read())
                 associates.update_associate(id=id, profile_picture=profile_picture)
 

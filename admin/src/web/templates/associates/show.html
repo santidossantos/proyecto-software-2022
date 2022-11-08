@@ -5,6 +5,17 @@
 {% endblock head %}
 {%block content %}
 
+
+<div class="d-flex justify-content-end">
+  <form method="get">
+    <button style="float: right" class="btn btn-danger m-2 text-dark" type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}">
+      <input name="doc_type" value="pdf-carnet" hidden/>
+      <a><img src="{{ url_for('static', filename='images/pdf_carnet.svg') }}" />Exportar</a>
+    </button>
+  </form>
+</div>
+
+
 <div class="page-content page-container">
   <div class="padding d-flex justify-content-center">
     <div class="row container d-flex justify-content-center">
@@ -74,21 +85,3 @@
 </div>
 
 {% endblock content %}
-
-
-
-
-
-
-<!--
-
-
-<h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
-<section class="sectionShow">
-  <span class="labelShow"><strong>Email: </strong>{{associate.email}}</span>
-  <span class="labelShow"><strong>Direccion: </strong>{{associate.address}}</span>
-  <span class="labelShow"><strong>Telefono: </strong>{{associate.mobile_number}}</span>
-  <span class="labelShow"><strong>Fecha de Alta: </strong>{{associate.create_at.strftime('%d/%m/%Y')}}</span>
-</section>
-
--->

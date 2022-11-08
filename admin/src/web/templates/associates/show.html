@@ -14,8 +14,14 @@
             <div class="col-sm-4 bg-c-lite-green user-profile">
               <div class="card-block text-center text-white">
                 <div class="m-b-25">
-                  <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
-                    alt="User-Profile-Image">
+                  <img src="" class="rounded-circle border" id="img" width="90" height="90">
+                  <script>
+                    data = "{{ associate.profile_picture }}"
+                    data = data.replace("b&#39;", "")
+                    data = data.replace("&#39;", "")
+
+                    document.getElementById("img").src = "data:image/png;base64," + data; // set src
+                  </script>
                 </div>
                 <h6 class="f-w-600">Asociado</h6>
                 <p>{{associate.name}} {{associate.last_name}}</p>

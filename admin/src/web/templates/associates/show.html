@@ -55,16 +55,15 @@
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">Estado</p>
                     <h6 class="text-muted f-w-400">Al día</h6>
-                  </div>
-                  <div class="col-sm-6">
-                    <p class="m-b-10 f-w-600">QR</p>
-                    <h6 class="text-muted f-w-400">...</h6>
-                  </div>
-                  <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">Fecha Alta</p>
                     <h6 class="text-muted f-w-400">{{associate.create_at.strftime('%d/%m/%Y')}}</h6>
                   </div>
+
+                  <div class="col-sm-6 mt-3">
+                    <img style="float: right;" src="{{ qrcode(STRING_TO_ENCODE, box_size=5) }}">
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>

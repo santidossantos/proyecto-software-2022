@@ -6,11 +6,14 @@
 {%block content %}
 
 
+
 <div class="d-flex justify-content-end">
   <form method="get">
-    <button style="float: right" class="btn btn-danger m-2 text-dark" type="submit" formaction="{{ url_for('associates.call_pdf_exporter') }}">
-      <input name="doc_type" value="pdf-carnet" hidden/>
-      <a><img src="{{ url_for('static', filename='images/pdf_carnet.svg') }}" />Exportar</a>
+    <button style="float: right" class="btn btn-danger m-2 text-dark" type="submit"
+      formaction="{{ url_for('associates.generate_pdf_license') }}">
+      <input name="doc_type" value="pdf-license" hidden />
+      <input name="id_assoc" value="{{ associate.id }}" hidden />
+      <a><img src="{{ url_for('static', filename='images/pdf_license.svg') }}" />Exportar</a>
     </button>
   </form>
 </div>
@@ -69,10 +72,11 @@
                     <p class="m-b-10 f-w-600">Fecha Alta</p>
                     <h6 class="text-muted f-w-400">{{associate.create_at.strftime('%d/%m/%Y')}}</h6>
                   </div>
-
+                  
                   <div class="col-sm-6 mt-3">
                     <img style="float: right;" src="{{ qrcode(STRING_TO_ENCODE, box_size=5) }}">
                   </div>
+                 
                 </div>
 
               </div>

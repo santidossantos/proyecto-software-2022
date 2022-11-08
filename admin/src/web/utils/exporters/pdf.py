@@ -19,4 +19,12 @@ def generate_pdf_file_payment(associate, costo_total, month, fecha, id, texto):
         automatic_download=False,
         download_filename="comprobate_pago.pdf",
     )
-    
+
+
+def generate_pdf_license(associate):
+    html = render_template("associates/pdf-license.html", associate=associate)
+    return render_pdf(
+        HTML(string=html),
+        automatic_download=False,
+        download_filename="carnet_digital.pdf",
+    )

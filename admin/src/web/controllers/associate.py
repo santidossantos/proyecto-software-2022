@@ -133,7 +133,6 @@ def update(id):
                 profile_picture = b64encode(request.files["profile_picture"].read())
                 associates.update_associate(id=id, profile_picture=profile_picture)
 
-
             flash("Asociado Modificado Correctamente", "success")
             return redirect((url_for("associates.associate_index")))
 
@@ -177,6 +176,15 @@ def call_pdf_exporter():
     return call_some_exporter("pdf", search_filter, active_filter)
 
 
+@associates_blueprint.get("/export/pdf/generate-license")
+def generate_pdf_license():
+    doc_type = request.args.get("doc_type")
+    id_assoc = request.args.get("id_assoc")
+    associated = associates.get_associate(id_assoc)
+    return exporters.choose_exporter(associated, doc_type)
+
+
 def call_some_exporter(doc_type, search_filter, active_filter):
     records = associates.list_associate_filtered(search_filter, active_filter)
+    print(doc_type)
     return exporters.choose_exporter(records, doc_type)

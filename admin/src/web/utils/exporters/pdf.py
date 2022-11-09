@@ -22,7 +22,7 @@ def generate_pdf_file_payment(associate, costo_total, month, fecha, id, texto):
 
 
 def generate_pdf_license(associate):
-    html = render_template("associates/pdf-license.html", associate=associate)
+    html = render_template("associates/export-license.html", associate=associate)
     return render_pdf(
         HTML(string=html),
         automatic_download=False,

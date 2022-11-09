@@ -193,7 +193,7 @@
             <p>Teléfono: {{associate.mobile_number}}</p>
             <p>Email: {{associate.email}}</p>
             <p>Fecha alta: {{associate.create_at.strftime('%d/%m/%Y')}}</p>
-            <span class="more"> {% set QR = qrcode(request.url, box_size=2) %}
+            <span class="more"> {% set QR = qrcode(qr_url, box_size=2) %}
                 <img style="float: right;" src="{{ QR }}"></span>
         </div>
     </div>

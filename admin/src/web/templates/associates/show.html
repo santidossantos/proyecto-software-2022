@@ -11,6 +11,7 @@
       formaction="{{ url_for('associates.generate_pdf_license') }}">
       <input name="doc_type" value="pdf-license" hidden />
       <input name="id_assoc" value="{{ associate.id }}" hidden />
+      <input name="qr_url_pdf" value="{{ request.url }}" hidden />
       <a><img src="{{ url_for('static', filename='images/pdf_license.svg') }}" />Exportar</a>
     </button>
   </form>

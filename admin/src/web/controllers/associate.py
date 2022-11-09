@@ -180,8 +180,9 @@ def call_pdf_exporter():
 def generate_pdf_license():
     doc_type = request.args.get("doc_type")
     id_assoc = request.args.get("id_assoc")
+    qr_url = request.args.get("qr_url_pdf")
     associated = associates.get_associate(id_assoc)
-    return exporters.choose_exporter(associated, doc_type)
+    return exporters.choose_exporter(associated, doc_type, qr_url)
 
 
 def call_some_exporter(doc_type, search_filter, active_filter):

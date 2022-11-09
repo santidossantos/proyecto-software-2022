@@ -5,8 +5,6 @@
 {% endblock head %}
 {%block content %}
 
-
-
 <div class="d-flex justify-content-end">
   <form method="get">
     <button style="float: right" class="btn btn-danger m-2 text-dark" type="submit"
@@ -17,7 +15,6 @@
     </button>
   </form>
 </div>
-
 
 <div class="page-content page-container">
   <div class="padding d-flex justify-content-center">
@@ -72,11 +69,11 @@
                     <p class="m-b-10 f-w-600">Fecha Alta</p>
                     <h6 class="text-muted f-w-400">{{associate.create_at.strftime('%d/%m/%Y')}}</h6>
                   </div>
-                  
+          
                   <div class="col-sm-6 mt-3">
-                    <img style="float: right;" src="{{ qrcode(STRING_TO_ENCODE, box_size=5) }}">
+                    {% set QR = qrcode(request.url, box_size=3) %}
+                    <img style="float: right;" src="{{ QR }}">
                   </div>
-                 
                 </div>
 
               </div>

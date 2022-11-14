@@ -1,8 +1,21 @@
 <template>
-    <div class="hello">
-      <h1>{{disciplinas}}</h1>
-    </div>
-  </template>
+  <table class="table table-hover table-dark m-3">
+    <thead>
+      <tr>
+        <td>Nombre</td>
+        <td>Dias y Horarios</td>
+        <td>Instructures</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="disciplina in disciplinas" :key="disciplina">
+        <td>{{ disciplina.name }}</td>
+        <td>{{ disciplina.daysAndHours }}</td>
+        <td>{{ disciplina.nameInstructors }}</td>
+      </tr>
+    </tbody>
+    </table>
+</template>
 
 <script>
 import axios from 'axios';
@@ -10,7 +23,7 @@ import axios from 'axios';
   data() {
     return {
       disciplinas: [],
-      errors: []
+      errores: []
    }
   },
   // Fetches posts when the component is created.
@@ -21,7 +34,7 @@ import axios from 'axios';
     this.disciplinas = response.data;
     })
     .catch(e => {
-    this.errors.push(e)
+    this.errores.push(e)
     })
   }
 }

@@ -19,10 +19,12 @@ from src.core import auth
 from src.web.helpers import permission as helper_permission
 from datetime import datetime 
 from src.web.helpers import discipline as helper_discipline
+from flask_cors import CORS
 
 
 def create_app(env="development", static_folder="static"):
     app = Flask(__name__, static_folder=static_folder)
+    CORS(app)
 
     app.config.from_object(config[env])
 

@@ -1,11 +1,18 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} 
+{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %}
 {%block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
-{% endblock head %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head %}
 {%block content %}
-<h1>Usuario: {{user.name}} {{user.last_name}}</h1>
-<section class="sectionShow">
-  <span class="labelShow"><strong>Email: </strong>{{user.email}}</span>
-</section>
+
+<div class="row justify-content-center mt-5">
+  <section class="sectionShow">
+    <h3>Datos del usuario: </h3>
+    <span class="labelShow"><strong>Nombre: </strong>{{user.name}}</span>
+    <span class="labelShow"><strong>Apellido: </strong>{{user.last_name}}</span>
+    <span class="labelShow"><strong>Usuario: </strong>{{user.user_name}}</span>
+    <span class="labelShow"><strong>Email: </strong>{{user.email}}</span>
+  </section>
+</div>
+
 {% endblock content %}

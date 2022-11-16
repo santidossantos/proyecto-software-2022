@@ -80,7 +80,8 @@ def run():
     rol_associado = permissions.create_role(nombre="associated")
 
     user_admin = auth.create_user(
-        name="Admin", last_name="Admin", email="admin@gmail.com", password="1234"
+        name="Admin", last_name="Admin", email="admin@gmail.com", password="1234",
+        user_name='admin_user'
     )
     auth.update_roles(user_admin, [role_admin])
 
@@ -89,6 +90,7 @@ def run():
         last_name="Apellido",
         email="operador@gmail.com",
         password="1234",
+        user_name='operator_user'
     )
 
     auth.update_roles(user_operador, [role_operator])

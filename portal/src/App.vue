@@ -2,6 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/disciplinas">Disciplinas</router-link>
+    <router-link to="/login">LOGIN</router-link>
   </nav>
   <router-view />
 </template>

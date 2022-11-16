@@ -147,7 +147,15 @@ def show(id):
 @permisson_required("member_destroy")
 def delete(id):
     associates.delete_user(id=id)
-    flash("Asociado Eliminado Correctamente", "success")
+    flash("Asociado Desactivado Correctamente", "success")
+    return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.route("/activate/<id>")
+@permisson_required("member_destroy")
+def activate(id):
+    associates.activate(id=id)
+    flash("Asociado Activado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
 
 

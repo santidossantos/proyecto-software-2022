@@ -177,3 +177,10 @@ def setNotDefaulter(id):
     associate.defaulter = False
     db.session.commit()
     return associate
+
+
+def activate(id):
+    associate = get_associate(id)
+    associate.active = True
+    db.session.commit()
+    return associate

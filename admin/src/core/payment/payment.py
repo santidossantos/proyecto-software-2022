@@ -33,6 +33,7 @@ class Payment(db.Model):
     mes = db.Column(db.Enum(Mes), nullable=False)
     total = db.Column(db.Integer)
     state = db.Column(db.Enum(State), default="I", nullable=False)
+    nroComprobante = db.Column(db.Integer, unique=True)
 
     update_at = db.Column(
         db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()

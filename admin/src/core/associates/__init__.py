@@ -7,6 +7,7 @@ from src.core.associates.associate import Associate
 from src.core.associates.associate import associates_disciplines
 from src.core.database import db
 from sqlalchemy import or_
+from src.web.utils.math import random_integer
 
 
 def list_associate(page_num, per_page, search, active, nroSocio):
@@ -153,6 +154,7 @@ def generar_pagos(id):
     i = datetime.datetime.now().month - 1
     for i in range(i, 12):
         payment = Payment(associated_id=id, mes=mes[i], total=0)
+        payment.nroComprobante = random_integer()
         db.session.add(payment)
         db.session.commit()
     return payment

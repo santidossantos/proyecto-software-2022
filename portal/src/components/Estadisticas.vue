@@ -9,24 +9,22 @@
  import Chart from 'chart.js/auto';
  import axios from 'axios';
  
+ let url = "http://127.0.0.1:5000/api/me/payments/2/"
  export default { 
     name: "Home",
     props: {
       msg: String,
     },
     mounted(){
+     this.mostrar()
      console.log('component mounted.')
 
      const ctx = document.getElementById('myChart');
 
-    const data = {
-    labels: [
-        'Red',
-        'Blue',
-        'Yellow'
-    ],
-    datasets: [{
-        label: 'My First Dataset',
+     const data = {
+     labels: this.data,
+     datasets: [{
+        label: 'GRAFICOS',
         data: [300, 50, 100],
         backgroundColor: [
         'rgb(255, 99, 132)',
@@ -34,13 +32,25 @@
         'rgb(255, 205, 86)'
         ],
         hoverOffset: 4
-    }]
-    };
+     }]
+     };
 
-const myChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: data,
-});
+   const myChart = new Chart(ctx, {
+   type: 'doughnut',
+   data: data,
+   });
+   },
+   methods:{
+      mostrar(){
+            axios
+               .get(url)
+                  .then(response => {
+                     response.data.array.forEach(element => {
+                        this.data.push(element.date)
+                        this.data.push(element.total)
+                     })
+                  })
+      }
    }
   };
 </script>

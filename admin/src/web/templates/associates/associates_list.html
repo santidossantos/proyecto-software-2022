@@ -60,6 +60,7 @@
     </thead>
     <tbody>
       {% for associate in associates.items %}
+      {% if  (associate.active == True)  or (associate.active == False and (request.args.get('active_filter') == 'False') ) %}
       <tr>
         <th>{{ associate.name}}</th>
         <th>{{ associate.last_name}}</th>
@@ -76,11 +77,16 @@
               src="{{ url_for('static', filename='images/edit.svg') }}" /></a>
           {% endif %}
           {% if has_permission("member_destroy") %}
-          <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
-              alt="Eliminar" title="Eliminar" src="{{ url_for('static', filename='images/delete.svg') }}" /></a>
+              {% if (associate.active == False) %}
+              <a href="{{ url_for('associates.activate', id=associate.id )}}" class="deleteconfirm"><img class="icon" alt="Activar" title="Activar" src="{{ url_for('static', filename='images/off.svg') }}"/></a>
+              {% else %}
+                  <a href="{{ url_for('associates.delete', id=associate.id )}}" class="deleteconfirm"><img class="icon"
+                  alt="Eliminar" title="Desactivar" src="{{ url_for('static', filename='images/on.svg') }}" /></a>
+              {% endif %}
           {% endif %}
         </th>
       </tr>
+      {% endif %}
       {% endfor %}
     </tbody>
   </table>

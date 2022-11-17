@@ -1,6 +1,6 @@
 <template>
-  <div class="about">
-    <h1>Listado de Disciplinas</h1>
+  <div class="est">
+    <h1>Estadisticas</h1>
     <Estadisticas />
   </div>
 </template>

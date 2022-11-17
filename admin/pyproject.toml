@@ -14,6 +14,7 @@ Flask-SQLAlchemy = "^2.5.1"
 flask_weasyprint = "^1.0.0"
 marshmallow = "^3.18.0"
 flask-qrcode = "^3.1.0"
+marshmallow-enum = "^1.5.1"
 
 
 [build-system]

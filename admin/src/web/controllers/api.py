@@ -1,8 +1,10 @@
+import re
 from src.core import associates
 from flask import Blueprint, jsonify, make_response, request
 from src.core import disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
+from src.core.serializer.license import LicenseSchema
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -52,3 +54,11 @@ def register_payment_by_id():
     resp = make_response(jsonify({"result": "Success"}))
     resp.headers["Content-Type: application/json"] = "*"
     return resp
+
+
+@me_blueprint.get("/license/<id>")
+def get_license(id):
+    record = associates.get_associate(id)
+    record.profile_picture.decode() # Si queremos pasar foto de perfil necesitamos esto
+    serializer = LicenseSchema()
+    return JSON_serialized_response(record, serializer)

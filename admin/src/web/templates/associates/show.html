@@ -1,14 +1,89 @@
-{% extends 'layout/layout.html' %} {% block title %}Usuarios{% endblock %} 
+{% extends 'layout/layout.html' %} {% block title %}Carnet Digital{% endblock %}
 {%block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
-{% endblock head %} 
+<link rel="stylesheet" href="{{ url_for('static', filename='report/css/show-associated.css') }}" />
+{% endblock head %}
 {%block content %}
-<h1>Asociado: {{associate.name}} {{associate.last_name}}</h1>
-<section class="sectionShow">
-  <span class="labelShow"><strong>Email: </strong>{{associate.email}}</span>
-  <span class="labelShow"><strong>Direccion: </strong>{{associate.address}}</span>
-  <span class="labelShow"><strong>Telefono: </strong>{{associate.mobile_number}}</span>
-  <span class="labelShow"><strong>Fecha de Alta: </strong>{{associate.create_at.strftime('%d/%m/%Y')}}</span>
-</section>
+
+<div class="d-flex justify-content-end">
+  <form method="get">
+    <button style="float: right" class="btn btn-danger m-2 text-dark" type="submit"
+      formaction="{{ url_for('associates.generate_pdf_license') }}">
+      <input name="doc_type" value="pdf-license" hidden />
+      <input name="id_assoc" value="{{ associate.id }}" hidden />
+      <input name="qr_url_pdf" value="{{ request.url }}" hidden />
+      <a><img src="{{ url_for('static', filename='images/pdf_license.svg') }}" />Exportar</a>
+    </button>
+  </form>
+</div>
+
+<div class="page-content page-container">
+  <div class="padding d-flex justify-content-center">
+    <div class="row container d-flex justify-content-center">
+      <div class="col-xl-6 col-md-12">
+        <div class="card user-card-full">
+          <div class="row m-l-0 m-r-0">
+            <div class="col-sm-4 bg-c-lite-green user-profile">
+              <div class="card-block text-center text-white">
+                <div class="m-b-25">
+                  <img src="" class="rounded-circle border border-dark border-1" id="img" width="90" height="90">
+                  <script>
+                    data = "{{ associate.profile_picture }}"
+                    data = data.replace("b&#39;", "")
+                    data = data.replace("&#39;", "")
+                    document.getElementById("img").src = "data:image/png;base64," + data; // set src
+                  </script>
+                </div>
+                <h6 class="f-w-600">Asociado</h6>
+                <p>{{associate.name}} {{associate.last_name}}</p>
+                <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
+              </div>
+            </div>
+            <div class="col-sm-8 div-card">
+              <div class="card-block">
+                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Carnet Digital</h6>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Email</p>
+                    <h6 class="text-muted f-w-400">{{associate.email}}</h6>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Teléfono</p>
+                    <h6 class="text-muted f-w-400">{{associate.mobile_number}}</h6>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">DNI</p>
+                    <h6 class="text-muted f-w-400">{{associate.dni}}</h6>
+                  </div>
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">N° Socio</p>
+                    <h6 class="text-muted f-w-400">{{associate.member_number}}</h6>
+                  </div>
+                </div>
+                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p class="m-b-10 f-w-600">Estado</p>
+                    <h6 class="text-muted f-w-400">Al día</h6>
+                    <p class="m-b-10 f-w-600">Fecha Alta</p>
+                    <h6 class="text-muted f-w-400">{{associate.create_at.strftime('%d/%m/%Y')}}</h6>
+                  </div>
+          
+                  <div class="col-sm-6 mt-3">
+                    {% set QR = qrcode(request.url, box_size=3) %}
+                    <img style="float: right;" src="{{ QR }}">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock content %}

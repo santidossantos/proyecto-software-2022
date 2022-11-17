@@ -3,8 +3,6 @@ from src.core.database import db
 import datetime
 import enum
 from random import randint
-
-# from src.core.associates import Associate
 from sqlalchemy.orm import relationship
 
 
@@ -40,8 +38,11 @@ associates_disciplines = db.Table(
         "discipline_id", db.Integer, db.ForeignKey("disciplines.id"), primary_key=True
     ),
     db.Column(
-        "inscriptionDate", db.DateTime, default=datetime.datetime.now(), onupdate=datetime.datetime.now()
-    )
+        "inscriptionDate",
+        db.DateTime,
+        default=datetime.datetime.now(),
+        onupdate=datetime.datetime.now(),
+    ),
 )
 
 
@@ -67,6 +68,7 @@ class Associate(db.Model):
     genero = db.Column(db.Enum(Genero), default="O", nullable=False)
     document_type = db.Column(db.Enum(DocumentType), default="DNI", nullable=False)
     disciplines = db.relationship("Discipline", secondary=associates_disciplines)
+    profile_picture = db.Column(db.LargeBinary, nullable=True)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

@@ -1,14 +1,14 @@
-{% extends 'layout/layout.html' %} 
-{% block title %} Asociados {% endblock %} 
-{%block head %} 
+{% extends 'layout/layout.html' %}
+{% block title %} Asociados {% endblock %}
+{%block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}"/>
-{% endblock head%} 
+<link rel="stylesheet" href="{{ url_for('static', filename='forms/style.css') }}" />
+{% endblock head%}
 {%block content %}
 {{ super() }}
 <h1 class="h1center">Nuevo Asociado</h1>
 <div class="form_container">
-  <form action="{{ url_for('associates.create') }}" method="post">
+  <form action="{{ url_for('associates.create') }}" enctype="multipart/form-data" method="post">
     <label class="label" for="name">Nombre*</label>
     <input class="input_text" type="text" id="email" name="name" />
     <label class="label" for="name">Apellido*</label>
@@ -16,23 +16,25 @@
     <label class="label" for="name">Tipo de documento*</label>
     <select id="document_type" name="document_type" class="input_select" required>
       {%for tipo in document_type %}
-        <option value="{{tipo.name}}">{{tipo.value}}</option>
+      <option value="{{tipo.name}}">{{tipo.value}}</option>
       {%endfor%}
     </select>
     <label class="label" for="name">Numero de Documento*</label>
     <input type="number" class="input_text" type="text" name="dni" />
-    <label class="label" for="name">Genero*</label>
+    <label class="label" for="name">Género*</label>
     <select id="genero" name="genero" class="input_select" required>
       {%for gen in genero %}
-        <option value="{{gen.name}}">{{gen.value}}</option>
+      <option value="{{gen.name}}">{{gen.value}}</option>
       {%endfor%}
     </select>
     <label class="label" for="name">Direccion*</label>
     <input class="input_text" type="text" id="email" name="address" />
     <label class="label" for="name">Email</label>
     <input class="input_text" type="text" id="email" name="email" />
-    <label class="label" for="name">Telefono</label>
+    <label class="label" for="name">Teléfono</label>
     <input type="number" class="input_text" type="text" id="email" name="mobile_number" />
+    <br><label class="label" for="name">Foto de perfil</label>
+    <input type="file" class="" name="profile_picture" accept="image/*" />
     <button type="submit" id="submit" class="button_add mt-3">Guardar</button>
   </form>
 </div>

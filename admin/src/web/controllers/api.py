@@ -59,6 +59,7 @@ def register_payment_by_id():
 @me_blueprint.get("/license/<id>")
 def get_license(id):
     record = associates.get_associate(id)
-    record.profile_picture.decode() # Si queremos pasar foto de perfil necesitamos esto
+    if record.profile_picture:
+        record.profile_picture.decode()  # Si queremos pasar foto de perfil necesitamos esto
     serializer = LicenseSchema()
     return JSON_serialized_response(record, serializer)

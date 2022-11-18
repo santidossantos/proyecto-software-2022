@@ -52,6 +52,7 @@
             console.log(response.data) //traemos todos los datos desde la API
             //vacio el vector disciplinas
             disciplinas = []
+            inscriptos = []
             response.data.forEach(element => {
                 console.log(element.disciplina) //todoss los console log son testss
                 console.log(url)

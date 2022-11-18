@@ -1,7 +1,7 @@
 <template>
    <div class="est">
       <h1>Hola {{msg}}</h1>
-      <canvas id="myChart" width="400" height="400"></canvas>
+      <canvas id="myChart" width="100" height="100"></canvas>
    </div>
 </template>
 
@@ -45,7 +45,9 @@
             axios
                .get(url)
                   .then(response => {
-                     response.data.array.forEach(element => {
+                     console.log(response.data)
+                     response.data.forEach(element => {
+                        console.log(element.disciplina)
                         this.data.push(element.disciplina)
                         this.data.push(element.inscriptos)
                      })

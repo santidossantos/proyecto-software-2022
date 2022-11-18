@@ -29,8 +29,4 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
-acquisitions {
-  width: 800px
-}
-
 </style>

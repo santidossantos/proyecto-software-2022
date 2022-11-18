@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, make_response, request
 from src.core import disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
+from src.core.serializer.disciplineCant import DisciplineCantSchema
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -22,15 +23,19 @@ def JSON_serialized_response(records, serializer):
 @club_blueptint.get("/disciplines")  # La url seria /api/club/disciplines
 def get_all_disciplines():
     records = disciplines.list_disciplines_plain()
-    serializer = DisciplineSchema(many=True)
+    serializer = DisciplineCantSchema(many=True)
     return JSON_serialized_response(records, serializer)
+
+@club_blueptint.get("/disciplinesCant")  # La url seria /api/club/disciplinesCant
+def disciplinesCantAssociates():
+    records = disciplines.disciplinesCantInscriptions()
+    return records
 
 
 @me_blueprint.get("/disciplines/<id>")
 def get_disciplines_by_id(id):
     records =  associates.associated_disciplines(id)
-    serializer = DisciplineSchema(many=True)
-    return JSON_serialized_response(records, serializer)
+    return True
 
 
 @me_blueprint.get("/payments/<id>")
@@ -52,3 +57,5 @@ def register_payment_by_id():
     resp = make_response(jsonify({"result": "Success"}))
     resp.headers["Content-Type: application/json"] = "*"
     return resp
+
+

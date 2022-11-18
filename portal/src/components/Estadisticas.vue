@@ -27,7 +27,7 @@
     let data = {
       labels: disciplinas,
       datasets: [{
-        label: 'My First Dataset',
+        label: 'Inscripciones',
         data: inscriptos,
         backgroundColor: [
           'rgb(255, 99, 132)',
@@ -50,8 +50,10 @@
         .get(url)
             .then(response => {
             console.log(response.data) //traemos todos los datos desde la API
+            //vacio el vector disciplinas
+            disciplinas = []
             response.data.forEach(element => {
-                console.log(element.disciplina)
+                console.log(element.disciplina) //todoss los console log son testss
                 console.log(url)
                 console.log(disciplinas)
                 disciplinas.push(element.disciplina)

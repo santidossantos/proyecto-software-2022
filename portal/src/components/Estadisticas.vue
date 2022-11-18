@@ -9,7 +9,7 @@
  import Chart from 'chart.js/auto';
  import axios from 'axios';
  
- let url = "http://127.0.0.1:5000/api/me/payments/2/"
+ let url = "http://127.0.0.1:5000/api/club/disciplinesCant"
  export default { 
     name: "Home",
     props: {
@@ -24,7 +24,7 @@
      const data = {
      labels: this.data,
      datasets: [{
-        label: 'GRAFICOS',
+        label: this.data,
         data: [300, 50, 100],
         backgroundColor: [
         'rgb(255, 99, 132)',
@@ -46,8 +46,8 @@
                .get(url)
                   .then(response => {
                      response.data.array.forEach(element => {
-                        this.data.push(element.date)
-                        this.data.push(element.total)
+                        this.data.push(element.disciplina)
+                        this.data.push(element.inscriptos)
                      })
                   })
       }

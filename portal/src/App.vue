@@ -1,8 +1,10 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/disciplinas">Disciplinas</router-link>
-    <router-link to="/login">LOGIN</router-link>
+    <router-link to="/disciplinas">Disciplinas</router-link> |
+    <router-link to="/login">Login</router-link> |
+    <router-link to="/payment">Pagos</router-link> |
+    <router-link to="/payment">Realizar Pago</router-link> |
   </nav>
   <router-view />
 </template>
@@ -13,7 +15,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000203;
 }
 
 nav {

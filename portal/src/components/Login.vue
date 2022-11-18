@@ -1,15 +1,12 @@
 <template>
     <div class="hello">
         <h1>{{ token }}</h1>
-        <form action="">
-            <label for="nombre">
-                <span>¿Cuál es tu nombre?</span>
-                <input type="text" id="email" placeholder="email">
-            </label>
-            <label for="inicio-platzi">
-                <span>¿Contraseña?</span>
-                <input type="text" id="password" placeholder="password">
-            </label>
+        <form action class="form" @submit.prevent="register">
+            <label class="form-label" for="#email">Email:</label>
+            <input v-model="email" class="form-input" type="email" id="email" required placeholder="Email">
+            <label class="form-label" for="#password">Password:</label>
+            <input v-model="password" class="form-input" type="password" id="password" placeholder="Password">
+            <input class="form-submit" type="submit" value="Login">
         </form>
     </div>
 </template>
@@ -19,19 +16,32 @@ import axios from 'axios';
 
 export default {
     data() {
+
         return {
             token: "",
+            email: "",
+            password: "",
             errores: []
         }
     },
-    // Fetches posts when the component is created.
-    created() {
-        const user = {
-            "email": "admin@gmail.com",
-            "password": "1234"
+
+    methods: {
+
+        register() {
+            console.log(this.email);
+            console.log(this.password);
+            const user = {
+                "email": this.email,
+                "password": this.password
+
+            }
+            actions.loginUser(user)
+
+
         }
-        actions.loginUser(user)
-    }
+    },
+
+
 }
 
 const apiService = axios.create({
@@ -42,7 +52,10 @@ const apiService = axios.create({
 const actions = {
     async loginUser(user) {
         const response = await apiService.post('/auth/token', user)
+        localStorage.setItem('jwt', response.data.token);
         console.log(response.data)
     }
 };
 </script>
+
+

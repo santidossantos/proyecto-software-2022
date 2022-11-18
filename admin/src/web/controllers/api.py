@@ -23,13 +23,20 @@ def JSON_serialized_response(records, serializer):
 @club_blueptint.get("/disciplines")  # La url seria /api/club/disciplines
 def get_all_disciplines():
     records = disciplines.list_disciplines_plain()
-    serializer = DisciplineCantSchema(many=True)
+    serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
+
 
 @club_blueptint.get("/disciplinesCant")  # La url seria /api/club/disciplinesCant
 def disciplinesCantAssociates():
     records = disciplines.disciplinesCantInscriptions()
     return records
+
+@club_blueptint.get("/generosCant")  # La url seria /api/club/generosCant
+def generosCant():
+    records = associates.getCantGeneros()
+    return records
+
 
 
 @me_blueprint.get("/disciplines/<id>")

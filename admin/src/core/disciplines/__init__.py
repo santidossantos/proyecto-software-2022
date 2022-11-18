@@ -9,9 +9,7 @@ def list_disciplines(page_num, per_page):
 
 
 def list_disciplines_plain():
-    disciplines = Discipline.query.all()
-    print(disciplines)
-    return disciplines
+     return Discipline.query.all()
 
 def create_discipline(**kwargs):
     discipline = Discipline(**kwargs)

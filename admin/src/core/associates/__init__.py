@@ -177,3 +177,21 @@ def setNotDefaulter(id):
     associate.defaulter = False
     db.session.commit()
     return associate
+
+def getCantGeneros():
+    #obtener todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #para cada asociado, obtener su genero y contar cuantos hay de cada uno
+    cantHombres = 0
+    cantMujeres = 0
+    for asociado in asociados:
+        if (asociado.genero == "M"):
+            cantMujeres = cantMujeres + 1
+        else:
+            cantHombres = cantHombres + 1
+    total = []
+    dic = {}
+    dic["hombres"] = cantHombres
+    dic["mujeres"] = cantMujeres
+    total.append(dic)
+    return total

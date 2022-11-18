@@ -54,12 +54,12 @@
             disciplinas = []
             inscriptos = []
             response.data.forEach(element => {
-                console.log(element.disciplina) //todoss los console log son testss
-                console.log(url)
-                console.log(disciplinas)
+               // console.log(element.disciplina) //todoss los console log son testss
+                //console.log(url)
+               // console.log(disciplinas)
                 disciplinas.push(element.disciplina)
                 inscriptos.push(element.inscriptos)
-                console.log(inscriptos)
+               // console.log(inscriptos)
             })        
             //console.log(document.getElementById('line-chart'))//el ID donde se genera el grafico es 'line-chart'                    
         })

@@ -12,6 +12,8 @@ from flask_jwt_extended import get_jwt_identity, jwt_required, unset_jwt_cookies
 from src.core import auth
 from src.core.auth.user import User
 from src.web.utils.validations import validationEmail
+from src.web.controllers.api import JSON_serialized_response
+from src.core.serializer.user import UserSchema
 
 auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -71,10 +73,10 @@ def logout():
 @auth_blueprint.get("/user_jwt")
 @jwt_required()
 def user_jwt():
-    print("ENTRE")
     current_user = get_jwt_identity()
     user = auth.get_user(current_user)
-    response = jsonify(user)
+    serializer = UserSchema()
+    response = JSON_serialized_response(user, serializer)
     return response, 200
 
 

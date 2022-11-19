@@ -14,6 +14,8 @@
 <script>
 import axios from 'axios';
 
+
+
 export default {
     data() {
 
@@ -44,6 +46,8 @@ export default {
 
 }
 
+
+
 const apiService = axios.create({
     baseURL: 'http://localhost:5000/api',
     xsrfCookieName: 'csrf_access_token'
@@ -53,7 +57,7 @@ const actions = {
     async loginUser(user) {
         const response = await apiService.post('/auth/token', user)
         localStorage.setItem('jwt', response.data.token);
-        console.log(response.data)
+        console.log(response.data)    
     }
 };
 </script>

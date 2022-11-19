@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import CreatePaymentView from "../views/CreatePaymentView.vue";
+import MiPerfilView from "../views/MiPerfilView.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/createPayment",
     name: "createPayment",
     component: CreatePaymentView,
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    component: MiPerfilView,
   },
 ];
 

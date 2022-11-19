@@ -4,7 +4,8 @@
     <router-link to="/disciplinas">Disciplinas</router-link> |
     <router-link to="/login">Login</router-link> |
     <router-link to="/payment">Pagos</router-link> |
-    <router-link to="/payment">Realizar Pago</router-link> |
+    <router-link to="/">Realizar Pago</router-link> |
+    <router-link to="/perfil">Perfil</router-link> |
   </nav>
   <router-view />
 </template>

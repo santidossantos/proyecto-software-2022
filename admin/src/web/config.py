@@ -7,6 +7,9 @@ class Config:
     SECRET_KEY = "secret"
     DEBUG = False
     TESTING = False
+    JWT_SECRET_KEY = 'super-secret'
+    JWT_TOKEN_LOCATION = 'headers'
+    PROPAGATE_EXCEPTIONS = True
 
 
 class ProductionConfig(Config):

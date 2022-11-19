@@ -20,6 +20,7 @@ from src.web.helpers import permission as helper_permission
 from datetime import datetime 
 from src.web.helpers import discipline as helper_discipline
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
 
 def create_app(env="development", static_folder="static"):
@@ -27,6 +28,7 @@ def create_app(env="development", static_folder="static"):
     CORS(app)
 
     app.config.from_object(config[env])
+    JWTManager(app)
 
     database.init_app(app)
 

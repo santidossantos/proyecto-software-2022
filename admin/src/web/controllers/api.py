@@ -19,6 +19,7 @@ from src.core.serializer.payment import PaymentSchema
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
 me_blueprint = Blueprint("me", __name__, url_prefix="/me")
+
 api_auth_blueprint = Blueprint("token", __name__, url_prefix="/auth")
 auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -35,6 +36,7 @@ def JSON_serialized_response(records, serializer):
 
 
 @club_blueptint.get("/disciplines")  # La url seria /api/club/disciplines
+@jwt_required()
 def get_all_disciplines():
     records = disciplines.list_disciplines_plain()
     serializer = DisciplineSchema(many=True)
@@ -81,14 +83,9 @@ def create_token():
     return jsonify({"msg": "Bad email or password"}), 401
 
 
-#  any endpoint that requires authorization (private endpoints) should use the @jwt_required() decorator.
-# You will be able to retrieve the authenticated user information (if valid) using the get_jwt_identity
-
-
 @auth_blueprint.get("/user_jwt")
 @jwt_required()
 def user_jwt():
-    print("ENTRE")
     current_user = get_jwt_identity()
     user = auth.get_user(current_user)
     response = jsonify(user)

@@ -107,9 +107,9 @@ def user_jwt():
     return response, 200
 
 
-@auth_blueprint.get("/logout_jwt")
+@api_blueprint.get("logout")
 @jwt_required()
-def logout_jwt():
+def logout():
     response = jsonify()
     unset_jwt_cookies(response)
     return response, 200

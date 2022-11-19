@@ -1,18 +1,16 @@
 <template>
-    <div class="home">
-        <MiPerfil />
-    </div>
+  <div class="home">
+    <MiPerfil />
+  </div>
 </template>
-  
-<script>
 
+<script>
 import MiPerfil from "@/components/MiPerfil.vue";
 
 export default {
-    name: "MiPerfilView",
-    components: {
-        MiPerfil
-    },
+  name: "MiPerfilView",
+  components: {
+    MiPerfil,
+  },
 };
 </script>
-  

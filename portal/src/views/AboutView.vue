@@ -12,7 +12,7 @@ import Disciplinas from "@/components/Disciplinas.vue";
 export default {
   name: "AboutView",
   components: {
-    Disciplinas
+    Disciplinas,
   },
 };
 </script>

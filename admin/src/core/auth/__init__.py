@@ -50,6 +50,9 @@ def update_user(**kwargs):
 def find_user_by_email(email):
     return User.query.filter_by(email=email).first()
 
+def find_user_by_user_name(user_name):
+    return User.query.filter_by(user_name=user_name).first()
+
 
 def assigned_roles(user, rolesSelected):
     for rol in rolesSelected:

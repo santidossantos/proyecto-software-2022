@@ -19,6 +19,7 @@ from src.core import associates, auth, disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
 from src.core.serializer.license import LicenseSchema
+from src.core.serializer.user import UserSchema
 
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
@@ -41,7 +42,6 @@ def JSON_serialized_response(records, serializer):
 
 
 @club_blueptint.get("/disciplines")  # La url seria /api/club/disciplines
-@jwt_required()
 def get_all_disciplines():
     records = disciplines.list_disciplines_plain()
     serializer = DisciplineSchema(many=True)
@@ -85,11 +85,11 @@ def get_license(id):
     return JSON_serialized_response(record, serializer)
 
     
-@api_auth_blueprint.post("/token")
+@api_blueprint.post("auth")
 def create_token():
-    useremail = request.json.get("email", None)
+    username = request.json.get("username", None)
     password = request.json.get("password", None)
-    user = auth.find_user_by_email(useremail)
+    user = auth.find_user_by_user_name(username) or associates.get_associate_by_user_name(username)
     if user and (user.check_password(password)):
         access_token = create_access_token(identity=user.id)
         set_access_cookies(jsonify(), access_token)
@@ -97,12 +97,13 @@ def create_token():
     return jsonify({"msg": "Bad email or password"}), 401
 
 
-@auth_blueprint.get("/user_jwt")
+@me_blueprint.get("profile")
 @jwt_required()
 def user_jwt():
     current_user = get_jwt_identity()
-    user = auth.get_user(current_user)
-    response = jsonify(user)
+    user = auth.get_user(current_user) or associates.get_associate(current_user)
+    serializer = UserSchema()
+    response = JSON_serialized_response(user, serializer)
     return response, 200
 
 

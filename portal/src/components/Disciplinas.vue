@@ -5,6 +5,7 @@
         <td>Nombre</td>
         <td>Dias y Horarios</td>
         <td>Instructures</td>
+        <td>Costo Mensual</td>
       </tr>
     </thead>
     <tbody>
@@ -12,6 +13,7 @@
         <td>{{ disciplina.name }}</td>
         <td>{{ disciplina.daysAndHours }}</td>
         <td>{{ disciplina.nameInstructors }}</td>
+        <td>{{ disciplina.monthlyCost }}</td>
       </tr>
     </tbody>
   </table>
@@ -28,12 +30,7 @@ export default {
   },
   // Fetches posts when the component is created.
   created() {
-    axios.get('http://127.0.0.1:5000/api/club/disciplines', {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
-      }
-
-    })
+    axios.get('http://127.0.0.1:5000/api/club/disciplines')
       .then(response => {
         // JSON responses are automatically parsed.
         this.disciplinas = response.data;

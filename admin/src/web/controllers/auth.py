@@ -1,19 +1,15 @@
 from flask import (
     Blueprint,
     flash,
-    jsonify,
     redirect,
     render_template,
     request,
     session,
     url_for,
 )
-from flask_jwt_extended import get_jwt_identity, jwt_required, unset_jwt_cookies
-from src.core import auth
+from src.core import auth, associates
 from src.core.auth.user import User
 from src.web.utils.validations import validationEmail
-from src.web.controllers.api import JSON_serialized_response
-from src.core.serializer.user import UserSchema
 
 auth_blueprint = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -68,21 +64,3 @@ def logout():
         flash("La sessión se cerró correctamente", "success")
 
     return render_template("auth/login.html")
-
-
-@auth_blueprint.get("/user_jwt")
-@jwt_required()
-def user_jwt():
-    current_user = get_jwt_identity()
-    user = auth.get_user(current_user)
-    serializer = UserSchema()
-    response = JSON_serialized_response(user, serializer)
-    return response, 200
-
-
-@auth_blueprint.get("/logout_jwt")
-@jwt_required()
-def logout_jwt():
-    response = jsonify()
-    unset_jwt_cookies(response)
-    return response, 200

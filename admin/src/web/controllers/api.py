@@ -48,9 +48,11 @@ def get_all_disciplines():
     return JSON_serialized_response(records, serializer)
 
 
-@me_blueprint.get("/disciplines/<id>")
-def get_disciplines_by_id(id):
-    records = associates.associated_disciplines(id)
+@me_blueprint.get("/disciplines")
+@jwt_required()
+def get_disciplines_by_id():
+    current_user_id = get_jwt_identity()
+    records = associates.associated_disciplines(current_user_id)
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
 

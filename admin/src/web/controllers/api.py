@@ -55,21 +55,24 @@ def get_disciplines_by_id(id):
     return JSON_serialized_response(records, serializer)
 
 
-@me_blueprint.get("/payments/<id>")
-def get_payments_by_id(id):
-    records = payment.list_assoc_payments(id)
+@me_blueprint.get("/payments")
+@jwt_required()
+def get_payments_by_id():
+    current_user_id = get_jwt_identity()
+    user = associates.get_associate(current_user_id)
+    records = payment.list_assoc_payments(user.id)
     serializer = PaymentSchema(many=True)
     return JSON_serialized_response(records, serializer)
 
 
 @me_blueprint.post("/payments")
+@jwt_required()
 def register_payment_by_id():
-    data = request.get_json()
-    month = data["month"]
-    total = data["total"]
-    associated_id = data["associated_id"]
-
-    payment.create_payment(associated_id, month, total)
+    current_user_id = get_jwt_identity()
+    user = associates.get_associate(current_user_id)
+    month = request.json.get("month", None)
+    total = request.json.get("total", None)
+    payment.create_payment(user.id, month, total)
 
     resp = make_response(jsonify({"result": "Success"}))
     resp.headers["Content-Type: application/json"] = "*"
@@ -84,12 +87,14 @@ def get_license(id):
     serializer = LicenseSchema()
     return JSON_serialized_response(record, serializer)
 
-    
+
 @api_blueprint.post("auth")
 def create_token():
     username = request.json.get("username", None)
     password = request.json.get("password", None)
-    user = auth.find_user_by_user_name(username) or associates.get_associate_by_user_name(username)
+    user = auth.find_user_by_user_name(
+        username
+    ) or associates.get_associate_by_user_name(username)
     if user and (user.check_password(password)):
         access_token = create_access_token(identity=user.id)
         set_access_cookies(jsonify(), access_token)

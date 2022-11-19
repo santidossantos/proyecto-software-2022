@@ -29,4 +29,9 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 
+.chartBox {
+   width: 600px;
+   height: 600px;
+}
+
 </style>

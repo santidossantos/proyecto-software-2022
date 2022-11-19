@@ -1,7 +1,7 @@
 <template>
-   <div class="est">
+    <div class="chartBox">
       <h1>Cantidad de asociados por genero {{msg}}</h1>
-      <canvas id="myChart2" width="100" height="100"></canvas>
+      <canvas id="myChart2"></canvas>
    </div>
 </template>
 

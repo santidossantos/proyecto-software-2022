@@ -1,7 +1,7 @@
 <template>
-   <div class="est">
+   <div class="chartBox">
       <h1>Cantidad de insciptos por disciplinas {{msg}}</h1>
-      <canvas id="myChart" width="100" height="100"></canvas>
+      <canvas id="myChart"></canvas>
    </div>
 </template>
 

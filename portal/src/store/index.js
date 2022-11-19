@@ -52,7 +52,7 @@ export default createStore({
         });
     },
     logout: ({ commit }) => {
-      apiService.get('/logout')
+      apiService.get('logout')
         .then((response) => {
           if (response.status === 200) {
             commit("clearAuthData");

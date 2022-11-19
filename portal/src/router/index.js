@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
 
+
 const routes = [
   {
     path: "/",
@@ -31,6 +32,7 @@ const routes = [
     name: "Perfil",
     component: MiPerfilView,
   },
+
 ];
 
 const router = createRouter({

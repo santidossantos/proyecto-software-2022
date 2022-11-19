@@ -28,7 +28,12 @@ export default {
   },
   // Fetches posts when the component is created.
   created() {
-    axios.get('http://127.0.0.1:5000/api/club/disciplines')
+    axios.get('http://127.0.0.1:5000/api/club/disciplines', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      }
+
+    })
       .then(response => {
         // JSON responses are automatically parsed.
         this.disciplinas = response.data;

@@ -52,8 +52,12 @@ def create():
         address = request.form.get("address")
         genero = request.form.get("genero")
         profile_picture = b64encode(request.files["profile_picture"].read())
+        user_name = request.form.get("username")
+        password = request.form.get("password")
 
-        if CampoVAcio(name, last_name, document_type, dni, genero, address):
+        if CampoVAcio(
+            name, last_name, document_type, dni, genero, address, user_name, password
+        ):
             if not isInteger(request.form.get("dni")):
                 flash("el dni no es valido", "error")
                 return redirect(url_for("associates.create"))
@@ -76,6 +80,8 @@ def create():
                 email=email,
                 address=address,
                 profile_picture=profile_picture,
+                user_name=user_name,
+                password=password,
             )
             associates.generar_pagos(id=associate.id)
             flash("Asociado Creado Correctamente", "success")

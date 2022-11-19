@@ -4,6 +4,7 @@ import datetime
 import enum
 from random import randint
 from sqlalchemy.orm import relationship
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Genero(enum.Enum):
@@ -69,6 +70,25 @@ class Associate(db.Model):
     document_type = db.Column(db.Enum(DocumentType), default="DNI", nullable=False)
     disciplines = db.relationship("Discipline", secondary=associates_disciplines)
     profile_picture = db.Column(db.LargeBinary, nullable=True)
+    user_name = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(256))
+
+    def __init__(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == "password":
+                self.set_password(kwargs["password"])
+            else:
+                setattr(self, key, value)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

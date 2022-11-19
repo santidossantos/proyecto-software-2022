@@ -71,6 +71,10 @@ def get_associate(id):
     return associate
 
 
+def get_associate_by_user_name(user_name):
+    return Associate.query.filter_by(user_name=user_name).first()
+
+
 def update_associate(**kwargs):
     associate = get_associate(kwargs["id"])
     associate.update(**kwargs)

@@ -14,28 +14,33 @@
         <td>{{ disciplina.nameInstructors }}</td>
       </tr>
     </tbody>
-    </table>
+  </table>
 </template>
 
 <script>
 import axios from 'axios';
-  export default {
+export default {
   data() {
     return {
       disciplinas: [],
       errores: []
-   }
+    }
   },
   // Fetches posts when the component is created.
   created() {
-    axios.get('http://127.0.0.1:5000/api/club/disciplines')
-    .then(response => {
-    // JSON responses are automatically parsed.
-    this.disciplinas = response.data;
+    axios.get('http://127.0.0.1:5000/api/club/disciplines', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      }
+
     })
-    .catch(e => {
-    this.errores.push(e)
-    })
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.disciplinas = response.data;
+      })
+      .catch(e => {
+        this.errores.push(e)
+      })
   }
 }
 </script>

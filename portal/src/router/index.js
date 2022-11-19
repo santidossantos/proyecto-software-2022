@@ -1,6 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
+import LoginView from "../views/LoginView.vue";
+import PaymentView from "../views/PaymentView.vue";
+import CreatePaymentView from "../views/CreatePaymentView.vue";
+import MiPerfilView from "../views/MiPerfilView.vue";
 
 const routes = [
   {
@@ -16,7 +20,22 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: AboutView,
+    component: LoginView,
+  },
+  {
+    path: "/payment",
+    name: "payment",
+    component: PaymentView,
+  },
+  {
+    path: "/createPayment",
+    name: "createPayment",
+    component: CreatePaymentView,
+  },
+  {
+    path: "/perfil",
+    name: "Perfil",
+    component: MiPerfilView,
   },
 ];
 

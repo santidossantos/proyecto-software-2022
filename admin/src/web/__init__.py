@@ -21,12 +21,15 @@ from datetime import datetime
 from src.web.helpers import discipline as helper_discipline
 from flask_cors import CORS
 from flask_qrcode import QRcode
+from flask_jwt_extended import JWTManager
+
 
 def create_app(env="development", static_folder="static"):
     app = Flask(__name__, static_folder=static_folder)
     CORS(app)
 
     app.config.from_object(config[env])
+    JWTManager(app)
 
     database.init_app(app)
 

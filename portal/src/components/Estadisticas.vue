@@ -1,6 +1,6 @@
 <template>
    <div class="est">
-      <h1>Hola {{msg}}</h1>
+      <h1>Cantidad de insciptos por disciplinas {{msg}}</h1>
       <canvas id="myChart" width="100" height="100"></canvas>
    </div>
 </template>

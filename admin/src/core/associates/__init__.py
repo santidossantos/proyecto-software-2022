@@ -195,3 +195,26 @@ def getCantGeneros():
     dic["mujeres"] = cantMujeres
     total.append(dic)
     return total
+
+#obtiene cantidad de inscripciones nuevas por mes
+def cantidadInscripcionesPorMes():
+    #defino todos los meses en un array
+    meses = [0,0,0,0,0,0,0,0,0,0,0,0]
+    #obtengo todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #recorro asociados y para cada uno obtengo el numero de mes de su fecha de inscripcion
+    for asociado in asociados:
+        #obtengo el numero de mes de la fecha de inscripcion
+        mes = asociado.create_at.month
+        #agrego el numero de mes al array
+        meses[mes]=meses[mes]+1
+    #defino array con el nomrbe de cada mes
+    nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
+    total = []
+    for i in range(0,12):
+        dic = {}
+        dic["mes"] = nombresMeses[i]
+        dic["cantidad"] = meses[i]
+        total.append(dic)
+    return total

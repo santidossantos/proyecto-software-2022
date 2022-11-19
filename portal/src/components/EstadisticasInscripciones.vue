@@ -1,7 +1,7 @@
 <template>
    <div class="est">
-      <h1>Cantidad de asociados por genero {{msg}}</h1>
-      <canvas id="myChart2" width="100" height="100"></canvas>
+      <h1>Cantidad de nuevas inscripciones por mes {{msg}}</h1>
+      <canvas id="myChart3" width="100" height="100"></canvas>
    </div>
 </template>
 
@@ -11,7 +11,7 @@
  
  let cantidad = []
 
- let url = "http://127.0.0.1:5000/api/club/generosCant"
+ let url = "http://127.0.0.1:5000/api/club/asociadosMesCant"
  export default { 
     name: "Home",
     props: {
@@ -21,32 +21,18 @@
      this.mostrar()
      console.log('component mounted.')
 
-     const ctx = document.getElementById('myChart2');
+     const ctx = document.getElementById('myChart3');
 
-     const myChart2 = new Chart(ctx, {
-    type: 'bar',
+     const myChart3 = new Chart(ctx, {
+    type: 'line',
     data: {
-        labels: ['Hombres', 'Mujeres'],
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         datasets: [{
             label: 'cantidad',
             data: cantidad,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
         }]
     },
     options: {
@@ -68,8 +54,7 @@
             cantidad = []
             response.data.forEach(element => {
                 console.log(element.disciplina) //todoss los console log son testss
-                cantidad.push(element.hombres)
-                cantidad.push(element.mujeres)
+                cantidad.push(element.cantidad)
             })        
             //console.log(document.getElementById('line-chart'))//el ID donde se genera el grafico es 'line-chart'                    
         })

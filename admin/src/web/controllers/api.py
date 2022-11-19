@@ -37,6 +37,12 @@ def generosCant():
     records = associates.getCantGeneros()
     return records
 
+#obtiene cantidad de inscripciones nuevas por mes
+@club_blueptint.get("/asociadosMesCant")  # La url seria /api/club/asociadosMesCant
+def asociadosMesCant():
+    records = associates.cantidadInscripcionesPorMes()
+    return records
+
 
 
 @me_blueprint.get("/disciplines/<id>")

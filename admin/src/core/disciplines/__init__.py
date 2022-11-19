@@ -102,3 +102,6 @@ def disciplinesCantInscriptions():
         array.append(dic)
     print(array)
     return array
+
+
+

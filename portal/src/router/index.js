@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
+import LicenseView from "../views/LicenseView.vue";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: "/perfil",
     name: "Perfil",
     component: MiPerfilView,
+  },
+  {
+    path: "/perfil/carnet",
+    name: "Carnet",
+    component: LicenseView,
   },
 ];
 

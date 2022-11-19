@@ -15,4 +15,4 @@ class LicenseSchema(Schema):
     genero = EnumField(Genero)
     address = fields.Str()
     status = fields.Str()  # FALTA DETERMINAR MOROSIDAD
-    profile_picture = fields.Str()
+    profile_picture = fields.Str()  # URL de la FOTO no el Binario

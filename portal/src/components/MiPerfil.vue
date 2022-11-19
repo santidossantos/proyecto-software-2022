@@ -17,7 +17,7 @@ export default {
       .get("http://127.0.0.1:5000/api/me/profile", {
         xsrfCookieName: "csrf_access_token",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((response) => {

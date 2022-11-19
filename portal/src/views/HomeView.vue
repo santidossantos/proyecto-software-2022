@@ -12,7 +12,7 @@ import Home from "@/components/Home.vue";
 export default {
   name: "HomeView",
   components: {
-    Home
+    Home,
   },
 };
 </script>

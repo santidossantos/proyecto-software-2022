@@ -20,24 +20,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
       disciplinas: [],
-      errores: []
-    }
+      errores: [],
+    };
   },
   // Fetches posts when the component is created.
   created() {
-    axios.get('http://127.0.0.1:5000/api/club/disciplines')
-      .then(response => {
+    axios
+      .get("http://127.0.0.1:5000/api/club/disciplines")
+      .then((response) => {
         // JSON responses are automatically parsed.
         this.disciplinas = response.data;
       })
-      .catch(e => {
-        this.errores.push(e)
-      })
-  }
-}
+      .catch((e) => {
+        this.errores.push(e);
+      });
+  },
+};
 </script>

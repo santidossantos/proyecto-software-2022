@@ -11,7 +11,7 @@
  
  let cantidad = []
 
- let url = "http://127.0.0.1:5000/api/club/generosCant"
+ let url = process.env.VUE_APP_RUTA + "club/generosCant"
  export default { 
     name: "Home",
     props: {

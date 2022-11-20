@@ -12,7 +12,7 @@
  let disciplinas = []
  let inscriptos = []
 
- let url = "http://127.0.0.1:5000/api/club/disciplinesCant"
+ let url = process.env.VUE_APP_RUTA + "club/disciplinesCant"
  export default { 
     name: "Home",
     props: {

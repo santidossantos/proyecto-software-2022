@@ -14,7 +14,7 @@ export default {
   },
   async created() {
     axios
-      .get("http://127.0.0.1:5000/api/me/profile", {
+      .get(process.env.VUE_APP_RUTA + "me/profile", {
         xsrfCookieName: "csrf_access_token",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -28,7 +28,7 @@ export default {
   },
   async created() {
     apiService
-      .get("/me/payments")
+      .get("me/payments")
       .then((response) => {
         this.payment = response.data;
       })
@@ -44,7 +44,7 @@ export default {
       };
       console.log(formData)
       apiService
-        .post("/me/payments", formData)
+        .post("me/payments", formData)
         .then((response) => {
           // JSON responses are automatically parsed.
           console.log(response);

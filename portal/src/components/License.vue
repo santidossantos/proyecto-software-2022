@@ -90,7 +90,7 @@ export default {
     return {
       associated: [],
       errores: [],
-      QRValue: `http://127.0.0.1:5000/associates/show/`,
+      QRValue: process.env.VUE_APP_RUTA_NON_API + "associates/show/",
       size: 90,
       imagen: null,
     };

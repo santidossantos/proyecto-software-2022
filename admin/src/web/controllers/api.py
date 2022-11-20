@@ -91,6 +91,10 @@ def register_payment_by_id():
 def get_license():
     current_user = get_jwt_identity()
     user = associates.get_associate(current_user)
+
+    defaulter = associates.esMoroso(user.id)
+    #agrego a user el campo defaulter
+    user.defaulter = defaulter
     if user.profile_picture:
         user.profile_picture.decode()
     serializer = LicenseSchema()

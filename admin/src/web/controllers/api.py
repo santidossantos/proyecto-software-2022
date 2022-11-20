@@ -20,7 +20,7 @@ from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
 from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
-
+import base64
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -84,6 +84,9 @@ def register_payment_by_id():
 def get_license():
     current_user = get_jwt_identity()
     user = associates.get_associate(current_user)
+    if user.profile_picture:
+        user.profile_picture.decode()
+        #user.profile_picture = base64.b64encode(user.profile_picture)
     serializer = LicenseSchema()
     return JSON_serialized_response(user, serializer)
 

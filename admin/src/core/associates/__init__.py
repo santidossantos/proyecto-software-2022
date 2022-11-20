@@ -2,7 +2,8 @@ import datetime
 from sqlite3 import DatabaseError
 
 from click import DateTime
-from core.payment import Payment
+from src.core import payment
+from src.core.payment import Payment
 from src.core.associates.associate import Associate
 from src.core.associates.associate import associates_disciplines
 from src.core.database import db
@@ -190,3 +191,22 @@ def activate(id):
     associate.active = True
     db.session.commit()
     return associate
+
+def cantMorosos():
+    #obtener todos los asociados y guardarlos
+    asociados = Associate.query.all()
+    #recorrer el vector de asociados, si es moroso aumento cantMorosos, sino aumento cantNoMorosos
+    cantMorosos = 0
+    cantNoMorosos = 0
+    for asociado in asociados:
+        if payment.esMoroso(asociado.id):
+            cantMorosos += 1
+        else:
+            cantNoMorosos += 1
+    dic = {"morosos": cantMorosos, "noMorosos": cantNoMorosos}
+    return dic
+
+def esMoroso(id):
+    return payment.esMoroso(id)
+
+    

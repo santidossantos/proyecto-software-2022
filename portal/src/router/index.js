@@ -5,6 +5,7 @@ import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
 import MisDisciplinasView from "../views/MisDisciplinasView.vue";
+import store from "@/store";
 
 
 const routes = [
@@ -27,16 +28,19 @@ const routes = [
     path: "/payment",
     name: "payment",
     component: PaymentView,
+    meta: { requiresAuth: true }
   },
   {
     path: "/perfil",
     name: "Perfil",
     component: MiPerfilView,
+    meta: { requiresAuth: true }
   },
   {
-    path: "/disciplinas/me",
+    path: "/me/disciplinas",
     name: "DisciplinasMe",
     component: MisDisciplinasView,
+    meta: { requiresAuth: true }
   },
 ];
 
@@ -44,5 +48,17 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(route => route.meta.requiresAuth)) {
+    if (!store.state.username) {
+      next('/login')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
 
 export default router;

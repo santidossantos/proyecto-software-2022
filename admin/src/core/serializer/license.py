@@ -14,7 +14,8 @@ class LicenseSchema(Schema):
     member_number = fields.Str()
     genero = EnumField(Genero)
     address = fields.Str()
-    status = fields.Str()  # FALTA DETERMINAR MOROSIDAD
+    status = fields.Str()
     profile_picture = fields.Str()
     id = fields.Int()
     defaulter = fields.Bool()
+    create_at = fields.Date('%d/%m/%Y')

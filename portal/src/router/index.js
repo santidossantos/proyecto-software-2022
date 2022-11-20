@@ -35,7 +35,7 @@ const routes = [
     component: MiPerfilView,
   },
   {
-    path: "/perfil/carnet",
+    path: "/carnet",
     name: "Carnet",
     component: LicenseView,
   },

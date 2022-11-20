@@ -157,6 +157,8 @@ def update(id):
 @permisson_required("member_show")
 def show(id):
     associate = associates.get_associate(id=id)
+    defaulter = associates.esMoroso(associate.id)
+    associate.defaulter = defaulter
     return render_template("associates/show.html", associate=associate)
 
 
@@ -196,6 +198,8 @@ def generate_pdf_license():
     id_assoc = request.args.get("id_assoc")
     qr_url = request.args.get("qr_url_pdf")
     associated = associates.get_associate(id_assoc)
+    defaulter = associates.esMoroso(associated.id)
+    associated.defaulter = defaulter
     return exporters.choose_exporter(associated, doc_type, qr_url)
 
 

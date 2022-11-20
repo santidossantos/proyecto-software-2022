@@ -66,7 +66,11 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <p class="m-b-10 f-w-600">Estado</p>
-                    <h6 class="text-muted f-w-400">Al día</h6>
+                    {% if  associate.defaulter == True %}
+                        <h6 style="color: red;">Moroso</h6>
+                    {% else %}
+                        <h6 style="color: green;">Al día</h6>
+                    {% endif %}
                     <p class="m-b-10 f-w-600">Fecha Alta</p>
                     <h6 class="text-muted f-w-400">{{associate.create_at.strftime('%d/%m/%Y')}}</h6>
                   </div>

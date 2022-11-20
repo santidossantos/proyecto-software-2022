@@ -10,6 +10,7 @@ class Config:
     JWT_SECRET_KEY = 'super-secret'
     JWT_TOKEN_LOCATION = 'headers'
     PROPAGATE_EXCEPTIONS = True
+    JWT_ACCESS_TOKEN_EXPIRES = False
 
 
 class ProductionConfig(Config):

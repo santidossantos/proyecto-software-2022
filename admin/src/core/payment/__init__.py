@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy import desc
 from sqlalchemy import asc
 
+
 def list_payment(page_num, per_page):
     return Payment.query.paginate(page_num, per_page, True)
 
@@ -29,10 +30,10 @@ def get_payment_by_assoc_id_and_month(id_assoc, mes):
 def pending_payments(id):
     return Payment.query.filter_by(associated_id=id).order_by(asc(Payment.id)).all()
 
-def payments_impagos(id):
-    #filtrar aquellos pagos que esten impagos
-    return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()
 
+def payments_impagos(id):
+    # filtrar aquellos pagos que esten impagos
+    return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()
 
 
 def costo_total(costo_disciplines):
@@ -61,9 +62,14 @@ def create_payment(id_associate, mes, total):
     db.session.commit()
     return True
 
+
 def esMoroso(id):
-    #verificar si el socio está al dia con las cuotas
+    # verificar si el socio está al dia con las cuotas
     pending_payments = payments_impagos(id)
+
+    if len(pending_payments) == 0:
+        return False
+
     pago = get_payment(pending_payments[0].id)
     mes = mesToInt(pago.mes)
     if mes <= datetime.now().month:
@@ -84,7 +90,7 @@ def mesToInt(mesPago):
         return 4
     elif mes == "Mes.May":
         return 5
-    elif mes == "Mes.Jun":  
+    elif mes == "Mes.Jun":
         return 6
     elif mes == "Mes.Jul":
         return 7
@@ -98,4 +104,3 @@ def mesToInt(mesPago):
         return 11
     elif mes == "Mes.D":
         return 12
-

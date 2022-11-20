@@ -20,7 +20,7 @@ from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
 from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
-
+import base64
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -86,13 +86,23 @@ def register_payment_by_id():
     return resp
 
 
-@me_blueprint.get("/license/<id>")
-def get_license(id):
-    record = associates.get_associate(id)
-    if record.profile_picture:
-        record.profile_picture.decode()  # Si queremos pasar foto de perfil necesitamos esto
+@me_blueprint.get("license")
+@jwt_required()
+def get_license():
+    current_user = get_jwt_identity()
+    user = associates.get_associate(current_user)
+
+    defaulter = associates.esMoroso(user.id)
+    #agrego a user el campo defaulter
+    user.defaulter = defaulter
+    if user.profile_picture:
+        user.profile_picture.decode()
     serializer = LicenseSchema()
-    return JSON_serialized_response(record, serializer)
+    return JSON_serialized_response(user, serializer)
+
+
+
+
 
 
 @api_blueprint.post("auth")

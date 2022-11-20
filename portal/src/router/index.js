@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
+import LicenseView from "../views/LicenseView.vue";
 import MisDisciplinasView from "../views/MisDisciplinasView.vue";
 import store from "@/store";
 
@@ -37,6 +38,12 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: "/carnet",
+    name: "Carnet",
+    component: LicenseView,
+  },
+  {
+   
     path: "/me/disciplinas",
     name: "DisciplinasMe",
     component: MisDisciplinasView,

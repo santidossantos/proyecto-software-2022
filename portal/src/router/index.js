@@ -52,12 +52,13 @@ const routes = [
     {
     path: "/login",
     name: "login",
-    component: AboutView,
+    component: LoginView,
   },
   {
     path: "/Estadisticas",
     name: "Estadisticas",
     component: StatisticsView,
+    meta: { requiresAuth: true }
   },
 ];
 

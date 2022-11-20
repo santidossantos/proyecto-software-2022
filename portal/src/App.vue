@@ -8,7 +8,7 @@
     <router-link v-if="$store.state.token" to="/me/disciplinas">Mis Disciplinas</router-link> |
     <router-link v-if="$store.state.token" to="/perfil">Mi Perfil</router-link> |
     <router-link v-if="$store.state.token" to="/carnet">Carnet</router-link> |
-    <router-link to="/estadisticas">Estadisticas</router-link>
+    <router-link v-if="$store.state.token" to="/estadisticas">Estadisticas</router-link>
   </nav>
   <router-view />
 </template>

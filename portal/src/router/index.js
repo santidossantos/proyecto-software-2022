@@ -7,7 +7,7 @@ import MiPerfilView from "../views/MiPerfilView.vue";
 import LicenseView from "../views/LicenseView.vue";
 import MisDisciplinasView from "../views/MisDisciplinasView.vue";
 import store from "@/store";
-
+import StatisticsView from "../views/StatisticsView.vue";
 
 const routes = [
   {
@@ -48,6 +48,16 @@ const routes = [
     name: "DisciplinasMe",
     component: MisDisciplinasView,
     meta: { requiresAuth: true }
+  },
+    {
+    path: "/login",
+    name: "login",
+    component: AboutView,
+  },
+  {
+    path: "/Estadisticas",
+    name: "Estadisticas",
+    component: StatisticsView,
   },
 ];
 

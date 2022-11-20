@@ -185,6 +185,7 @@ def setNotDefaulter(id):
     db.session.commit()
     return associate
 
+<<<<<<< HEAD
 
 def activate(id):
     associate = get_associate(id)
@@ -210,3 +211,45 @@ def esMoroso(id):
     return payment.esMoroso(id)
 
     
+=======
+def getCantGeneros():
+    #obtener todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #para cada asociado, obtener su genero y contar cuantos hay de cada uno
+    cantHombres = 0
+    cantMujeres = 0
+    for asociado in asociados:
+        if (asociado.genero == "M"):
+            cantMujeres = cantMujeres + 1
+        else:
+            cantHombres = cantHombres + 1
+    total = []
+    dic = {}
+    dic["hombres"] = cantHombres
+    dic["mujeres"] = cantMujeres
+    total.append(dic)
+    return total
+
+#obtiene cantidad de inscripciones nuevas por mes
+def cantidadInscripcionesPorMes():
+    #defino todos los meses en un array
+    meses = [0,0,0,0,0,0,0,0,0,0,0,0]
+    #obtengo todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #recorro asociados y para cada uno obtengo el numero de mes de su fecha de inscripcion
+    for asociado in asociados:
+        #obtengo el numero de mes de la fecha de inscripcion
+        mes = asociado.create_at.month
+        #agrego el numero de mes al array
+        meses[mes]=meses[mes]+1
+    #defino array con el nomrbe de cada mes
+    nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
+    total = []
+    for i in range(0,12):
+        dic = {}
+        dic["mes"] = nombresMeses[i]
+        dic["cantidad"] = meses[i]
+        total.append(dic)
+    return total
+>>>>>>> feature/estadisticas

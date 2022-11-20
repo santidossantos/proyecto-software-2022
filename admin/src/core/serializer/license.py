@@ -16,3 +16,4 @@ class LicenseSchema(Schema):
     address = fields.Str()
     status = fields.Str()  # FALTA DETERMINAR MOROSIDAD
     profile_picture = fields.Str()
+    id = fields.Int()

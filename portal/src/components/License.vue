@@ -89,7 +89,7 @@ export default {
     return {
       associated: [],
       errores: [],
-      QRValue: "/associates/show/2",
+      QRValue: `http://127.0.0.1:5000/associates/show/`,
       size: 90,
       imagen: null,
     };
@@ -104,6 +104,7 @@ export default {
           .replace("b&#39;", "")
           .replace("&#39;", "");
         document.getElementById("img").src = "data:image/png;base64," + this.imagen;
+        this.QRValue += this.associated.id
       })
       .catch((e) => {
         this.errores.push(e);

@@ -86,9 +86,12 @@ def get_license():
     user = associates.get_associate(current_user)
     if user.profile_picture:
         user.profile_picture.decode()
-        #user.profile_picture = base64.b64encode(user.profile_picture)
     serializer = LicenseSchema()
     return JSON_serialized_response(user, serializer)
+
+
+
+
 
 
 @api_blueprint.post("auth")

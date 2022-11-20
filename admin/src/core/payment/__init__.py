@@ -60,3 +60,42 @@ def create_payment(id_associate, mes, total):
     setattr(payment, "total", total)
     db.session.commit()
     return True
+
+def esMoroso(id):
+    #verificar si el socio está al dia con las cuotas
+    pending_payments = payments_impagos(id)
+    pago = get_payment(pending_payments[0].id)
+    mes = mesToInt(pago.mes)
+    if mes <= datetime.now().month:
+        return True
+    else:
+        return False
+
+
+def mesToInt(mesPago):
+    mes = str(mesPago)
+    if mes == "Mes.E":
+        return 1
+    elif mes == "Mes.F":
+        return 2
+    elif mes == "Mes.M":
+        return 3
+    elif mes == "Mes.A":
+        return 4
+    elif mes == "Mes.May":
+        return 5
+    elif mes == "Mes.Jun":  
+        return 6
+    elif mes == "Mes.Jul":
+        return 7
+    elif mes == "Mes.Ago":
+        return 8
+    elif mes == "Mes.S":
+        return 9
+    elif mes == "Mes.O":
+        return 10
+    elif mes == "Mes.N":
+        return 11
+    elif mes == "Mes.D":
+        return 12
+

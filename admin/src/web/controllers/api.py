@@ -47,10 +47,17 @@ def get_all_disciplines():
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
 
+@club_blueptint.get("/cantMorosos")  # La url seria /api/club/cantMorosos
+def get_defaulters():
+    records = associates.cantMorosos()
+    return records
 
-@me_blueprint.get("/disciplines/<id>")
-def get_disciplines_by_id(id):
-    records = associates.associated_disciplines(id)
+
+@me_blueprint.get("/disciplines")
+@jwt_required()
+def get_disciplines_by_id():
+    current_user_id = get_jwt_identity()
+    records = associates.associated_disciplines(current_user_id)
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
 

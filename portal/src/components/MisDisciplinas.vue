@@ -15,7 +15,7 @@ export default {
   },
   async created() {
     apiService
-      .get("club/disciplines")
+      .get("me/disciplines")
       .then((response) => {
         this.disciplinas = response.data;
       })

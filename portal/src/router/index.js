@@ -5,6 +5,8 @@ import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
 import LicenseView from "../views/LicenseView.vue";
+import MisDisciplinasView from "../views/MisDisciplinasView.vue";
+
 
 const routes = [
   {
@@ -33,9 +35,15 @@ const routes = [
     component: MiPerfilView,
   },
   {
+<<<<<<< HEAD
     path: "/perfil/carnet",
     name: "Carnet",
     component: LicenseView,
+=======
+    path: "/disciplinas/me",
+    name: "DisciplinasMe",
+    component: MisDisciplinasView,
+>>>>>>> development
   },
 ];
 

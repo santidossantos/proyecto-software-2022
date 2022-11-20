@@ -52,7 +52,8 @@
                   <div class="row">
                     <div class="col-sm-6">
                       <p class="m-b-10 f-w-600">Estado</p>
-                      <h6 class="text-muted f-w-400">Al día</h6>
+                        <h6 v-if="associated.defaulter">Moroso</h6>
+                        <h6 v-else>Al día</h6>
                       <p class="m-b-10 f-w-600">Fecha Alta</p>
                       <h6 class="text-muted f-w-400">{{ associated.create_at }}</h6>
                     </div>

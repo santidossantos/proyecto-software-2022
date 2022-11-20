@@ -185,7 +185,6 @@ def setNotDefaulter(id):
     db.session.commit()
     return associate
 
-<<<<<<< HEAD
 
 def activate(id):
     associate = get_associate(id)
@@ -211,7 +210,6 @@ def esMoroso(id):
     return payment.esMoroso(id)
 
     
-=======
 def getCantGeneros():
     #obtener todos los asociados que sean activos
     asociados = Associate.query.filter(Associate.active == True).all()
@@ -252,4 +250,3 @@ def cantidadInscripcionesPorMes():
         dic["cantidad"] = meses[i]
         total.append(dic)
     return total
->>>>>>> feature/estadisticas

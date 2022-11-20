@@ -18,13 +18,10 @@ from flask_jwt_extended import (
 from src.core import associates, auth, disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
-<<<<<<< HEAD
 from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
 import base64
-=======
 from src.core.serializer.disciplineCant import DisciplineCantSchema
->>>>>>> feature/estadisticas
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -57,7 +54,6 @@ def get_defaulters():
     return records
 
 
-<<<<<<< HEAD
 @me_blueprint.get("/disciplines")
 @jwt_required()
 def get_disciplines_by_id():
@@ -65,7 +61,7 @@ def get_disciplines_by_id():
     records = associates.associated_disciplines(current_user_id)
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
-=======
+
 @club_blueptint.get("/disciplinesCant")  # La url seria /api/club/disciplinesCant
 def disciplinesCantAssociates():
     records = disciplines.disciplinesCantInscriptions()
@@ -81,14 +77,6 @@ def generosCant():
 def asociadosMesCant():
     records = associates.cantidadInscripcionesPorMes()
     return records
-
-
-
-@me_blueprint.get("/disciplines/<id>")
-def get_disciplines_by_id(id):
-    records =  associates.associated_disciplines(id)
-    return True
->>>>>>> feature/estadisticas
 
 
 @me_blueprint.get("/payments")
@@ -115,7 +103,6 @@ def register_payment_by_id():
     return resp
 
 
-<<<<<<< HEAD
 @me_blueprint.get("license")
 @jwt_required()
 def get_license():
@@ -165,5 +152,3 @@ def logout():
     response = jsonify()
     unset_jwt_cookies(response)
     return response, 200
-=======
->>>>>>> feature/estadisticas

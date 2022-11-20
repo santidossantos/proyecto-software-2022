@@ -9,8 +9,7 @@ def list_disciplines(page_num, per_page):
 
 
 def list_disciplines_plain():
-    return Discipline.query.all()
-
+     return Discipline.query.all()
 
 def create_discipline(**kwargs):
     discipline = Discipline(**kwargs)
@@ -87,3 +86,22 @@ def IsErasable(id):
         return False
 
     return True
+
+def disciplinesCantInscriptions():
+    disciplinas = list_disciplines_plain()
+    #defino diccionario vacio
+    array = []
+    #para cada disiciplina cuento cuantos inscriptos tiene
+    for dis in disciplinas:
+        dic = {}
+        cant = db.session.query(associates_disciplines).filter_by(discipline_id=dis.id).count()
+        #agrego a dic el id de la disciplina y la cantidad de inscriptos
+        dic["disciplina"] = dis.name
+        dic["inscriptos"] = cant
+        #agrego dic al array
+        array.append(dic)
+    print(array)
+    return array
+
+
+

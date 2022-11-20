@@ -12,7 +12,7 @@ from src.web.utils import exporters
 from src.web.utils.validations import CampoVAcio, validationEmail, isInteger
 from src.web.helpers.permission import permisson_required
 from src.core import config
-
+from base64 import b64encode
 
 associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates")
 
@@ -52,7 +52,13 @@ def create():
         email = request.form.get("email")
         address = request.form.get("address")
         genero = request.form.get("genero")
-        if CampoVAcio(name, last_name, document_type, dni, genero, address):
+        profile_picture = b64encode(request.files["profile_picture"].read())
+        user_name = request.form.get("username")
+        password = request.form.get("password")
+
+        if CampoVAcio(
+            name, last_name, document_type, dni, genero, address, user_name, password
+        ):
             if not isInteger(request.form.get("dni")):
                 flash("el dni no es valido", "error")
                 return redirect(url_for("associates.create"))
@@ -74,6 +80,9 @@ def create():
                 mobile_number=mobile_number,
                 email=email,
                 address=address,
+                profile_picture=profile_picture,
+                user_name=user_name,
+                password=password,
             )
             associates.generar_pagos(id=associate.id)
             flash("Asociado Creado Correctamente", "success")
@@ -109,7 +118,10 @@ def update(id):
                 request.form.get("email")
             ):
                 return redirect(url_for("associates.update", id=id))
-            if (associates.usWithUserDni(dni) and associates.usWithUserDni(dni).id != user_edit.id):
+            if (
+                associates.usWithUserDni(dni)
+                and associates.usWithUserDni(dni).id != user_edit.id
+            ):
                 flash("el dni ingresado ya existe", "error")
                 return redirect(url_for("associates.update", id=id))
             associates.update_associate(
@@ -123,6 +135,11 @@ def update(id):
                 address=address,
                 genero=genero,
             )
+
+            if request.files["profile_picture"]:
+                profile_picture = b64encode(request.files["profile_picture"].read())
+                associates.update_associate(id=id, profile_picture=profile_picture)
+
             flash("Asociado Modificado Correctamente", "success")
             return redirect((url_for("associates.associate_index")))
 
@@ -141,6 +158,8 @@ def update(id):
 @permisson_required("member_show")
 def show(id):
     associate = associates.get_associate(id=id)
+    defaulter = associates.esMoroso(associate.id)
+    associate.defaulter = defaulter
     return render_template("associates/show.html", associate=associate)
 
 
@@ -148,7 +167,15 @@ def show(id):
 @permisson_required("member_destroy")
 def delete(id):
     associates.delete_user(id=id)
-    flash("Asociado Eliminado Correctamente", "success")
+    flash("Asociado Desactivado Correctamente", "success")
+    return redirect((url_for("associates.associate_index")))
+
+
+@associates_blueprint.route("/activate/<id>")
+@permisson_required("member_destroy")
+def activate(id):
+    associates.activate(id=id)
+    flash("Asociado Activado Correctamente", "success")
     return redirect((url_for("associates.associate_index")))
 
 
@@ -166,6 +193,18 @@ def call_pdf_exporter():
     return call_some_exporter("pdf", search_filter, active_filter)
 
 
+@associates_blueprint.get("/export/pdf/generate-license")
+def generate_pdf_license():
+    doc_type = request.args.get("doc_type")
+    id_assoc = request.args.get("id_assoc")
+    qr_url = request.args.get("qr_url_pdf")
+    associated = associates.get_associate(id_assoc)
+    defaulter = associates.esMoroso(associated.id)
+    associated.defaulter = defaulter
+    return exporters.choose_exporter(associated, doc_type, qr_url)
+
+
 def call_some_exporter(doc_type, search_filter, active_filter):
     records = associates.list_associate_filtered(search_filter, active_filter)
+    print(doc_type)
     return exporters.choose_exporter(records, doc_type)

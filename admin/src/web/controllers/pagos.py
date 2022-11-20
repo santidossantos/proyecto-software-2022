@@ -19,7 +19,13 @@ payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 @permisson_required("payment_index")
 def payment_index(page_num=1):
     search = request.args.get("search_field")
-    paginated_users = associates.list_associate(page_num=page_num, per_page=config.get_per_page(), search=search, active=True, nroSocio=True)
+    paginated_users = associates.list_associate(
+        page_num=page_num,
+        per_page=config.get_per_page(),
+        search=search,
+        active=True,
+        nroSocio=True,
+    )
     return render_template("payment/index.html", users=paginated_users)
 
 
@@ -28,16 +34,16 @@ def payment_index(page_num=1):
 def show(id):
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
-    #para cada pending_payments se debe calcular el costo total
-    total=0
+    # para cada pending_payments se debe calcular el costo total
+    total = 0
     for pending_payment in pending_payments:
         print(pending_payment.state.value)
-        if(pending_payment.state.value == 'Impago'):
+        if pending_payment.state.value == "Impago":
             mes = mesToInt(pending_payment.mes)
-            costo_disciplines = associates.cost_disciplines(id,mes)
+            costo_disciplines = associates.cost_disciplines(id, mes)
             costo_total = payment.costo_total(costo_disciplines)
-            total=total+costo_total
-    disciplines = associates.getDisciplinas(id,datetime.datetime.now().month)
+            total = total + costo_total
+    disciplines = associates.getDisciplinas(id, datetime.datetime.now().month)
     return render_template(
         "payment/show.html",
         pending=pending_payments,
@@ -54,9 +60,9 @@ def result(id, id_pago):
     associate = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
     mes = mesToInt(pago.mes)
-    costo_disciplines = associates.cost_disciplines(id,mes)
+    costo_disciplines = associates.cost_disciplines(id, mes)
     costo_total = payment.costo_total(costo_disciplines)
-    todasDisciplinas=associates.getDisciplinas(id,mes)
+    todasDisciplinas = associates.getDisciplinas(id, mes)
     if pending_payments:
         if pago.mes.value == pending_payments[0].mes.value:
             return render_template(
@@ -72,6 +78,7 @@ def result(id, id_pago):
             return redirect(url_for("payment.show", id=id))
     return redirect(url_for("payment.show", id=id))
 
+
 def mesToInt(mesPago):
     mes = str(mesPago)
     if mes == "Mes.E":
@@ -84,7 +91,7 @@ def mesToInt(mesPago):
         return 4
     elif mes == "Mes.May":
         return 5
-    elif mes == "Mes.Jun":  
+    elif mes == "Mes.Jun":
         return 6
     elif mes == "Mes.Jul":
         return 7
@@ -105,18 +112,27 @@ def mesToInt(mesPago):
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")
-    
+
     return redirect(url_for("payment.show", id=id))
+
 
 @payment_blueprint.get("/emitir-certificado/")
 def generate_voucher():
 
-    id = request.args.get('id')
-    id_pago = request.args.get('id_pago')
-    
+    id = request.args.get("id")
+    id_pago = request.args.get("id_pago")
+
     associado = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
     texto = config.get_payment_voucher_description()
+    nroComprobante = pago.nroComprobante
 
-    return generate_pdf_file_payment(texto=texto, id=id, associate=associado, month=pago.mes.value, costo_total=pago.total, fecha=pago.update_at)
-
+    return generate_pdf_file_payment(
+        texto=texto,
+        id=id_pago,
+        associate=associado,
+        month=pago.mes.value,
+        costo_total=pago.total,
+        fecha=pago.update_at,
+        nroComprobante=nroComprobante,
+    )

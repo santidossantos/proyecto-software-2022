@@ -83,6 +83,22 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "Flask-JWT-Extended"
+version = "4.4.4"
+description = "Extended JWT integration with Flask"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4"
+
+[package.dependencies]
+Flask = ">=2.0,<3.0"
+PyJWT = ">=2.0,<3.0"
+Werkzeug = ">=0.14"
+
+[package.extras]
+asymmetric_crypto = ["cryptography (>=3.3.1)"]
+
+[[package]]
 name = "Flask-SQLAlchemy"
 version = "2.5.1"
 description = "Adds SQLAlchemy support to your Flask application."
@@ -230,6 +246,17 @@ lint = ["flake8 (==5.0.4)", "flake8-bugbear (==22.9.11)", "mypy (==0.971)", "pre
 tests = ["pytest", "pytz", "simplejson"]
 
 [[package]]
+name = "marshmallow-enum"
+version = "1.5.1"
+description = "Enum field for Marshmallow"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+marshmallow = ">=2.0.0"
+
+[[package]]
 name = "packaging"
 version = "21.3"
 description = "Core utilities for Python packages"
@@ -281,6 +308,20 @@ doc = ["sphinx", "sphinx_rtd_theme"]
 test = ["flake8", "isort", "pillow", "pytest"]
 
 [[package]]
+name = "PyJWT"
+version = "2.6.0"
+description = "JSON Web Token implementation in Python"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+crypto = ["cryptography (>=3.4.0)"]
+dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.4.0)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
+docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
+tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
+
+[[package]]
 name = "pyparsing"
 version = "3.0.9"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
@@ -302,6 +343,24 @@ python-versions = ">=3.7"
 [package.extras]
 doc = ["sphinx", "sphinx_rtd_theme"]
 test = ["coverage[toml]", "flake8 (<5)", "pytest", "pytest-cov", "pytest-flake8", "pytest-isort", "pytest-xdist"]
+
+[[package]]
+name = "qrcode"
+version = "7.3.1"
+description = "QR Code image generator"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+colorama = {version = "*", markers = "platform_system == \"Windows\""}
+
+[package.extras]
+all = ["pillow", "pytest", "pytest", "pytest-cov", "tox", "zest.releaser[recommended]"]
+dev = ["pytest", "tox"]
+maintainer = ["zest.releaser[recommended]"]
+pil = ["pillow"]
+test = ["pytest", "pytest-cov"]
 
 [[package]]
 name = "six"
@@ -327,19 +386,19 @@ aiomysql = ["aiomysql", "greenlet (!=0.4.17)"]
 aiosqlite = ["aiosqlite", "greenlet (!=0.4.17)", "typing_extensions (!=3.10.0.1)"]
 asyncio = ["greenlet (!=0.4.17)"]
 asyncmy = ["asyncmy (>=0.2.3,!=0.2.4)", "greenlet (!=0.4.17)"]
-mariadb-connector = ["mariadb (>=1.0.1,!=1.1.2)"]
+mariadb_connector = ["mariadb (>=1.0.1,!=1.1.2)"]
 mssql = ["pyodbc"]
-mssql-pymssql = ["pymssql"]
-mssql-pyodbc = ["pyodbc"]
+mssql_pymssql = ["pymssql"]
+mssql_pyodbc = ["pyodbc"]
 mypy = ["mypy (>=0.910)", "sqlalchemy2-stubs"]
 mysql = ["mysqlclient (>=1.4.0)", "mysqlclient (>=1.4.0,<2)"]
-mysql-connector = ["mysql-connector-python"]
+mysql_connector = ["mysql-connector-python"]
 oracle = ["cx_oracle (>=7)", "cx_oracle (>=7,<8)"]
 postgresql = ["psycopg2 (>=2.7)"]
-postgresql-asyncpg = ["asyncpg", "greenlet (!=0.4.17)"]
-postgresql-pg8000 = ["pg8000 (>=1.16.6,!=1.29.0)"]
-postgresql-psycopg2binary = ["psycopg2-binary"]
-postgresql-psycopg2cffi = ["psycopg2cffi"]
+postgresql_asyncpg = ["asyncpg", "greenlet (!=0.4.17)"]
+postgresql_pg8000 = ["pg8000 (>=1.16.6,!=1.29.0)"]
+postgresql_psycopg2binary = ["psycopg2-binary"]
+postgresql_psycopg2cffi = ["psycopg2cffi"]
 pymysql = ["pymysql", "pymysql (<1)"]
 sqlcipher = ["sqlcipher3_binary"]
 
@@ -428,7 +487,7 @@ test = ["pytest"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "a72d8c936a5353642e6d88ca8b892e9d7507309a46cbb14eb3368677b4f935e9"
+content-hash = "3abfa665878a4af21b0e6075f8cc35e19f13f7b5e3e632bb605a926015306537"
 
 [metadata.files]
 Brotli = [
@@ -609,6 +668,14 @@ Flask = [
     {file = "Flask-2.2.2-py3-none-any.whl", hash = "sha256:b9c46cc36662a7949f34b52d8ec7bb59c0d74ba08ba6cb9ce9adc1d8676d9526"},
     {file = "Flask-2.2.2.tar.gz", hash = "sha256:642c450d19c4ad482f96729bd2a8f6d32554aa1e231f4f6b4e7e5264b16cca2b"},
 ]
+Flask-Cors = [
+    {file = "Flask-Cors-3.0.10.tar.gz", hash = "sha256:b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"},
+    {file = "Flask_Cors-3.0.10-py2.py3-none-any.whl", hash = "sha256:74efc975af1194fc7891ff5cd85b0f7478be4f7f59fe158102e91abb72bb4438"},
+]
+Flask-JWT-Extended = [
+    {file = "Flask-JWT-Extended-4.4.4.tar.gz", hash = "sha256:62b521d75494c290a646ae8acc77123721e4364790f1e64af0038d823961fbf0"},
+    {file = "Flask_JWT_Extended-4.4.4-py2.py3-none-any.whl", hash = "sha256:a85eebfa17c339a7260c4643475af444784ba6de5588adda67406f0a75599553"},
+]
 Flask-SQLAlchemy = [
     {file = "Flask-SQLAlchemy-2.5.1.tar.gz", hash = "sha256:2bda44b43e7cacb15d4e05ff3cc1f8bc97936cc464623424102bfc2c35e95912"},
     {file = "Flask_SQLAlchemy-2.5.1-py2.py3-none-any.whl", hash = "sha256:f12c3d4cc5cc7fdcc148b9527ea05671718c3ea45d50c7e732cceb33f574b390"},
@@ -738,6 +805,10 @@ MarkupSafe = [
 marshmallow = [
     {file = "marshmallow-3.18.0-py3-none-any.whl", hash = "sha256:35e02a3a06899c9119b785c12a22f4cda361745d66a71ab691fd7610202ae104"},
     {file = "marshmallow-3.18.0.tar.gz", hash = "sha256:6804c16114f7fce1f5b4dadc31f4674af23317fcc7f075da21e35c1a35d781f7"},
+]
+marshmallow-enum = [
+    {file = "marshmallow-enum-1.5.1.tar.gz", hash = "sha256:38e697e11f45a8e64b4a1e664000897c659b60aa57bfa18d44e226a9920b6e58"},
+    {file = "marshmallow_enum-1.5.1-py2.py3-none-any.whl", hash = "sha256:57161ab3dbfde4f57adeb12090f39592e992b9c86d206d02f6bd03ebec60f072"},
 ]
 packaging = [
     {file = "packaging-21.3-py3-none-any.whl", hash = "sha256:ef103e05f519cdc783ae24ea4e2e0f508a9c99b2d4969652eed6a2e1ea5bd522"},
@@ -872,6 +943,10 @@ pydyf = [
     {file = "pydyf-0.5.0-py3-none-any.whl", hash = "sha256:116bc4b057822dc72d6afc826cad33444f7dcde8059aa85534380fb63e3e306f"},
     {file = "pydyf-0.5.0.tar.gz", hash = "sha256:51e751ae1504037c1fc1f4815119137b011802cd5f6c3539db066c455b14a7e1"},
 ]
+PyJWT = [
+    {file = "PyJWT-2.6.0-py3-none-any.whl", hash = "sha256:d83c3d892a77bbb74d3e1a2cfa90afaadb60945205d1095d9221f04466f64c14"},
+    {file = "PyJWT-2.6.0.tar.gz", hash = "sha256:69285c7e31fc44f68a1feb309e948e0df53259d579295e6cfe2b1792329f05fd"},
+]
 pyparsing = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
     {file = "pyparsing-3.0.9.tar.gz", hash = "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb"},
@@ -879,6 +954,9 @@ pyparsing = [
 pyphen = [
     {file = "pyphen-0.13.0-py3-none-any.whl", hash = "sha256:3363476ae72d2b633b9f173edecbaba57a907e7ec49efde0eabb8c20839f66fa"},
     {file = "pyphen-0.13.0.tar.gz", hash = "sha256:06873cebffd65a8fca7c20c0e3dc032655c7ee8de0f552205cad3b574265c293"},
+]
+qrcode = [
+    {file = "qrcode-7.3.1.tar.gz", hash = "sha256:375a6ff240ca9bd41adc070428b5dfc1dcfbb0f2507f1ac848f6cded38956578"},
 ]
 six = [
     {file = "six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},

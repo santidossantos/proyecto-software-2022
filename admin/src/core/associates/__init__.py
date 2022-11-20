@@ -2,11 +2,13 @@ import datetime
 from sqlite3 import DatabaseError
 
 from click import DateTime
-from core.payment import Payment
+from src.core import payment
+from src.core.payment import Payment
 from src.core.associates.associate import Associate
 from src.core.associates.associate import associates_disciplines
 from src.core.database import db
 from sqlalchemy import or_
+from src.web.utils.math import random_integer
 
 
 def list_associate(page_num, per_page, search, active, nroSocio):
@@ -68,6 +70,10 @@ def create_user(**kwargs):
 def get_associate(id):
     associate = Associate.query.get(id)
     return associate
+
+
+def get_associate_by_user_name(user_name):
+    return Associate.query.filter_by(user_name=user_name).first()
 
 
 def update_associate(**kwargs):
@@ -153,6 +159,7 @@ def generar_pagos(id):
     i = datetime.datetime.now().month - 1
     for i in range(i, 12):
         payment = Payment(associated_id=id, mes=mes[i], total=0)
+        payment.nroComprobante = random_integer()
         db.session.add(payment)
         db.session.commit()
     return payment
@@ -177,3 +184,69 @@ def setNotDefaulter(id):
     associate.defaulter = False
     db.session.commit()
     return associate
+
+
+def activate(id):
+    associate = get_associate(id)
+    associate.active = True
+    db.session.commit()
+    return associate
+
+def cantMorosos():
+    #obtener todos los asociados y guardarlos
+    asociados = Associate.query.all()
+    #recorrer el vector de asociados, si es moroso aumento cantMorosos, sino aumento cantNoMorosos
+    cantMorosos = 0
+    cantNoMorosos = 0
+    for asociado in asociados:
+        if payment.esMoroso(asociado.id):
+            cantMorosos += 1
+        else:
+            cantNoMorosos += 1
+    dic = {"morosos": cantMorosos, "noMorosos": cantNoMorosos}
+    return dic
+
+def esMoroso(id):
+    return payment.esMoroso(id)
+
+    
+def getCantGeneros():
+    #obtener todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #para cada asociado, obtener su genero y contar cuantos hay de cada uno
+    cantHombres = 0
+    cantMujeres = 0
+    for asociado in asociados:
+        if (asociado.genero == "M"):
+            cantMujeres = cantMujeres + 1
+        else:
+            cantHombres = cantHombres + 1
+    total = []
+    dic = {}
+    dic["hombres"] = cantHombres
+    dic["mujeres"] = cantMujeres
+    total.append(dic)
+    return total
+
+#obtiene cantidad de inscripciones nuevas por mes
+def cantidadInscripcionesPorMes():
+    #defino todos los meses en un array
+    meses = [0,0,0,0,0,0,0,0,0,0,0,0]
+    #obtengo todos los asociados que sean activos
+    asociados = Associate.query.filter(Associate.active == True).all()
+    #recorro asociados y para cada uno obtengo el numero de mes de su fecha de inscripcion
+    for asociado in asociados:
+        #obtengo el numero de mes de la fecha de inscripcion
+        mes = asociado.create_at.month
+        #agrego el numero de mes al array
+        meses[mes]=meses[mes]+1
+    #defino array con el nomrbe de cada mes
+    nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
+    #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
+    total = []
+    for i in range(0,12):
+        dic = {}
+        dic["mes"] = nombresMeses[i]
+        dic["cantidad"] = meses[i]
+        total.append(dic)
+    return total

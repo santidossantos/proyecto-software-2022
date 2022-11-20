@@ -5,8 +5,9 @@
     <router-link v-if="$store.state.token === null" to="/login">Login</router-link> |
     <router-link to='/login' v-if="$store.state.token" @click="logout">Cerrar Sesion</router-link> |
     <router-link to="/payment">Pagos</router-link> |
-    <router-link v-if="$store.state.token" to="/createPayment">Realizar Pago</router-link> |
-    <router-link v-if="$store.state.token" to="/perfil">Perfil</router-link> |
+    <router-link v-if="$store.state.token" to="/payment">Realizar Pago</router-link> |
+    <router-link v-if="$store.state.token" to="/disciplinas/me">Mis Disciplinas</router-link> |
+    <router-link v-if="$store.state.token" to="/perfil">Mi Perfil</router-link> |
   </nav>
   <router-view />
 </template>

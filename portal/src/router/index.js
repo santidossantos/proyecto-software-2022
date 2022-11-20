@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import PaymentView from "../views/PaymentView.vue";
 import MiPerfilView from "../views/MiPerfilView.vue";
+import MisDisciplinasView from "../views/MisDisciplinasView.vue";
 
 
 const routes = [
@@ -32,7 +33,11 @@ const routes = [
     name: "Perfil",
     component: MiPerfilView,
   },
-
+  {
+    path: "/disciplinas/me",
+    name: "DisciplinasMe",
+    component: MisDisciplinasView,
+  },
 ];
 
 const router = createRouter({

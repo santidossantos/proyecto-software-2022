@@ -14,6 +14,12 @@ def list_assoc_payments(id):
     return Payment.query.filter(Payment.associated_id == id)
 
 
+def list_assoc_payments_order(id):
+    return Payment.query.filter(Payment.associated_id == id).order_by(
+        asc(Payment.nroComprobante)
+    )
+
+
 def get_payment(id):
     payment = Payment.query.get(id)
     return payment

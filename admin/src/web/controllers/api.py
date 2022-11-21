@@ -88,7 +88,7 @@ def asociadosMesCant():
 def get_payments_by_id():
     current_user_id = get_jwt_identity()
     user = associates.get_associate(current_user_id)
-    records = payment.list_assoc_payments(user.id)
+    records = payment.list_assoc_payments_order(user.id)
     serializer = PaymentSchema(many=True)
     if config.get_pay_table_status():
         return JSON_serialized_response(records, serializer)

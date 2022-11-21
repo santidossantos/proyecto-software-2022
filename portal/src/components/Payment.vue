@@ -8,12 +8,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="pay in payment" :key="pay">
+      <tr v-for="(pay, index) in payment" :key="index">
         <td>{{ pay.mes }}</td>
         <td>{{ total / this.payment.length }}</td>
+      <tr v-if="(pay.mes == this.payment[index].mes)">
         <button v-if="pay.total == 0" @click="registerPayment(pay.mes, total)">Pagar</button>
-        <button v-if="pay.total != 0" @click="emitirComporbante(pay.mes, total / this.payment.length)">Emitir
-          comprobante</button>
+      </tr>
+      <button v-if="pay.total != 0" @click="emitirComporbante(pay.mes, total / this.payment.length)">Emitir
+        comprobante</button>
       </tr>
       <div ref="content" class="hidden">
         <h1>Hola</h1>

@@ -1,14 +1,14 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/disciplinas">Disciplinas</router-link> |
-    <router-link v-if="$store.state.token === null" to="/login">Login</router-link> |
-    <router-link to='/login' v-if="$store.state.token" @click="logout">Cerrar Sesion</router-link> |
-    <router-link v-if="$store.state.token" to="/payment">Realizar Pago</router-link> |
-    <router-link v-if="$store.state.token" to="/me/disciplinas">Mis Disciplinas</router-link> |
-    <router-link v-if="$store.state.token" to="/perfil">Mi Perfil</router-link> |
-    <router-link v-if="$store.state.token" to="/carnet">Carnet</router-link> |
-    <router-link v-if="$store.state.token" to="/estadisticas">Estadisticas</router-link>
+  <nav class="navbar navbar-dark bg-dark">
+      <router-link class="navbar-brand" to="/">Home</router-link>
+      <router-link class="navbar-brand" to="/disciplinas">Disciplinas</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token === null" to="/login">Inciar Sesion</router-link>
+      <router-link class="navbar-brand" to='/login' v-if="$store.state.token" @click="logout">Cerrar Sesion</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token" to="/payment">Realizar Pago</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token" to="/me/disciplinas">Mis Disciplinas</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token" to="/perfil">Mi Perfil</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token" to="/carnet">Carnet</router-link>
+      <router-link class="navbar-brand" v-if="$store.state.token" to="/estadisticas">Estadisticas</router-link>
   </nav>
   <router-view />
 </template>

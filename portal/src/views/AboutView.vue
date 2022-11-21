@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Listado de Disciplinas</h1>
+    <h1 class="title">Listado de Disciplinas</h1>
     <Disciplinas />
   </div>
 </template>

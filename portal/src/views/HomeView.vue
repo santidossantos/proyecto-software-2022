@@ -1,7 +1,6 @@
 <template>
   <div class="home">
     <Home />
-    <img alt="Vue logo" src="../assets/logovillaelisa.png" />
   </div>
 </template>
 
@@ -16,3 +15,5 @@ export default {
   },
 };
 </script>
+
+

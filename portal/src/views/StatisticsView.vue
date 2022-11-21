@@ -23,3 +23,10 @@ export default {
   
 };
 </script>
+
+<style>
+.est{
+  display: flex;
+  flex-direction: column;
+}
+</style>

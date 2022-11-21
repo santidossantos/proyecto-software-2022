@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-      <h1>Disciplinas las que se encuentra inscripto</h1>
+      <h1 class="title">Disciplinas las que se encuentra inscripto</h1>
       <MisDisciplinas />
     </div>
   </template>
@@ -15,3 +15,9 @@
     },
   };
   </script>
+
+<style>
+.title{
+  padding: 1rem;
+}
+</style>

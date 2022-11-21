@@ -5,7 +5,6 @@ export const apiService = axios.create({
   xsrfCookieName: "csrf_access_token",
   
   headers: {
-    "Access-Control-Allow-Origin": "*,*",
     Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });

@@ -13,12 +13,20 @@
         <button @click="registerPayment(pay.mes, total)">Pagar</button>
         <button @click="emitirComporbante(pay.mes, total)">Emitir comprobante</button>
       </tr>
+      <div ref="content" class="hidden">
+        <h1>Hola</h1>
+        <br>
+        <h1>Como va</h1>
+        <span>prueba</span>
+      </div>
     </tbody>
   </table>
 </template>
 
 <script>
 import { apiService } from "@/services/api";
+
+import jsPDF from "jspdf";
 export default {
   data() {
     return {
@@ -69,8 +77,16 @@ export default {
         });
     },
     emitirComporbante(mes, total) {
-      this.$router.push({ path: 'comprobante', props: { mes: mes, total: total } })
-
+      const doc = new jsPDF();
+      const mess = mes;
+      /** WITHOUT CSS */
+      const contentHtml = this.$refs.content.textContent + mes + total;
+      //const contentHtml2 = contentHtml.textHTML = mes
+      //const contentHtml3 = contentHtml2.textHTML = total
+      doc.text(contentHtml, 15, 15, {
+        width: 170
+      });
+      doc.save("Comprobante.pdf");
     },
 
   },
@@ -78,3 +94,9 @@ export default {
 }
 
 </script>
+
+<style>
+.hidden{
+  display:none
+}
+</style>

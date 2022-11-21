@@ -1,7 +1,7 @@
 import re
 from src.core import associates
 from flask import Blueprint, jsonify, make_response, request
-from src.core import disciplines, payment
+from src.core import disciplines, payment, config
 from flask import (
     Blueprint,
     jsonify,
@@ -90,7 +90,9 @@ def get_payments_by_id():
     user = associates.get_associate(current_user_id)
     records = payment.list_assoc_payments(user.id)
     serializer = PaymentSchema(many=True)
-    return JSON_serialized_response(records, serializer)
+    if config.get_pay_table_status():
+        return JSON_serialized_response(records, serializer)
+    return []
 
 
 @me_blueprint.get("/payments/total")
@@ -100,12 +102,10 @@ def get_payments_total():
     pending_payments = payment.pending_payments(current_user_id)
     total = 0
     for pending_payment in pending_payments:
-        print(pending_payment.state.value)
-        if pending_payment.state.value == "Impago":
-            mes = mesToInt(pending_payment.mes)
-            costo_disciplines = associates.cost_disciplines(current_user_id, mes)
-            costo_total = payment.costo_total(costo_disciplines)
-            total = total + costo_total
+        mes = mesToInt(pending_payment.mes)
+        costo_disciplines = associates.cost_disciplines(current_user_id, mes)
+        costo_total = payment.costo_total(costo_disciplines)
+        total = total + costo_total
     return jsonify({"total": total})
 
 

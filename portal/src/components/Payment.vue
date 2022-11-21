@@ -1,17 +1,19 @@
 <template>
-  {{ total }}
-  <table class="table table-hover">
+  <table v-if="payment.length != 0" class="table table-hover">
     <thead>
       <tr>
         <td>Mes</td>
+        <td>Total</td>
         <td>Acción</td>
       </tr>
     </thead>
     <tbody>
       <tr v-for="pay in payment" :key="pay">
         <td>{{ pay.mes }}</td>
-        <button @click="registerPayment(pay.mes, total)">Pagar</button>
-        <button @click="emitirComporbante(pay.mes, total)">Emitir comprobante</button>
+        <td>{{ total / this.payment.length }}</td>
+        <button v-if="pay.total == 0" @click="registerPayment(pay.mes, total)">Pagar</button>
+        <button v-if="pay.total != 0" @click="emitirComporbante(pay.mes, total / this.payment.length)">Emitir
+          comprobante</button>
       </tr>
       <div ref="content" class="hidden">
         <h1>Hola</h1>
@@ -21,6 +23,7 @@
       </div>
     </tbody>
   </table>
+  <p v-else>No se ecnontraron resultados</p>
 </template>
 
 <script>
@@ -41,6 +44,7 @@ export default {
       .get("me/payments")
       .then((response) => {
         this.payment = response.data;
+
       })
       .catch((e) => {
         this.errores.push(e);
@@ -57,6 +61,10 @@ export default {
   },
   methods: {
     registerPayment(mes, total) {
+      if (this.payment.length != 0) {
+        total = total / this.payment.length
+
+      }
       const formData = {
         month: mes,
         total: total,
@@ -96,7 +104,7 @@ export default {
 </script>
 
 <style>
-.hidden{
-  display:none
+.hidden {
+  display: none
 }
 </style>

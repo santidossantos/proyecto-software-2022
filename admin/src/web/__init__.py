@@ -17,20 +17,18 @@ from flask import url_for
 from flask import redirect
 from src.core import auth
 from src.web.helpers import permission as helper_permission
-from datetime import datetime
+from datetime import datetime 
 from src.web.helpers import discipline as helper_discipline
-from flask_cors import CORS
+#from flask_cors import CORS
 from flask_qrcode import QRcode
 from flask_jwt_extended import JWTManager
 
+
 def create_app(env="development", static_folder="static"):
     app = Flask(__name__, static_folder=static_folder)
+    #CORS(app)
 
     app.config.from_object(config[env])
-
-    if app.config['CORS']:
-        CORS(app)
-
     JWTManager(app)
 
     database.init_app(app)
@@ -52,9 +50,7 @@ def create_app(env="development", static_folder="static"):
     app.jinja_env.globals.update(is_authenticated=is_authenticated)
     app.jinja_env.globals.update(has_permission=helper_permission.has_permission)
     app.jinja_env.globals.update(datetime=datetime)
-    app.jinja_env.globals.update(
-        find_inscription_by_associate_and_discipline=helper_discipline.find_inscription_by_associate_and_discipline
-    )
+    app.jinja_env.globals.update(find_inscription_by_associate_and_discipline=helper_discipline.find_inscription_by_associate_and_discipline)
 
     QRcode(app)
 

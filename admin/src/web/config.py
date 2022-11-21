@@ -7,15 +7,16 @@ class Config:
     SECRET_KEY = "secret"
     DEBUG = False
     TESTING = False
-    JWT_SECRET_KEY = 'super-secret'
-    JWT_TOKEN_LOCATION = 'headers'
+    JWT_SECRET_KEY = "super-secret"
+    JWT_TOKEN_LOCATION = "headers"
     PROPAGATE_EXCEPTIONS = True
     JWT_ACCESS_TOKEN_EXPIRES = False
-    
+
 
 class ProductionConfig(Config):
     """Production configuration"""
 
+    CORS = False
     DB_USER = environ.get("DB_USER")
     DB_PASS = environ.get("DB_PASS")
     DB_HOST = environ.get("DB_HOST")

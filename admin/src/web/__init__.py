@@ -28,6 +28,7 @@ def create_app(env="development", static_folder="static"):
 
     app.config.from_object(config[env])
 
+
     if app.config['CORS']:
         CORS(app)
 

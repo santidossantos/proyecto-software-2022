@@ -9,7 +9,6 @@
  import Chart from 'chart.js/auto';
  import axios from 'axios';
  
- let cantidad = []
 
  let url = process.env.VUE_APP_RUTA + "club/asociadosMesCant"
  export default { 
@@ -23,18 +22,20 @@
 
      const ctx = document.getElementById('myChart3');
 
-     const myChart3 = new Chart(ctx, {
-    type: 'line',
-    data: {
+     this.data = {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         datasets: [{
             label: 'cantidad',
-            data: cantidad,
+            data: [],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
         }]
     },
+
+    this.myChart3 = new Chart(ctx, {
+    type: 'line',
+    data: this.data,
     options: {
         scales: {
             y: {
@@ -51,10 +52,10 @@
             .then(response => {
             console.log(response.data) //traemos todos los datos desde la API
             //vacio el vector de cantidad
-            cantidad = []
             response.data.forEach(element => {
-                console.log(element.disciplina) //todoss los console log son testss
-                cantidad.push(element.cantidad)
+                this.data.datasets[0].data.push(element.cantidad)
+                console.log("contenido de cantidad inscripciones: ", this.data.datasets[0].data)
+                this.myChart3.update()
             })        
             //console.log(document.getElementById('line-chart'))//el ID donde se genera el grafico es 'line-chart'                    
         })

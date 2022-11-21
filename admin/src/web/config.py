@@ -11,7 +11,7 @@ class Config:
     JWT_TOKEN_LOCATION = 'headers'
     PROPAGATE_EXCEPTIONS = True
     JWT_ACCESS_TOKEN_EXPIRES = False
-
+    
 
 class ProductionConfig(Config):
     """Production configuration"""
@@ -29,7 +29,7 @@ class DevelopmentConfig(Config):
     """Development configuration"""
 
     DEBUG = True
-    
+    CORS = True
     DB_USER = "postgres"
     DB_PASS = "password"
     DB_HOST = "localhost"

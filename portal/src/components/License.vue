@@ -80,6 +80,7 @@
 <script>
 import { apiService } from "@/services/api";
 import QrcodeVue from "qrcode.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -96,9 +97,15 @@ export default {
     };
   },
 
+
   async created() {
-    apiService
-      .get("me/license")
+    axios
+      .get(process.env.VUE_APP_RUTA + "me/license", {
+        xsrfCookieName: "csrf_access_token",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         this.associated = response.data;
         this.imagen = response.data.profile_picture

@@ -5,7 +5,7 @@
     <EstadisticasGenero />
     <EstadisticasInscripciones />
   </div>
-  <hr class="hr"/>
+  <hr class="hr" />
 </template>
 
 <script>
@@ -33,7 +33,14 @@ export default {
   column-span: none;
 }
 
-.hr{
+@media screen and (max-width: 510px) {
+  .est {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.hr {
   width: 70%;
   margin: auto;
   justify-content: center;

@@ -61,7 +61,7 @@ export default {
   margin: 1rem;
   display: grid;
   box-shadow: -7px 10px #6ec1b2;
-  width: 600px;
   border-radius: 5px;
+  width: 50%;
 }
 </style>

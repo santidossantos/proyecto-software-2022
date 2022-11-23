@@ -16,4 +16,12 @@ export default {
 };
 </script>
 
-
+<style>
+.home {
+  width: 100%;
+  height: 100vh;
+  background-color: #e2dfdf;
+  font-family: "Share Tech", sans-serif;
+  position: relative;
+}
+</style>

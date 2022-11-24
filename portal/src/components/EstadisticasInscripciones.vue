@@ -1,6 +1,6 @@
 <template>
      <div class="chartBoxContent">
-      <h1 class="titulo">Cantidad de nuevas inscripciones por mes {{msg}}</h1>
+      <h1 class="titulo">Cantidad de nuevos asociados por mes{{msg}}</h1>
       <canvas id="myChart3"></canvas>
    </div>
 </template>

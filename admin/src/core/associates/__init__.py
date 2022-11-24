@@ -244,7 +244,7 @@ def cantidadInscripcionesPorMes():
     nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
     total = []
-    for i in range(0,12):
+    for i in range(1,12):
         dic = {}
         dic["mes"] = nombresMeses[i]
         dic["cantidad"] = meses[i]

@@ -1,5 +1,14 @@
 <template>
-  <h1>{{ user }}</h1>
+  <div class="container_perfil">
+    <h1 class="title_miPerfil">Mi Perfil</h1>
+    <div class="mi_permil">
+      <h2 class="label_perfil">Nombre:
+      <span>{{ user.name }}</span></h2>
+      <h2 class="label_perfil">Apellido:
+      <span>{{ user.last_name }}</span></h2>
+      <hr />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -29,3 +38,30 @@ export default {
   },
 };
 </script>
+
+<style>
+.container_perfil{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 3rem;
+}
+.label_perfil {
+  color: gray;
+}
+.title_miPerfil {
+  float: left;
+}
+.mi_permil {
+  display: flex;
+  flex-direction: column;
+  align-items: self-start;
+  padding: 2rem;
+  border: 1px solid #e9dada;
+  margin: 1rem;
+  display: grid;
+  box-shadow: -7px 10px #6ec1b2;
+  border-radius: 5px;
+  width: 50%;
+}
+</style>

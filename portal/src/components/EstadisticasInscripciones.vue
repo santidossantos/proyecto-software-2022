@@ -1,6 +1,6 @@
 <template>
-     <div class="chartBox">
-      <h1>Cantidad de nuevas inscripciones por mes {{msg}}</h1>
+     <div class="chartBoxContent">
+      <h1 class="titulo">Cantidad de nuevas inscripciones por mes {{msg}}</h1>
       <canvas id="myChart3"></canvas>
    </div>
 </template>
@@ -63,3 +63,12 @@
   } 
  }
 </script>
+<style>
+.titulo{
+  font-size: 1rem;
+}
+.chartBoxContent{
+  max-width: 100vh;
+  max-height: 50vh;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-   <div class="chartBox">
-      <h1>Cantidad de insciptos por disciplinas {{msg}}</h1>
+   <div class="chartBoxContent">
+      <h1 class="titulo">Cantidad de insciptos por disciplinas {{msg}}</h1>
       <canvas id="myChart"></canvas>
    </div>
 </template>
@@ -61,3 +61,13 @@
   } 
 }
 </script>
+
+<style>
+.titulo{
+  font-size: 1rem;
+}
+.chartBoxContent{
+  max-width: 100vh;
+  max-height: 50vh;
+}
+</style>

@@ -32,9 +32,18 @@ def update_config():
 
     if not validations.CampoVAcio(per_page, month_value, recharge_percentaje):
         return redirect(url_for("config.config_form"))
+    
+    #maximo de entradas por pagina en 100
+    if not validations.rangeInteger(per_page, 0, 100):
+        return redirect(url_for("config.config_form"))
+    
+    #maximo valor de cuota de mes en 20000, en un futuro se puede cambiar pero mientras prevenimos errores
+    if not validations.rangeInteger(month_value, 0, 20000):
+        return redirect(url_for("config.config_form"))
 
-    if not validations.isInteger(per_page, month_value, recharge_percentaje):
-        return redirect(url_for("config.form"))
+    #porcentaje de recarga maximmo en 100%
+    if not validations.rangeInteger(recharge_percentaje, 0, 100):
+        return redirect(url_for("config.config_form"))
 
     contact_information = ""
 

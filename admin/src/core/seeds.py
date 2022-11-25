@@ -38,6 +38,9 @@ def run():
     payment_create = permissions.create_permission(nombre="payment_create")
     payment_update = permissions.create_permission(nombre="payment_update")
 
+    inscription_index = permissions.create_permission(nombre="inscription_index")
+    inscription_create = permissions.create_permission(nombre="inscription_create")
+
     role_admin = permissions.create_role(nombre="admin")
 
     role_admin.permisos.append(user_index)
@@ -67,6 +70,9 @@ def run():
     role_admin.permisos.append(payment_create)
     role_admin.permisos.append(payment_update)
 
+    role_admin.permisos.append(inscription_index)
+    role_admin.permisos.append(inscription_create)
+
     role_operator = permissions.create_role(nombre="operator")
 
     role_operator.permisos.append(user_index)
@@ -80,6 +86,9 @@ def run():
     role_operator.permisos.append(discipline_new)
     role_operator.permisos.append(discipline_update)
     role_operator.permisos.append(discipline_show)
+
+    role_operator.permisos.append(inscription_index)
+    role_operator.permisos.append(inscription_create)
 
     rol_associado = permissions.create_role(nombre="associated")
 

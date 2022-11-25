@@ -41,7 +41,7 @@
           Se registra el pago del asociado {{ $store.state.username }}
           {{ "\n" }}
         </h1>
-        El mes de <span id="mes"></span>Un Monto de $<span id="monto"></span>
+        El mes de <span id="mes"></span> Un Monto de $<span id="monto"></span>
         {{ "\n" }}
         <li class="list-group-item" v-show="date">
           <strong>Fecha de Emision:</strong> {{ date }} {{ "\n" }}

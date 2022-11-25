@@ -1,7 +1,7 @@
 import re
 from src.core import associates
 from flask import Blueprint, jsonify, make_response, request
-from src.core import disciplines, payment
+from src.core import disciplines, payment, config
 from flask import (
     Blueprint,
     jsonify,
@@ -22,6 +22,7 @@ from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
 import base64
 from src.core.serializer.disciplineCant import DisciplineCantSchema
+import os
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -48,6 +49,7 @@ def get_all_disciplines():
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
 
+
 @club_blueptint.get("/cantMorosos")  # La url seria /api/club/cantMorosos
 def get_defaulters():
     records = associates.cantMorosos()
@@ -62,17 +64,20 @@ def get_disciplines_by_id():
     serializer = DisciplineSchema(many=True)
     return JSON_serialized_response(records, serializer)
 
+
 @club_blueptint.get("/disciplinesCant")  # La url seria /api/club/disciplinesCant
 def disciplinesCantAssociates():
     records = disciplines.disciplinesCantInscriptions()
     return records
+
 
 @club_blueptint.get("/generosCant")  # La url seria /api/club/generosCant
 def generosCant():
     records = associates.getCantGeneros()
     return records
 
-#obtiene cantidad de inscripciones nuevas por mes
+
+# obtiene cantidad de inscripciones nuevas por mes
 @club_blueptint.get("/asociadosMesCant")  # La url seria /api/club/asociadosMesCant
 def asociadosMesCant():
     records = associates.cantidadInscripcionesPorMes()
@@ -84,9 +89,25 @@ def asociadosMesCant():
 def get_payments_by_id():
     current_user_id = get_jwt_identity()
     user = associates.get_associate(current_user_id)
-    records = payment.list_assoc_payments(user.id)
+    records = payment.list_assoc_payments_order(user.id)
     serializer = PaymentSchema(many=True)
-    return JSON_serialized_response(records, serializer)
+    if config.get_pay_table_status():
+        return JSON_serialized_response(records, serializer)
+    return []
+
+
+@me_blueprint.get("/payments/total")
+@jwt_required()
+def get_payments_total():
+    current_user_id = get_jwt_identity()
+    pending_payments = payment.pending_payments(current_user_id)
+    total = 0
+    for pending_payment in pending_payments:
+        mes = mesToInt(pending_payment.mes)
+        costo_disciplines = associates.cost_disciplines(current_user_id, mes)
+        costo_total = payment.costo_total_sin_recargo(costo_disciplines)
+        total = total + costo_total
+    return jsonify({"total": total})
 
 
 @me_blueprint.post("/payments")
@@ -110,16 +131,12 @@ def get_license():
     user = associates.get_associate(current_user)
 
     defaulter = associates.esMoroso(user.id)
-    #agrego a user el campo defaulter
+    # agrego a user el campo defaulter
     user.defaulter = defaulter
     if user.profile_picture:
         user.profile_picture.decode()
     serializer = LicenseSchema()
     return JSON_serialized_response(user, serializer)
-
-
-
-
 
 
 @api_blueprint.post("auth")
@@ -152,3 +169,49 @@ def logout():
     response = jsonify()
     unset_jwt_cookies(response)
     return response, 200
+
+
+def mesToInt(mesPago):
+    mes = str(mesPago)
+    if mes == "Mes.E":
+        return 1
+    elif mes == "Mes.F":
+        return 2
+    elif mes == "Mes.M":
+        return 3
+    elif mes == "Mes.A":
+        return 4
+    elif mes == "Mes.May":
+        return 5
+    elif mes == "Mes.Jun":
+        return 6
+    elif mes == "Mes.Jul":
+        return 7
+    elif mes == "Mes.Ago":
+        return 8
+    elif mes == "Mes.S":
+        return 9
+    elif mes == "Mes.O":
+        return 10
+    elif mes == "Mes.N":
+        return 11
+    elif mes == "Mes.D":
+        return 12
+
+@api_blueprint.post("/SaveArchivo")
+def uploader():
+  print('entre') 
+  print(request.files["file"].filename)
+  file = request.files["file"]
+  file.save(os.path.join('public/archivos', file.filename))
+  return jsonify({"msg": "ok"}), 200
+
+@api_blueprint.get("/config")
+def get_all_datos_contacts():
+    records = config.get_displayable_contact_info()
+    return jsonify({"contacts": records}), 200
+
+@api_blueprint.get("/config/porcentaje")
+def get_porcentaje():
+    records = config.get_recharge_percentaje()
+    return jsonify({"porcentaje": records}), 200

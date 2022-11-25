@@ -13,6 +13,12 @@ def list_assoc_payments(id):
     return Payment.query.filter(Payment.associated_id == id)
 
 
+def list_assoc_payments_order(id):
+    return Payment.query.filter(Payment.associated_id == id).order_by(
+        asc(Payment.create_at)
+    )
+
+
 def get_payment(id):
     payment = Payment.query.get(id)
     return payment
@@ -35,14 +41,19 @@ def payments_impagos(id):
     return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()
 
 
-def costo_total(costo_disciplines):
+def costo_total(costo_disciplines,mes):
     now = datetime.now()
     config = Config.query.first()
     total = config.month_value + costo_disciplines
-    if now.day >= 1 and now.day <= 10:
+    if ((now.day >= 1 and now.day <= 10 and mes == now.month) or (mes > now.month)):
         return total
     else:
         return total + (int(total * (config.recharge_percentaje / 100)))
+
+def costo_total_sin_recargo(costo_disciplines):
+    config = Config.query.first()
+    total = config.month_value + costo_disciplines
+    return total
 
 
 def update_Payment(id_pago, total):

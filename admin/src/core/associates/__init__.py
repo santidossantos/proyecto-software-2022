@@ -160,6 +160,9 @@ def generar_pagos(id):
     for i in range(i, 12):
         payment = Payment(associated_id=id, mes=mes[i], total=0)
         payment.nroComprobante = random_integer()
+        #guardo en payment el numero de mes y de año
+        payment.mesNum = i+1
+        payment.AnioNum = datetime.datetime.now().year
         db.session.add(payment)
         db.session.commit()
     return payment
@@ -244,7 +247,7 @@ def cantidadInscripcionesPorMes():
     nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
     total = []
-    for i in range(0,12):
+    for i in range(1,12):
         dic = {}
         dic["mes"] = nombresMeses[i]
         dic["cantidad"] = meses[i]

@@ -41,7 +41,7 @@ def show(id):
         if pending_payment.state.value == "Impago":
             mes = mesToInt(pending_payment.mes)
             costo_disciplines = associates.cost_disciplines(id, mes)
-            costo_total = payment.costo_total(costo_disciplines)
+            costo_total = payment.costo_total(costo_disciplines, mes)
             total = total + costo_total
     disciplines = associates.getDisciplinas(id, datetime.datetime.now().month)
     return render_template(
@@ -61,10 +61,20 @@ def result(id, id_pago):
     pago = payment.get_payment(id_pago)
     mes = mesToInt(pago.mes)
     costo_disciplines = associates.cost_disciplines(id, mes)
-    costo_total = payment.costo_total(costo_disciplines)
+    costo_total = payment.costo_total(costo_disciplines, mes)
     todasDisciplinas = associates.getDisciplinas(id, mes)
+    auxAnio=2100
+    auxMes=13
+    #recorro pending_payments
     if pending_payments:
-        if pago.mes.value == pending_payments[0].mes.value:
+        for pen in pending_payments:
+        #me quedo con el pago con menor año y menor mes
+            if pen.mesNum < auxMes and pen.AnioNum <= auxAnio:
+                auxAnio = pen.AnioNum
+                auxMes = pen.mesNum
+                auxPago = pen
+        #ya obtuve el pago con menor año y menor mes
+        if pago == auxPago:
             return render_template(
                 "payment/report.html",
                 associate=associate,
@@ -108,7 +118,7 @@ def mesToInt(mesPago):
 
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
-@permisson_required("payment_show")
+@permisson_required("payment_update")
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")

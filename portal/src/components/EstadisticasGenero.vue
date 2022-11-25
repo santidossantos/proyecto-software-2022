@@ -1,6 +1,6 @@
 <template>
-    <div class="chartBox">
-      <h1>Cantidad de asociados por genero {{msg}}</h1>
+    <div  class="chartBoxContent">
+      <h1 class="titulo">Cantidad de asociados por genero {{msg}}</h1>
       <canvas id="myChart2"></canvas>
    </div>
 </template>
@@ -22,14 +22,12 @@
      console.log('component mounted.')
 
      const ctx = document.getElementById('myChart2');
-
-     const myChart2 = new Chart(ctx, {
-    type: 'bar',
-    data: {
+    
+    this.data={
         labels: ['Hombres', 'Mujeres'],
         datasets: [{
             label: 'cantidad',
-            data: cantidad,
+            data: [],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -48,7 +46,11 @@
             ],
             borderWidth: 1
         }]
-    },
+    }
+
+    this.myChart2 = new Chart(ctx, {
+    type: 'bar',
+    data: this.data,
     options: {
         scales: {
             y: {
@@ -56,9 +58,10 @@
             }
         }
     }
-});
+    });
     },
-      methods:{
+    
+    methods:{
     mostrar() {
          axios
         .get(url)
@@ -68,8 +71,11 @@
             cantidad = []
             response.data.forEach(element => {
                 console.log(element.disciplina) //todoss los console log son testss
-                cantidad.push(element.hombres)
-                cantidad.push(element.mujeres)
+                this.data.datasets[0].data.push(element.hombres)
+                this.data.datasets[0].data.push(element.mujeres)
+                console.log("contenido labels: ", this.data.labels)
+                console.log("contenido data: ", this.data.datasets[0].data)
+                this.myChart2.update()
             })        
             //console.log(document.getElementById('line-chart'))//el ID donde se genera el grafico es 'line-chart'                    
         })
@@ -77,3 +83,12 @@
   } 
  }
 </script>
+<style>
+.titulo{
+  font-size: 1rem;
+}
+.chartBoxContent{
+  max-width: 100vh;
+  max-height: 80vh;
+}
+</style>

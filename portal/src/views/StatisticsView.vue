@@ -1,10 +1,11 @@
 <template>
+  <h1 class="title">Estadisticas</h1>
   <div class="est">
-    <h1>Estadisticas</h1>
     <Estadisticas />
     <EstadisticasGenero />
     <EstadisticasInscripciones />
   </div>
+  <hr class="hr" />
 </template>
 
 <script>
@@ -18,8 +19,30 @@ export default {
   components: {
     Estadisticas,
     EstadisticasGenero,
-    EstadisticasInscripciones
+    EstadisticasInscripciones,
   },
-  
 };
 </script>
+
+<style>
+.est {
+  display: flex;
+  flex-direction: row;
+  gap: 5rem;
+  padding: 4rem;
+  column-span: none;
+}
+
+@media screen and (max-width: 510px) {
+  .est {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.hr {
+  width: 70%;
+  margin: auto;
+  justify-content: center;
+}
+</style>

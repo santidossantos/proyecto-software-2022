@@ -1,7 +1,5 @@
 <template>
-  <div class="home">
     <MiPerfil />
-  </div>
 </template>
 
 <script>

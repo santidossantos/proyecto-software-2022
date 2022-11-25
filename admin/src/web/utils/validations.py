@@ -66,3 +66,15 @@ def isInteger(valor):
     except:
         flash("Debe ingresar un valor numérico válido", "error")
         return False
+    
+def rangeInteger(valor, minimo, maximo):
+    try:
+        valor = int(valor)
+        if valor >= minimo and valor <= maximo:
+            return True
+        else:
+            flash("Debe ingresar un valor numérico válido", "error")
+            return False
+    except:
+        flash("Debe ingresar un valor numérico válido", "error")
+        return False

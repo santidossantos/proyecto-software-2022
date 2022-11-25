@@ -1,6 +1,6 @@
 <template>
-   <div class="chartBox">
-      <h1>Cantidad de insciptos por disciplinas {{msg}}</h1>
+   <div class="chartBoxContent">
+      <h1 class="titulo">Cantidad de insciptos por disciplinas {{msg}}</h1>
       <canvas id="myChart"></canvas>
    </div>
 </template>
@@ -8,9 +8,6 @@
 <script>
  import Chart from 'chart.js/auto';
  import axios from 'axios';
- 
- let disciplinas = []
- let inscriptos = []
 
  let url = process.env.VUE_APP_RUTA + "club/disciplinesCant"
  export default { 
@@ -21,14 +18,12 @@
     mounted(){
      this.mostrar()
      console.log('component mounted.')
-
      const ctx = document.getElementById('myChart');
-  
-    let data = {
-      labels: disciplinas,
+     this.data = {
+      labels: [],
       datasets: [{
         label: 'Inscripciones',
-        data: inscriptos,
+        data: [],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
@@ -38,11 +33,13 @@
       }]
     };
 
-   const myChart = new Chart(ctx, {
-   type: 'doughnut',
-   data: data,
-   });
-   },
+    this.myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: this.data,
+    });
+    console.log("contenido de labels: ",this.data.labels)
+    console.log("contenido de data: ",this.data.datasets[0].data)
+    },
     
   methods:{
     mostrar() {
@@ -51,19 +48,26 @@
             .then(response => {
             console.log(response.data) //traemos todos los datos desde la API
             //vacio el vector disciplinas
-            disciplinas = []
-            inscriptos = []
             response.data.forEach(element => {
-               // console.log(element.disciplina) //todoss los console log son testss
-                //console.log(url)
-               // console.log(disciplinas)
-                disciplinas.push(element.disciplina)
-                inscriptos.push(element.inscriptos)
-               // console.log(inscriptos)
+              //guarda element.disciplina en el vector de labels de la linea 32
+              this.data.labels.push(element.disciplina)
+              //guarda element.inscriptos en el vector data de la linea 31
+              this.data.datasets[0].data.push(element.inscriptos)
+              this.myChart.update()
             })        
             //console.log(document.getElementById('line-chart'))//el ID donde se genera el grafico es 'line-chart'                    
         })
-    }
+    },
   } 
 }
 </script>
+
+<style>
+.titulo{
+  font-size: 1rem;
+}
+.chartBoxContent{
+  max-width: 100vh;
+  max-height: 50vh;
+}
+</style>

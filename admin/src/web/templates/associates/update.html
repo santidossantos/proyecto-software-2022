@@ -11,7 +11,7 @@
     <label class="label" for="name">Nombre*</label>
     <input class="input_text" type="text" value="{{associate.name}}" name="name" required />
     <label class="label" for="name">Apellido*</label>
-    <input class="input_text" type="text" value="{{associate.last_name}}" id="email" name="last_name" />
+    <input class="input_text" type="text" value="{{associate.last_name}}" id="email" name="last_name" required/>
     <label class="label" for="name">Tipo de documento*</label>
     <select id="document_type" name="document_type" class="input_select" required>
       {%for tipo in document_type %}

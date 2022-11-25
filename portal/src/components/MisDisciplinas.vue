@@ -5,6 +5,7 @@
 <script>
 import { apiService } from "@/services/api";
 import DisciplinasList from "./DisciplinasList.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -14,8 +15,13 @@ export default {
     };
   },
   async created() {
-    apiService
-      .get("me/disciplines")
+    axios
+      .get(process.env.VUE_APP_RUTA + "me/disciplines", {
+        xsrfCookieName: "csrf_access_token",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         this.disciplinas = response.data;
       })

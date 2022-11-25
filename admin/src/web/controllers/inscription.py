@@ -48,12 +48,6 @@ def doInscription(id, idDisciplina):
             return redirect((url_for("inscription.inscription", id=idDisciplina)))
         else:
             associates.setNotDefaulter(id)
-        if associates.is_defaulter(id):
-            flash(
-                "El asociado esta moroso, no se puede inscribir a la disciplina",
-                "error",
-            )
-            return redirect((url_for("disciplines.discipline_index")))
         if not associates.is_active(id):
             flash("El asociado no es activo", "error")
             return redirect((url_for("disciplines.discipline_index")))

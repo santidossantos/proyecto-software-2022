@@ -63,8 +63,18 @@ def result(id, id_pago):
     costo_disciplines = associates.cost_disciplines(id, mes)
     costo_total = payment.costo_total(costo_disciplines)
     todasDisciplinas = associates.getDisciplinas(id, mes)
+    auxAnio=2100
+    auxMes=13
+    #recorro pending_payments
     if pending_payments:
-        if pago.mes.value == pending_payments[0].mes.value:
+        for pen in pending_payments:
+        #me quedo con el pago con menor año y menor mes
+            if pen.mesNum < auxMes and pen.AnioNum <= auxAnio:
+                auxAnio = pen.AnioNum
+                auxMes = pen.mesNum
+                auxPago = pen
+        #ya obtuve el pago con menor año y menor mes
+        if pago == auxPago:
             return render_template(
                 "payment/report.html",
                 associate=associate,

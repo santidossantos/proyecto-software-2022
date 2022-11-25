@@ -160,6 +160,9 @@ def generar_pagos(id):
     for i in range(i, 12):
         payment = Payment(associated_id=id, mes=mes[i], total=0)
         payment.nroComprobante = random_integer()
+        #guardo en payment el numero de mes y de año
+        payment.mesNum = i+1
+        payment.AnioNum = datetime.datetime.now().year
         db.session.add(payment)
         db.session.commit()
     return payment

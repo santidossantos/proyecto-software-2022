@@ -31,6 +31,8 @@ class Payment(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
     associated_id = db.Column(db.Integer, db.ForeignKey("associates.id"))
     mes = db.Column(db.Enum(Mes), nullable=False)
+    mesNum = db.Column(db.Integer)
+    AnioNum = db.Column(db.Integer)
     total = db.Column(db.Integer)
     state = db.Column(db.Enum(State), default="I", nullable=False)
     nroComprobante = db.Column(db.Integer, unique=True)

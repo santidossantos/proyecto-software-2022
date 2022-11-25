@@ -22,6 +22,7 @@ from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
 import base64
 from src.core.serializer.disciplineCant import DisciplineCantSchema
+import os
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -196,3 +197,11 @@ def mesToInt(mesPago):
         return 11
     elif mes == "Mes.D":
         return 12
+
+@api_blueprint.post("/SaveArchivo")
+def uploader():
+  print('entre') 
+  print(request.files["file"].filename)
+  file = request.files["file"]
+  file.save(os.path.join('public/archivos', file.filename))
+  return jsonify({"msg": "ok"}), 200

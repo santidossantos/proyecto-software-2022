@@ -9,10 +9,11 @@
     </thead>
     <tbody>
       <tr v-for="(pay, index) in payment" :key="index">
-        <td>Noviembre</td>
+        <td>{{ meses[pay.mes] }}</td>
         <td>{{ total / this.payment.length }}</td>
         <td>
-          <button class="btn btn-success"
+          <button
+            class="btn btn-success"
             v-if="pay.total == 0"
             @click="registerPayment(pay.mes, total)"
           >
@@ -21,17 +22,37 @@
           <button
             class="btn btn-info"
             v-if="pay.total != 0"
-            @click="emitirComporbante(pay.mes, total / this.payment.length)"
+            @click="
+              emitirComporbante(meses[pay.mes], total / this.payment.length, pay.nroComprobante)
+            "
           >
             Emitir comprobante
+          </button>
+          <input
+            v-if="pay.total != 0"
+            ref="fileInput"
+            type="file"
+            @change="previewFiles($event)"
+          />
+          <button
+            class="btn btn-info"
+            v-if="pay.total != 0"
+            @click="submitFiles"
+          >
+            guardar
           </button>
         </td>
       </tr>
       <div ref="content" class="hidden">
-        <h1>Hola</h1>
-        <br />
-        <h1>Como va</h1>
-        <span>prueba</span>
+        <h1>#Recibo {{ "\n" }}</h1>
+        <h1>
+          Se registra el pago del asociado {{ $store.state.username }}
+          {{ "\n" }}
+        </h1>
+        <li class="list-group-item" v-show="date">
+          <strong>Fecha de Pago:</strong> {{ date }} {{ "\n" }}
+        </li>
+        El mes de <span id="mes"></span>Un Monto de $<span id="monto"></span>
       </div>
     </tbody>
   </table>
@@ -42,12 +63,31 @@
 import { apiService } from "@/services/api";
 
 import jsPDF from "jspdf";
+
+import axios from "axios";
+
 export default {
   data() {
     return {
       payment: [],
       total: 0,
       errores: [],
+      date: "",
+      meses: {
+        E: "Enero",
+        F: "Febrero",
+        Mar: "Marzo",
+        Abr: "Abril",
+        May: "Mayo",
+        Jun: "Junio",
+        Jul: "Julio",
+        Ago: "Agosto",
+        S: "Septiembre",
+        O: "Octubre",
+        N: "Noviembre",
+        D: "Diciembre",
+      },
+      comprobante: null,
     };
   },
   async created() {
@@ -68,8 +108,38 @@ export default {
       .catch((e) => {
         this.errores.push(e);
       });
+    this.date = this.printDate();
   },
   methods: {
+    previewFiles(event) {
+      this.comprobante = event.target.files[0];
+      console.log(this.comprobante);
+    },
+    submitFiles() {
+      if (this.comprobante == null) {
+        return;
+      }
+      let InstFormData = new FormData();
+      InstFormData.append("file", this.comprobante);
+      console.log(InstFormData);
+      axios
+        .post(process.env.VUE_APP_RUTA + "SaveArchivo", InstFormData, {
+          timeout: 5000,
+        })
+        .then((response) => {
+          console.log("File upload successful!");
+          this.$refs.fileInput.value = "";
+          //mensaje de ok
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log("File upload failed.");
+          console.error(error);
+        });
+    },
+    printDate: function () {
+      return new Date().toLocaleDateString();
+    },
     registerPayment(mes, total) {
       if (this.payment.length != 0) {
         total = total / this.payment.length;
@@ -85,20 +155,24 @@ export default {
           console.log(response);
           if (response.status === 200) {
             alert("Se generò el pago");
-            this.$router.push("/perfil");
+            this.$router.push("/payment");
           }
         })
         .catch((e) => {
           this.errores.push(e);
         });
     },
-    emitirComporbante(mes, total) {
-      const doc = new jsPDF();
-      const contentHtml = this.$refs.content.textContent + mes + total;
+    emitirComporbante(mes, total, nroComprobante) {
+      var doc = new jsPDF({
+        orientation: "landscape",
+      });
+      const htmlMes = (document.getElementById("mes").innerHTML = mes + "\n");
+      const htmlMonto = (document.getElementById("monto").innerHTML = total);
+      const contentHtml = this.$refs.content.innerText;
       doc.text(contentHtml, 15, 15, {
         width: 170,
       });
-      doc.save("Comprobante.pdf");
+      doc.save(nroComprobante+"-Comprobante.pdf");
     },
   },
 };

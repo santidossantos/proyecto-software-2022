@@ -16,7 +16,7 @@ def list_assoc_payments(id):
 
 def list_assoc_payments_order(id):
     return Payment.query.filter(Payment.associated_id == id).order_by(
-        asc(Payment.nroComprobante)
+        asc(Payment.create_at)
     )
 
 

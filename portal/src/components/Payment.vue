@@ -40,10 +40,11 @@
           Se registra el pago del asociado {{ $store.state.username }}
           {{ "\n" }}
         </h1>
-        <li class="list-group-item" v-show="date">
-          <strong>Fecha de Pago:</strong> {{ date }} {{ "\n" }}
-        </li>
         El mes de <span id="mes"></span>Un Monto de $<span id="monto"></span>
+        {{ "\n" }}
+        <li class="list-group-item" v-show="date">
+          <strong>Fecha de Emision:</strong> {{ date }} {{ "\n" }}
+        </li>
       </div>
     </tbody>
   </table>
@@ -51,9 +52,7 @@
   <div class="section_comprobante">
     <h3>Subir Comprobante</h3>
     <input ref="fileInput" type="file" @change="previewFiles($event)" />
-    <button class="btn btn-success" @click="submitFiles">
-      guardar
-    </button>
+    <button class="btn btn-success" @click="submitFiles">guardar</button>
   </div>
 </template>
 
@@ -89,8 +88,13 @@ export default {
     };
   },
   async created() {
-    apiService
-      .get("me/payments")
+    axios
+      .get(process.env.VUE_APP_RUTA + "me/payments", {
+        xsrfCookieName: "csrf_access_token",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         this.payment = response.data;
       })
@@ -98,8 +102,13 @@ export default {
         this.errores.push(e);
       });
 
-    apiService
-      .get("me/payments/total")
+    axios
+      .get(process.env.VUE_APP_RUTA + "me/payments/total", {
+        xsrfCookieName: "csrf_access_token",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .then((response) => {
         this.total = response.data.total;
       })
@@ -128,8 +137,8 @@ export default {
           console.log("File upload successful!");
           this.$refs.fileInput.value = "";
           //mensaje de ok
-          alert('Comprobante guardado con exito')
-          location.reload()
+          alert("Comprobante guardado con exito");
+          location.reload();
         })
         .catch((error) => {
           console.log("File upload failed.");
@@ -182,7 +191,7 @@ export default {
   display: none;
 }
 
-.section_comprobante{
+.section_comprobante {
   display: flex;
   flex-direction: column;
   align-items: center;

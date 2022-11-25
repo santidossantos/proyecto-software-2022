@@ -105,7 +105,7 @@ def get_payments_total():
     for pending_payment in pending_payments:
         mes = mesToInt(pending_payment.mes)
         costo_disciplines = associates.cost_disciplines(current_user_id, mes)
-        costo_total = payment.costo_total(costo_disciplines)
+        costo_total = payment.costo_total_sin_recargo(costo_disciplines)
         total = total + costo_total
     return jsonify({"total": total})
 

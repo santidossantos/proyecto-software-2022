@@ -108,7 +108,7 @@ def mesToInt(mesPago):
 
 
 @payment_blueprint.route("/updatePayment/<id>/<id_pago>/<total>")
-@permisson_required("payment_show")
+@permisson_required("payment_update")
 def updatePayment(id, id_pago, total):
     payment.update_Payment(id_pago, total)
     flash("Pago realizado con éxito", "success")

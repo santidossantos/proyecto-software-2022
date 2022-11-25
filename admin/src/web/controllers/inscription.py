@@ -9,14 +9,17 @@ from src.core import disciplines
 from src.core import config
 from src.core import payment
 import datetime
+from src.web.helpers.permission import permisson_required
+
 inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscription")
 
 
 @inscription_blueprint.get("/")
 @inscription_blueprint.get("/<int:page_num>")
 @inscription_blueprint.get("/<int:id>")
+@permisson_required("inscription_index")
 def inscription(id, page_num=1):
-    if(not disciplines.isActive(id)):
+    if not disciplines.isActive(id):
         flash("La disciplina no esta activa", "error")
         return redirect((url_for("disciplines.discipline_index")))
     search = request.args.get("search_field")
@@ -35,15 +38,16 @@ def inscription(id, page_num=1):
 
 
 @inscription_blueprint.route("/doInscription/<id>/<idDisciplina>")
+@permisson_required("inscription_create")
 def doInscription(id, idDisciplina):
     inscription = disciplines.find_inscription_by_associate_and_discipline(
         idAssociate=id, idDiscipline=idDisciplina
     )
     if not inscription:
-        #verificar si el socio está al dia con las cuotas
+        # verificar si el socio está al dia con las cuotas
         if payment.esMoroso(id):
             flash("Error! el asociado es moroso", "error")
-            #poner asociado en defaulter
+            # poner asociado en defaulter
             associates.setDefaulter(id)
             return redirect((url_for("inscription.inscription", id=idDisciplina)))
         else:

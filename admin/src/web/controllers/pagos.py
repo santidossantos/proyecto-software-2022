@@ -41,7 +41,7 @@ def show(id):
         if pending_payment.state.value == "Impago":
             mes = mesToInt(pending_payment.mes)
             costo_disciplines = associates.cost_disciplines(id, mes)
-            costo_total = payment.costo_total(costo_disciplines)
+            costo_total = payment.costo_total(costo_disciplines, mes)
             total = total + costo_total
     disciplines = associates.getDisciplinas(id, datetime.datetime.now().month)
     return render_template(
@@ -61,7 +61,7 @@ def result(id, id_pago):
     pago = payment.get_payment(id_pago)
     mes = mesToInt(pago.mes)
     costo_disciplines = associates.cost_disciplines(id, mes)
-    costo_total = payment.costo_total(costo_disciplines)
+    costo_total = payment.costo_total(costo_disciplines, mes)
     todasDisciplinas = associates.getDisciplinas(id, mes)
     if pending_payments:
         if pago.mes.value == pending_payments[0].mes.value:

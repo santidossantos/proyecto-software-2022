@@ -1,4 +1,5 @@
 <template>
+  <p>Pagando las cuotas despues del dia 10 se incluye un recargo del {{this.recargoo}}%</p>
   <table v-if="payment.length != 0" class="table table-hover">
     <thead>
       <tr>
@@ -10,7 +11,7 @@
     <tbody>
       <tr v-for="(pay, index) in payment" :key="index">
         <td>{{ meses[pay.mes] }}</td>
-        <td>{{ total / this.payment.length }}</td>
+        <td>{{ total / this.payment.length + recargo(total / this.payment.length, pay.mes) }}</td>
         <td>
           <button
             class="btn btn-success"
@@ -83,8 +84,21 @@ export default {
         O: "Octubre",
         N: "Noviembre",
         D: "Diciembre",
+        Enero: 1,
+        Febrero: 2,
+        Marzo: 3,
+        Abril: 4,
+        Mayo: 5,
+        Junio: 6,
+        Junio: 7,
+        Agosto: 8,
+        Septiembre: 9,
+        Octubre: 10,
+        Noviembre: 11,
+        Diciembre: 12,
       },
       comprobante: null,
+      recargoo: 0,
     };
   },
   async created() {
@@ -97,6 +111,20 @@ export default {
       })
       .then((response) => {
         this.payment = response.data;
+      })
+      .catch((e) => {
+        this.errores.push(e);
+      });
+
+    axios
+      .get(process.env.VUE_APP_RUTA + "config/porcentaje", {
+        xsrfCookieName: "csrf_access_token",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        this.recargoo = response.data.porcentaje;
       })
       .catch((e) => {
         this.errores.push(e);
@@ -118,6 +146,18 @@ export default {
     this.date = this.printDate();
   },
   methods: {
+    recargo(total, mes) {
+      const mesDeHoy = new Date().getMonth() + 1;
+      const mesTex = this.meses[mes];
+      const mesApagar = this.meses[mesTex];
+      const date = new Date().toLocaleDateString();
+      const [day, month, year] = date.split("/");
+      console.log(day);
+      if ((mesDeHoy === mesApagar && day > 10) || (mesApagar < mesDeHoy))
+        return total * (this.recargoo / 100);
+      else
+        return 0;
+    },
     previewFiles(event) {
       this.comprobante = event.target.files[0];
       console.log(this.comprobante);
@@ -136,7 +176,6 @@ export default {
         .then((response) => {
           console.log("File upload successful!");
           this.$refs.fileInput.value = "";
-          //mensaje de ok
           alert("Comprobante guardado con exito");
           location.reload();
         })

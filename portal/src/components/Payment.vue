@@ -23,23 +23,14 @@
             class="btn btn-info"
             v-if="pay.total != 0"
             @click="
-              emitirComporbante(meses[pay.mes], total / this.payment.length, pay.nroComprobante)
+              emitirComporbante(
+                meses[pay.mes],
+                total / this.payment.length,
+                pay.nroComprobante
+              )
             "
           >
             Emitir comprobante
-          </button>
-          <input
-            v-if="pay.total != 0"
-            ref="fileInput"
-            type="file"
-            @change="previewFiles($event)"
-          />
-          <button
-            class="btn btn-info"
-            v-if="pay.total != 0"
-            @click="submitFiles"
-          >
-            guardar
           </button>
         </td>
       </tr>
@@ -57,6 +48,13 @@
     </tbody>
   </table>
   <p v-else>No se ecnontraron resultados</p>
+  <div class="section_comprobante">
+    <h3>Subir Comprobante</h3>
+    <input ref="fileInput" type="file" @change="previewFiles($event)" />
+    <button class="btn btn-success" @click="submitFiles">
+      guardar
+    </button>
+  </div>
 </template>
 
 <script>
@@ -155,7 +153,6 @@ export default {
           console.log(response);
           if (response.status === 200) {
             alert("Se generò el pago");
-            this.$router.push("/payment");
           }
         })
         .catch((e) => {
@@ -172,7 +169,7 @@ export default {
       doc.text(contentHtml, 15, 15, {
         width: 170,
       });
-      doc.save(nroComprobante+"-Comprobante.pdf");
+      doc.save(nroComprobante + "-Comprobante.pdf");
     },
   },
 };
@@ -181,5 +178,19 @@ export default {
 <style>
 .hidden {
   display: none;
+}
+
+.section_comprobante{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  bottom: 1rem;
+  border: 0.5px solid #198754;
+  box-shadow: -10px 0px 0px 0px #198754;
+  width: 40%;
+  border-radius: 5px;
+  gap: 1rem;
+  margin: auto;
 }
 </style>

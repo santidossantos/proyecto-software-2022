@@ -205,3 +205,8 @@ def uploader():
   file = request.files["file"]
   file.save(os.path.join('public/archivos', file.filename))
   return jsonify({"msg": "ok"}), 200
+
+@api_blueprint.get("/config")
+def get_all_datos_contacts():
+    records = config.get_displayable_contact_info()
+    return jsonify({"contacts": records}), 200

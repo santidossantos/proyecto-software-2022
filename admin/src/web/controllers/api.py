@@ -210,3 +210,8 @@ def uploader():
 def get_all_datos_contacts():
     records = config.get_displayable_contact_info()
     return jsonify({"contacts": records}), 200
+
+@api_blueprint.get("/config/porcentaje")
+def get_porcentaje():
+    records = config.get_recharge_percentaje()
+    return jsonify({"porcentaje": records}), 200

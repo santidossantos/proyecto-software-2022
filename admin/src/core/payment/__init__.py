@@ -45,6 +45,11 @@ def costo_total(costo_disciplines,mes):
     else:
         return total + (int(total * (config.recharge_percentaje / 100)))
 
+def costo_total_sin_recargo(costo_disciplines):
+    config = Config.query.first()
+    total = config.month_value + costo_disciplines
+    return total
+
 
 def update_Payment(id_pago, total):
     payment = get_payment(id_pago)

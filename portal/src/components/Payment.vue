@@ -128,7 +128,8 @@ export default {
           console.log("File upload successful!");
           this.$refs.fileInput.value = "";
           //mensaje de ok
-          console.log(response);
+          alert('Comprobante guardado con exito')
+          location.reload()
         })
         .catch((error) => {
           console.log("File upload failed.");
@@ -153,6 +154,7 @@ export default {
           console.log(response);
           if (response.status === 200) {
             alert("Se generò el pago");
+            location.reload();
           }
         })
         .catch((e) => {

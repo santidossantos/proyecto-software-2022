@@ -8,19 +8,19 @@
 <div class="form_container">
   <form action="{{ url_for('disciplines.create') }}" method="post">
     <label class="label" for="name">Nombre</label>
-    <input class="input_text" type="text" id="name" name="name" />
+    <input class="input_text" type="text" id="name" name="name" required/>
 
     <label class="label" for="name">Categoria</label>
-    <input class="input_text" type="text" id="cateogry" name="category" />
+    <input class="input_text" type="text" id="cateogry" name="category" required/>
 
     <label class="label" for="name">Nombre y apellido instructores</label>
-    <input class="input_text" type="text" id="nameInstructors" name="nameInstructors" />
+    <input class="input_text" type="text" id="nameInstructors" name="nameInstructors" required/>
 
     <label class="label" for="name">Dias y horarios</label>
-    <input class="input_text" type="text" id="daysAndHours" name="daysAndHours" />
+    <input class="input_text" type="text" id="daysAndHours" name="daysAndHours" required/>
 
     <label class="label" for="name">Costo mensual</label>
-    <input class="input_text" type="text" id="monthlyCost" name="monthlyCost" />
+    <input class="input_text" type="number" id="monthlyCost" name="monthlyCost" required/>
 
     <button type="submit" id="submit" class="button_add mt-3">Guardar</button>
   </form>

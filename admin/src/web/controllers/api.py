@@ -93,8 +93,7 @@ def get_payments_by_id():
     serializer = PaymentSchema(many=True)
     if config.get_pay_table_status():
         return JSON_serialized_response(records, serializer), 200
-    return jsonify({[]}), 200
-
+    return jsonify({"isActiv": "false"}), 200
 
 @me_blueprint.get("/payments/total")
 @jwt_required()

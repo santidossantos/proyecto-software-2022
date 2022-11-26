@@ -11,12 +11,13 @@
     <tbody>
       <tr v-for="(pay, index) in payment" :key="index">
         <td>{{ meses[pay.mes] }}</td>
-        <td>{{ total / this.payment.length + recargo(total / this.payment.length, pay.mes) }}</td>
+        <td v-if="pay.total == 0">{{ total / this.payment.length + recargo(total / this.payment.length, pay.mes) }}</td>
+        <td v-if="pay.total != 0">{{ pay.total }}</td>
         <td>
           <button
             class="btn btn-success"
             v-if="pay.total == 0"
-            @click="registerPayment(pay.mes, total)"
+            @click="registerPayment(pay.mes, (total / this.payment.length + recargo(total / this.payment.length, pay.mes)))"
           >
             Pagar
           </button>
@@ -26,7 +27,7 @@
             @click="
               emitirComporbante(
                 meses[pay.mes],
-                total / this.payment.length,
+                pay.total,
                 pay.nroComprobante
               )
             "
@@ -188,9 +189,9 @@ export default {
       return new Date().toLocaleDateString();
     },
     registerPayment(mes, total) {
-      if (this.payment.length != 0) {
-        total = total / this.payment.length;
-      }
+      // if (this.payment.length != 0) {
+      //   total = total / this.payment.length;
+      // }
       const formData = {
         month: mes,
         total: total,

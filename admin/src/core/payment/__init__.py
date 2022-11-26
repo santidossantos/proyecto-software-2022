@@ -33,7 +33,7 @@ def get_payment_by_assoc_id_and_month(id_assoc, mes):
 
 
 def pending_payments(id):
-    return Payment.query.filter_by(associated_id=id).order_by(asc(Payment.id)).all()
+    return Payment.query.filter_by(associated_id=id).order_by(asc(Payment.id))
 
 
 def payments_impagos(id):

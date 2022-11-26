@@ -2,8 +2,8 @@ from src.core.payment.payment import Payment
 from src.core.database import db
 from src.core.config.config import Config
 from datetime import datetime
-from sqlalchemy import desc
 from sqlalchemy import asc
+from sqlalchemy import desc
 
 
 def list_payment(page_num, per_page):

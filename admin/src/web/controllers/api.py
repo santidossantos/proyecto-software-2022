@@ -93,7 +93,7 @@ def get_payments_by_id():
     serializer = PaymentSchema(many=True)
     if config.get_pay_table_status():
         return JSON_serialized_response(records, serializer)
-    return jsonify({[]})
+    return jsonify({[]}), 200
 
 
 @me_blueprint.get("/payments/total")
@@ -107,7 +107,7 @@ def get_payments_total():
         costo_disciplines = associates.cost_disciplines(current_user_id, mes)
         costo_total = payment.costo_total_sin_recargo(costo_disciplines)
         total = total + costo_total
-    return jsonify({"total": total})
+    return jsonify({"total": total}), 200
 
 
 @me_blueprint.post("/payments")

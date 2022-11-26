@@ -1,6 +1,6 @@
 <template>
   <p>Pagando las cuotas despues del dia 10 se incluye un recargo del {{this.recargoo}}%</p>
-  <table v-if="payment.length != 0" class="table table-hover">
+  <table v-if="payment.includes('isActiv')" class="table table-hover">
     <thead>
       <tr>
         <td>Mes</td>

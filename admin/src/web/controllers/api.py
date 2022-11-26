@@ -92,7 +92,7 @@ def get_payments_by_id():
     records = payment.list_assoc_payments_order(user.id)
     serializer = PaymentSchema(many=True)
     if config.get_pay_table_status():
-        return JSON_serialized_response(records, serializer)
+        return JSON_serialized_response(records, serializer), 200
     return jsonify({[]}), 200
 
 

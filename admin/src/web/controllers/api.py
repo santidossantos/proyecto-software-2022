@@ -23,6 +23,8 @@ from src.core.serializer.user import UserSchema
 import base64
 from src.core.serializer.disciplineCant import DisciplineCantSchema
 import os
+from os import listdir
+
 
 api_blueprint = Blueprint("api", __name__, url_prefix="/api/")
 club_blueptint = Blueprint("club", __name__, url_prefix="/club")
@@ -91,8 +93,7 @@ def get_payments_by_id():
     user = associates.get_associate(current_user_id)
     records = payment.list_assoc_payments_order(user.id)
     serializer = PaymentSchema(many=True)
-    #if config.get_pay_table_status():
-    if True:
+    if config.get_pay_table_status():
         return JSON_serialized_response(records, serializer), 200
     return jsonify({"status": "desactivada"}), 200
 
@@ -205,6 +206,12 @@ def uploader():
   file = request.files["file"]
   file.save(os.path.join('public/archivos', file.filename))
   return jsonify({"msg": "ok"}), 200
+
+
+@api_blueprint.get("/listar")
+def listar_archivos_un_dir():
+  files_str = listdir('public/archivos')
+  return jsonify({"msg": files_str}), 200
 
 @api_blueprint.get("/config")
 def get_all_datos_contacts():

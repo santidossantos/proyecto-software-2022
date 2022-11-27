@@ -91,9 +91,10 @@ def get_payments_by_id():
     user = associates.get_associate(current_user_id)
     records = payment.list_assoc_payments_order(user.id)
     serializer = PaymentSchema(many=True)
-    if config.get_pay_table_status():
+    #if config.get_pay_table_status():
+    if True:
         return JSON_serialized_response(records, serializer), 200
-    return jsonify({"isActiv": "false"}), 200
+    return jsonify({"status": "desactivada"}), 200
 
 @me_blueprint.get("/payments/total")
 @jwt_required()

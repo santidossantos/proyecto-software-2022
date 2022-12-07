@@ -43,12 +43,15 @@ export default createStore({
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("username", authData.username);
             router.replace("perfil");
+            return true
           } else {
             console.log("Login error");
+            return false
           }
         })
         .catch((error) => {
           console.log(error);
+          return false
         });
     },
     logout: ({ commit }) => {

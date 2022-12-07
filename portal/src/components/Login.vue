@@ -7,24 +7,12 @@
     <form class="p-3 mt-3" @submit.prevent="register">
       <div class="form-field d-flex align-items-center">
         <span class="far fa-user"></span>
-        <input
-          v-model="username"
-          class="form-input"
-          type="text"
-          id="username"
-          required
-          placeholder="Nombre de usuario"
-        />
+        <input v-model="username" class="form-input" type="text" id="username" required
+          placeholder="Nombre de usuario" />
       </div>
       <div class="form-field d-flex align-items-center">
         <span class="fas fa-key"></span>
-        <input
-          v-model="password"
-          class="form-input"
-          type="password"
-          id="password"
-          placeholder="Contraseña"
-        />
+        <input v-model="password" class="form-input" type="password" id="password" placeholder="Contraseña" />
       </div>
       <input class="btn mt-3" type="submit" value="Login">
     </form>
@@ -50,7 +38,14 @@ export default {
         username: this.username,
         password: this.password,
       };
-      this.$store.dispatch("login", formData);
+      this.errores = this.$store.dispatch("login", formData)
+      if (this.errores) {
+        this.$toast.show("Nombre de usuario o contraseña incorrecta", {
+          type: "error",
+          position: "bottom",
+          duration: 8000,
+        });
+      }
     },
   },
 };

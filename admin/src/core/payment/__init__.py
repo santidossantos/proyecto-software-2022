@@ -38,9 +38,8 @@ def pending_payments(id):
 
 
 def payments_impagos(id):
-    # filtrar aquellos pagos que esten impagos
-    return Payment.query.filter_by(associated_id=id).filter_by(state="I").all()
-
+    # filtrar aquellos pagos que esten impagos ordenados descendentemente por año y mes
+    return Payment.query.filter_by(associated_id=id).filter_by(state="I").order_by(desc(Payment.AnioNum)).order_by(desc(Payment.mesNum)).first()
 
 def costo_total(costo_disciplines,mes):
     now = datetime.now()
@@ -81,8 +80,7 @@ def esMoroso(id):
     if len(pending_payments) == 0:
         return False
 
-    pago = get_payment(pending_payments[0].id)
-    mes = mesToInt(pago.mes)
+    mes = mesToInt(pending_payments.mes)
     if mes <= datetime.now().month:
         return True
     else:

@@ -7,16 +7,16 @@ block head %}
 <div class="form_container">
   <form action="/users/update/{{user.id}}" method="POST">
     <label class="label" for="name">Name</label>
-    <input class="input_text" type="text" id="email" name="name" value="{{user.name}}" />
+    <input class="input_text" type="text" id="email" name="name" value="{{user.name}}" required/>
 
     <label class="label" for="name">Apellido</label>
-    <input class="input_text" type="text" id="email" name="last_name" value="{{user.last_name}}"/>
+    <input class="input_text" type="text" id="email" name="last_name" value="{{user.last_name}}" required/>
 
     <label class="label" for="name">Nombre De Ususario</label>
-    <input class="input_text" type="text" id="email" name="user_name" value="{{user.user_name}}" />
+    <input class="input_text" type="text" id="email" name="user_name" value="{{user.user_name}}" required/>
 
     <label class="label" for="name">Email</label>
-    <input class="input_text" type="email" id="email" name="email" value="{{user.email}}" />
+    <input class="input_text" type="email" id="email" name="email" value="{{user.email}}" required/>
     <label class="label" for="rol">Roles</label>
     {%for rol in roles%}
       {% if rol not in user.roles and has_permission("user_update") %}

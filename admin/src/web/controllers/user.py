@@ -36,7 +36,7 @@ def create():
         last_name = request.form.get("last_name")
         email = request.form.get("email")
         password = request.form.get("password")
-        if CampoVAcio(name,last_name,email,password) and validationMailAndPass(email, password):
+        if CampoVAcio(name,last_name,email,user_name,password) and validationMailAndPass(email, password):
             rolesSelected=[]
             for rolId in request.form.getlist('rol'):
                 unRol = Role.query.filter_by(id=rolId).first()

@@ -9,7 +9,8 @@ def list_disciplines(page_num, per_page):
 
 
 def list_disciplines_plain():
-     return Discipline.query.all()
+    """List all disciplines, but do not paginate them"""
+    return Discipline.query.all()
 
 def create_discipline(**kwargs):
     discipline = Discipline(**kwargs)
@@ -30,7 +31,6 @@ def get_discipline(id):
     return discipline
 
 
-# en futuro va haber que implementar lo de kwargs xq sino se va a tener que recibir muchos parametros
 def update_discipline(id, name, category, nameInstructors, daysAndHours, monthlyCost):
     discipline = Discipline.query.get(id)
     discipline.name = name

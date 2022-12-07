@@ -65,6 +65,13 @@ def find_user_by_user_name(user_name):
 
 
 def assigned_roles(user, rolesSelected):
+    """Append one or more roles to an user
+
+    Args:
+        user (int): User Identifier
+        rolesSelected (List[]): List of roles to append
+    """
+
     for rol in rolesSelected:
         user.roles.append(rol)
     db.session.add(user)

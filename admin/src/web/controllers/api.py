@@ -18,6 +18,7 @@ from flask_jwt_extended import (
 from src.core import associates, auth, disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
+from src.core.serializer.paymentinfo import PaymentInfoSchema
 from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
 import base64
@@ -97,6 +98,18 @@ def get_payments_by_id():
         return JSON_serialized_response(records, serializer), 200
     return jsonify({"status": "desactivada"}), 200
 
+#tuve que crear esta funcion por que vue estaba usando get_payments_by_id para otra cosa entonces le habian agredo otros campos a schema
+@me_blueprint.get("/paymentsinfo")
+@jwt_required()
+def get_paymentsinfo_by_id():
+    current_user_id = get_jwt_identity()
+    user = associates.get_associate(current_user_id)
+    records = payment.list_assoc_payments_order(user.id)
+    serializer = PaymentInfoSchema(many=True)
+    if config.get_pay_table_status():
+        return JSON_serialized_response(records, serializer), 200
+    return jsonify({"status": "desactivada"}), 200
+
 @me_blueprint.get("/payments/total")
 @jwt_required()
 def get_payments_total():
@@ -123,6 +136,8 @@ def register_payment_by_id():
     resp = make_response(jsonify({"result": "Success"}))
     resp.headers["Content-Type: application/json"] = "*"
     return resp
+
+
 
 
 @me_blueprint.get("license")

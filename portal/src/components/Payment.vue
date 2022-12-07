@@ -104,7 +104,7 @@ export default {
   },
   async created() {
     axios
-      .get(process.env.VUE_APP_RUTA + "me/payments", {
+      .get(process.env.VUE_APP_RUTA + "me/paymentsinfo", {
         xsrfCookieName: "csrf_access_token",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -19,6 +19,7 @@ users_blueprint = Blueprint("users", __name__, url_prefix="/users")
 @users_blueprint.get("<int:page_num>/<search>/<active>/")
 @permisson_required("user_index")
 def user_index(page_num=1):
+    """Shows the user list view. It can use search fiters from get request"""
 
     search = request.args.get("search_field")
     active = request.args.get("active_filter")
@@ -30,6 +31,8 @@ def user_index(page_num=1):
 @users_blueprint.route("/create", methods=("GET", "POST"))
 @permisson_required("user_new")
 def create():
+    """This function allows to create a new user and stores it the database.
+    It also validate data"""
     if request.method == "POST":
         user_name = request.form.get("user_name")
         name = request.form.get("name")
@@ -69,6 +72,7 @@ def delete(id):
 @users_blueprint.route("/update/<id>", methods=["POST", "GET"])
 @permisson_required("user_update")
 def update(id):
+    """Allows the update of an specific user"""
     if request.method == "POST":
         user_name = request.form.get("user_name")
         name = request.form.get("name")
@@ -105,12 +109,14 @@ def update(id):
 @users_blueprint.route("/show/<id>")
 @permisson_required("user_show")
 def show(id):
+    """Show user information card template"""
     user = auth.get_user(id=id)
     return render_template("users/show.html", user=user)
 
 @users_blueprint.route("/setStatus/<id>/<desactivado>")
 @permisson_required("user_activ")
 def setStatus(id, desactivado):
+    """Set user status (active/blocked)"""
     if auth.NoEsAdmin(id):
         auth.setStatus(id=id)
         if (desactivado == '1'):

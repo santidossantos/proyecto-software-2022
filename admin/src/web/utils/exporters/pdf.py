@@ -3,6 +3,7 @@ from flask import render_template
 
 
 def generate_pdf_file(records):
+    """Generates a PDF file given the records from the parameter"""
 
     html = render_template("associates/report.html", associates=records)
     return render_pdf(
@@ -15,6 +16,8 @@ def generate_pdf_file(records):
 def generate_pdf_file_payment(
     associate, costo_total, month, fecha, id, texto, nroComprobante
 ):
+
+    """Generates a PDF File as a voucher from a Payment"""
 
     html = render_template(
         "payment/certificado-pdf.html",
@@ -34,7 +37,10 @@ def generate_pdf_file_payment(
 
 
 def generate_pdf_license(associate, qr_url):
-    html = render_template("associates/export-license.html", associate=associate, qr_url=qr_url)
+    """Generates a PDF file with associated license data"""
+    html = render_template(
+        "associates/export-license.html", associate=associate, qr_url=qr_url
+    )
     return render_pdf(
         HTML(string=html),
         automatic_download=False,

@@ -12,6 +12,15 @@ from src.web.utils.math import random_integer
 
 
 def list_associate(page_num, per_page, search, active, nroSocio):
+    """List all asociates and return them paginated
+
+    Args:
+        page_num (int): actual page
+        per_page (int): number of registers to show
+        search (string): search filters from url
+        active (string): active filter from url
+        nroSocio (int): associated number
+    """
 
     def activeFilter(active):
         if active:

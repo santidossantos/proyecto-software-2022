@@ -8,6 +8,15 @@ from functools import wraps
 
 
 def has_permission(permission):
+    """Determines if an user has the permission specified in the given parameter
+
+
+    Args:
+        permission (int): Permission Identifier
+
+    Returns:
+        bool: True if the user has the permission, otherwise returns False.
+    """
     user = User.query.filter_by(email=session["user"]).first()
 
     permiso = Permission.query.filter_by(nombre=permission).first()
@@ -18,6 +27,14 @@ def has_permission(permission):
 
 
 def has_role(rol):
+    """Determines if an user has the specified role
+
+    Args:
+        rol (int): Rol Model Identifier
+
+    Returns:
+        bool: True if the user has the role, otherwise returns False.
+    """
     user = User.query.filter_by(email=session["user"]).first()
     res = Role.query.filter_by(nombre=rol).first()
 

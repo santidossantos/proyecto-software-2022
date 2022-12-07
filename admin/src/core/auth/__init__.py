@@ -4,6 +4,15 @@ from src.core.database import db
 
 
 def list_users(page_num, per_page, search, active):
+    """List all users
+
+    Args:
+       page_num (int): actual page
+       per_page (int): number of registers to show
+       search (string): search filters from url
+       active (string): active filter from url
+    """
+
     def activeFilter(active):
         if active:
             return User.active == active
@@ -49,6 +58,7 @@ def update_user(**kwargs):
 
 def find_user_by_email(email):
     return User.query.filter_by(email=email).first()
+
 
 def find_user_by_user_name(user_name):
     return User.query.filter_by(user_name=user_name).first()

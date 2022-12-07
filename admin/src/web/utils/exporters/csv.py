@@ -4,6 +4,7 @@ import csv
 
 
 def generate_csv_file(records):
+    """Generates a response from the given records in .csv format"""
 
     columns = ["Apellido, Nombre, Email, DNI, Dirección, Teléfono, Género"]
     output = io.StringIO()

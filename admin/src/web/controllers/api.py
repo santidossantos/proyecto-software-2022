@@ -97,6 +97,7 @@ def get_payments_by_id():
         return JSON_serialized_response(records, serializer), 200
     return jsonify({"status": "desactivada"}), 200
 
+
 @me_blueprint.get("/payments/total")
 @jwt_required()
 def get_payments_total():
@@ -199,24 +200,28 @@ def mesToInt(mesPago):
     elif mes == "Mes.D":
         return 12
 
+
 @api_blueprint.post("/SaveArchivo")
+@jwt_required()
 def uploader():
-  print('entre') 
-  print(request.files["file"].filename)
-  file = request.files["file"]
-  file.save(os.path.join('public/archivos', file.filename))
-  return jsonify({"msg": "ok"}), 200
+    print("entre")
+    print(request.files["file"].filename)
+    file = request.files["file"]
+    file.save(os.path.join("public/archivos", file.filename))
+    return jsonify({"msg": "ok"}), 200
 
 
 @api_blueprint.get("/listar")
 def listar_archivos_un_dir():
-  files_str = listdir('public/archivos')
-  return jsonify({"msg": files_str}), 200
+    files_str = listdir("public/archivos")
+    return jsonify({"msg": files_str}), 200
+
 
 @api_blueprint.get("/config")
 def get_all_datos_contacts():
     records = config.get_displayable_contact_info()
     return jsonify({"contacts": records}), 200
+
 
 @api_blueprint.get("/config/porcentaje")
 def get_porcentaje():

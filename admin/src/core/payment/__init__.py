@@ -76,12 +76,7 @@ def create_payment(id_associate, mes, total):
 def esMoroso(id):
     # verificar si el socio está al dia con las cuotas
     pending_payments = payments_impagos(id)
-
-    if len(pending_payments) == 0:
-        return False
-
-    mes = mesToInt(pending_payments.mes)
-    if mes <= datetime.now().month:
+    if pending_payments:
         return True
     else:
         return False

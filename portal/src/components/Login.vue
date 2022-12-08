@@ -45,7 +45,7 @@ export default {
 
     displayError() {
       setTimeout(() => {
-        if (this.$store.state.error_msg != '') {
+        if (this.$store.state.error_msg != '' && this.$store.state.token === null) {
           this.$toast.error(this.$store.state.error_msg, {
             max: 1,
             position: "bottom",

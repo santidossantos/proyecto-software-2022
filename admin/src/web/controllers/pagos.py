@@ -65,27 +65,18 @@ def result(id, id_pago):
     todasDisciplinas = associates.getDisciplinas(id, mes)
     auxAnio=2100
     auxMes=13
-    #recorro pending_payments
-    if pending_payments:
-        for pen in pending_payments:
-        #me quedo con el pago con menor año y menor mes
-            if pen.mesNum < auxMes and pen.AnioNum <= auxAnio:
-                auxAnio = pen.AnioNum
-                auxMes = pen.mesNum
-                auxPago = pen
-        #ya obtuve el pago con menor año y menor mes
-        if pago == auxPago:
-            return render_template(
-                "payment/report.html",
-                associate=associate,
-                costo_total=costo_total,
-                month=pago.mes.value,
-                id_pago=id_pago,
-                todasDisciplinas=todasDisciplinas,
-            )
-        else:
-            flash("Error! Debe pagar las cuotas vencidas en orden", "error")
-            return redirect(url_for("payment.show", id=id))
+    if pago == pending_payments:
+        return render_template(
+            "payment/report.html",
+            associate=associate,
+            costo_total=costo_total,
+            month=pago.mes.value,
+            id_pago=id_pago,
+            todasDisciplinas=todasDisciplinas,
+        )
+    else:
+        flash("Error! Debe pagar las cuotas vencidas en orden", "error")
+        return redirect(url_for("payment.show", id=id))
     return redirect(url_for("payment.show", id=id))
 
 

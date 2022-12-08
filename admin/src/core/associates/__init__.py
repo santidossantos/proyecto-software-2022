@@ -1,6 +1,5 @@
 import datetime
 from sqlite3 import DatabaseError
-
 from click import DateTime
 from src.core import payment
 from src.core.payment import Payment
@@ -45,6 +44,8 @@ def list_associate(page_num, per_page, search, active, nroSocio):
 
 
 def list_associateActiveAndInactive(page_num, per_page, search, nroSocio):
+    """List all asociates, even if they are inactive. 
+    The function returns the records paginated"""
     def searchFilter(search):
         if search and nroSocio:
             return or_(
@@ -65,6 +66,8 @@ def list_associateActiveAndInactive(page_num, per_page, search, nroSocio):
 
 
 def list_associate_filtered(search_filter, active_filter):
+    """List plain records from the associate model, 
+    filtered by url fields search field and active filter"""
 
     def activeFilter(active):
         if active:

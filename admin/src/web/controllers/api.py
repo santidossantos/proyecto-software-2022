@@ -71,6 +71,8 @@ def get_defaulters():
 @me_blueprint.get("/disciplines")
 @jwt_required()
 def get_disciplines_by_id():
+    """This API returns an JSON Formatted string given an access token of all
+    the disciplines that an associated has been enrolled"""
     current_user_id = get_jwt_identity()
     records = associates.associated_disciplines(current_user_id)
     serializer = DisciplineSchema(many=True)

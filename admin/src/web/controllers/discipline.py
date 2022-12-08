@@ -109,9 +109,13 @@ def show(id):
 
 @discipline_blueprint.route("/setStatus/<id>/<desactivado>")
 def setStatus(id, desactivado):
-    disciplines.setStatus(id=id)
-    if (desactivado == '1'):
-            flash("Disciplina desactivada correctamente", "success")
+    if not disciplines.IsErasable(id):
+        flash("No se puede desactivar la disciplina ya que tiene asociados inscriptos", "error")
+        return redirect((url_for("disciplines.discipline_index")))
     else:
+        disciplines.setStatus(id=id)
+        if (desactivado == '1'):
+            flash("Disciplina desactivada correctamente", "success")
+        else:
             flash("Disciplina activada correctamente", "success")
-    return redirect((url_for("disciplines.discipline_index")))
+        return redirect((url_for("disciplines.discipline_index")))

@@ -7,7 +7,7 @@
       <router-link class="navbar-brand" v-if="$store.state.token" to="/me/disciplinas">Mis Disciplinas</router-link>
       <router-link class="navbar-brand" v-if="$store.state.token" to="/perfil">Mi Perfil</router-link>
       <router-link class="navbar-brand" v-if="$store.state.token" to="/carnet">Carnet</router-link>
-      <router-link class="navbar-brand" v-if="$store.state.token" to="/estadisticas">Estadisticas</router-link>
+      <router-link class="navbar-brand" to="/estadisticas">Estadisticas</router-link>
       <router-link class="navbar-brand" to='/login' v-if="$store.state.token" @click="logout">Cerrar Sesion</router-link>
   </nav>
   <router-view />

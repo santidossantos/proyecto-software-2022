@@ -219,15 +219,20 @@ def getCantGeneros():
     #para cada asociado, obtener su genero y contar cuantos hay de cada uno
     cantHombres = 0
     cantMujeres = 0
+    cantOtros = 0
     for asociado in asociados:
-        if (asociado.genero == "M"):
+        if (asociado.genero.value == "Femenino"):
             cantMujeres = cantMujeres + 1
-        else:
+        elif (asociado.genero.value == "Masculino"):
             cantHombres = cantHombres + 1
+        elif(asociado.genero.value == "Otro"):
+             cantOtros = cantOtros + 1
+
     total = []
     dic = {}
     dic["hombres"] = cantHombres
     dic["mujeres"] = cantMujeres
+    dic["otros"] = cantOtros
     total.append(dic)
     return total
 
@@ -242,12 +247,12 @@ def cantidadInscripcionesPorMes():
         #obtengo el numero de mes de la fecha de inscripcion
         mes = asociado.create_at.month
         #agrego el numero de mes al array
-        meses[mes]=meses[mes]+1
+        meses[mes-1]=meses[mes-1]+1
     #defino array con el nomrbe de cada mes
     nombresMeses = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"]
     #recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
     total = []
-    for i in range(1,12):
+    for i in range(0,12):
         dic = {}
         dic["mes"] = nombresMeses[i]
         dic["cantidad"] = meses[i]

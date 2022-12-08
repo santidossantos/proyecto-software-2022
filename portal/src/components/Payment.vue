@@ -1,5 +1,5 @@
 <template>
-  <p>Pagando las cuotas despues del dia 10 se incluye un recargo del {{this.recargoo}}%</p>
+  <p>Pagando las cuotas despues del dia 10 se incluye un recargo del {{ this.recargoo }}%</p>
   <table v-if="payment.status == null" class="table table-hover">
     <thead>
       <tr>
@@ -14,24 +14,17 @@
         <td v-if="pay.total == 0">{{ total / this.payment.length + recargo(total / this.payment.length, pay.mes) }}</td>
         <td v-if="pay.total != 0">{{ pay.total }}</td>
         <td>
-          <button
-            class="btn btn-success"
-            v-if="pay.total == 0"
-            @click="registerPayment(pay.mes, (total / this.payment.length + recargo(total / this.payment.length, pay.mes)))"
-          >
+          <button class="btn btn-success" v-if="pay.total == 0"
+            @click="registerPayment(pay.mes, (total / this.payment.length + recargo(total / this.payment.length, pay.mes)))">
             Pagar
           </button>
-          <button
-            class="btn btn-info"
-            v-if="pay.total != 0"
-            @click="
-              emitirComporbante(
-                meses[pay.mes],
-                pay.total,
-                pay.nroComprobante
-              )
-            "
-          >
+          <button class="btn btn-info" v-if="pay.total != 0" @click="
+            emitirComporbante(
+              meses[pay.mes],
+              pay.total,
+              pay.nroComprobante
+            )
+          ">
             Emitir comprobante
           </button>
         </td>
@@ -104,7 +97,7 @@ export default {
   },
   async created() {
     axios
-      .get(process.env.VUE_APP_RUTA + "me/payments", {
+      .get(process.env.VUE_APP_RUTA + "me/paymentsinfo", {
         xsrfCookieName: "csrf_access_token",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -118,12 +111,7 @@ export default {
       });
 
     axios
-      .get(process.env.VUE_APP_RUTA + "config/porcentaje", {
-        xsrfCookieName: "csrf_access_token",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
+      .get(process.env.VUE_APP_RUTA + "config/porcentaje")
       .then((response) => {
         this.recargoo = response.data.porcentaje;
       })
@@ -171,9 +159,9 @@ export default {
       InstFormData.append("file", this.comprobante);
       console.log(InstFormData);
       axios
-        .post(process.env.VUE_APP_RUTA + "SaveArchivo", InstFormData, {
-          timeout: 5000,
-        })
+      apiService
+        .post(process.env.VUE_APP_RUTA + "SaveArchivo",
+          InstFormData )
         .then((response) => {
           console.log("File upload successful!");
           this.$refs.fileInput.value = "";

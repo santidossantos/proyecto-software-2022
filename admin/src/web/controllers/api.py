@@ -18,6 +18,7 @@ from flask_jwt_extended import (
 from src.core import associates, auth, disciplines, payment
 from src.core.serializer.discipline import DisciplineSchema
 from src.core.serializer.payment import PaymentSchema
+from src.core.serializer.paymentinfo import PaymentInfoSchema
 from src.core.serializer.license import LicenseSchema
 from src.core.serializer.user import UserSchema
 import base64
@@ -96,6 +97,19 @@ def get_payments_by_id():
     if config.get_pay_table_status():
         return JSON_serialized_response(records, serializer), 200
     return jsonify({"status": "desactivada"}), 200
+
+
+@me_blueprint.get("/paymentsinfo")
+@jwt_required()
+def get_paymentsinfo_by_id():
+    current_user_id = get_jwt_identity()
+    user = associates.get_associate(current_user_id)
+    records = payment.list_assoc_payments_order(user.id)
+    serializer = PaymentInfoSchema(many=True)
+    if config.get_pay_table_status():
+        return JSON_serialized_response(records, serializer), 200
+    return jsonify({"status": "desactivada"}), 200
+
 
 @me_blueprint.get("/payments/total")
 @jwt_required()
@@ -199,24 +213,28 @@ def mesToInt(mesPago):
     elif mes == "Mes.D":
         return 12
 
+
 @api_blueprint.post("/SaveArchivo")
+@jwt_required()
 def uploader():
-  print('entre') 
-  print(request.files["file"].filename)
-  file = request.files["file"]
-  file.save(os.path.join('public/archivos', file.filename))
-  return jsonify({"msg": "ok"}), 200
+    print("entre")
+    print(request.files["file"].filename)
+    file = request.files["file"]
+    file.save(os.path.join("public/archivos", file.filename))
+    return jsonify({"msg": "ok"}), 200
 
 
 @api_blueprint.get("/listar")
 def listar_archivos_un_dir():
-  files_str = listdir('public/archivos')
-  return jsonify({"msg": files_str}), 200
+    files_str = listdir("public/archivos")
+    return jsonify({"msg": files_str}), 200
+
 
 @api_blueprint.get("/config")
 def get_all_datos_contacts():
     records = config.get_displayable_contact_info()
     return jsonify({"contacts": records}), 200
+
 
 @api_blueprint.get("/config/porcentaje")
 def get_porcentaje():

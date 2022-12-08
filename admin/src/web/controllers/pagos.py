@@ -18,6 +18,8 @@ payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 @payment_blueprint.get("/<int:page_num>")
 @permisson_required("payment_index")
 def payment_index(page_num=1):
+    """Returns the payment template"""
+
     search = request.args.get("search_field")
     paginated_users = associates.list_associate(
         page_num=page_num,
@@ -32,6 +34,11 @@ def payment_index(page_num=1):
 @payment_blueprint.route("/show/<id>")
 @permisson_required("payment_show")
 def show(id):
+    """Shows the specific template for do a payment
+
+    Args:
+        id (int): Associated Identifier
+    """
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
     # para cada pending_payments se debe calcular el costo total
@@ -56,6 +63,14 @@ def show(id):
 @payment_blueprint.route("/result/<id>/<id_pago>")
 @permisson_required("payment_show")
 def result(id, id_pago):
+    """Given an user id and a payment, this function register a payment for the
+        specified user, and validates that the payments are payed in order
+
+    Args:
+        id (int): User Identifier
+        id_pago (int): Payment Identifier form the template
+
+    """
     pending_payments = payment.payments_impagos(id)
     associate = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
@@ -63,17 +78,17 @@ def result(id, id_pago):
     costo_disciplines = associates.cost_disciplines(id, mes)
     costo_total = payment.costo_total(costo_disciplines, mes)
     todasDisciplinas = associates.getDisciplinas(id, mes)
-    auxAnio=2100
-    auxMes=13
-    #recorro pending_payments
+    auxAnio = 2100
+    auxMes = 13
+    # recorro pending_payments
     if pending_payments:
         for pen in pending_payments:
-        #me quedo con el pago con menor año y menor mes
+            # me quedo con el pago con menor año y menor mes
             if pen.mesNum < auxMes and pen.AnioNum <= auxAnio:
                 auxAnio = pen.AnioNum
                 auxMes = pen.mesNum
                 auxPago = pen
-        #ya obtuve el pago con menor año y menor mes
+        # ya obtuve el pago con menor año y menor mes
         if pago == auxPago:
             return render_template(
                 "payment/report.html",
@@ -128,6 +143,7 @@ def updatePayment(id, id_pago, total):
 
 @payment_blueprint.get("/emitir-certificado/")
 def generate_voucher():
+    """Generates a payment voucher given a Payment Model"""
 
     id = request.args.get("id")
     id_pago = request.args.get("id_pago")

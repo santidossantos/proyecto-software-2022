@@ -165,7 +165,7 @@ def create_token():
         access_token = create_access_token(identity=user.id)
         set_access_cookies(jsonify(), access_token)
         return jsonify({"token": access_token}), 200
-    return jsonify({"msg": "Bad email or password"}), 401
+    return jsonify({"msg": "Usuario o contraseña incorrecta"}), 401
 
 
 @me_blueprint.get("profile")

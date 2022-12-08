@@ -77,7 +77,7 @@ export default createStore({
           }
         })
         .catch((e) => {
-          console.log("No se pudo cerrar sesion");
+          console.log("No se pudo cerrar sesionn");
         });
 
     },

@@ -15,10 +15,11 @@ inscription_blueprint = Blueprint("inscription", __name__, url_prefix="/inscript
 
 
 @inscription_blueprint.get("/")
-@inscription_blueprint.get("/<int:page_num>")
-@inscription_blueprint.get("/<int:id>")
+@inscription_blueprint.get("<int:id>")
+@inscription_blueprint.get("<int:page_num>/<int:id>")
 @permisson_required("inscription_index")
-def inscription(id, page_num=1):
+def inscription(page_num=1, id=1):
+
     if not disciplines.isActive(id):
         flash("La disciplina no esta activa", "error")
         return redirect((url_for("disciplines.discipline_index")))

@@ -307,8 +307,9 @@ def cantidadInscripcionesPorMes():
     for asociado in asociados:
         # obtengo el numero de mes de la fecha de inscripcion
         mes = asociado.create_at.month
+        print("EL MES ESSSS: ", mes)
         # agrego el numero de mes al array
-        meses[mes] = meses[mes] + 1
+        meses[mes-1] = meses[mes-1] + 1
         # defino array con el nomrbe de cada mes
         nombresMeses = [
             "Enero",
@@ -326,7 +327,7 @@ def cantidadInscripcionesPorMes():
         ]
     # recorro nombre de meses y asigno a cada uno la cantidad de inscripciones
     total = []
-    for i in range(1, 12):
+    for i in range(0, 12):
         dic = {}
         dic["mes"] = nombresMeses[i]
         dic["cantidad"] = meses[i]

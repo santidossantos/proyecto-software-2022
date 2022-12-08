@@ -219,15 +219,20 @@ def getCantGeneros():
     #para cada asociado, obtener su genero y contar cuantos hay de cada uno
     cantHombres = 0
     cantMujeres = 0
+    cantOtros = 0
     for asociado in asociados:
-        if (asociado.genero == "M"):
+        if (asociado.genero.value == "Femenino"):
             cantMujeres = cantMujeres + 1
-        else:
+        elif (asociado.genero.value == "Masculino"):
             cantHombres = cantHombres + 1
+        elif(asociado.genero.value == "Otro"):
+             cantOtros = cantOtros + 1
+
     total = []
     dic = {}
     dic["hombres"] = cantHombres
     dic["mujeres"] = cantMujeres
+    dic["otros"] = cantOtros
     total.append(dic)
     return total
 

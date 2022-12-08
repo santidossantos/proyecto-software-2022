@@ -24,7 +24,7 @@
      const ctx = document.getElementById('myChart2');
     
     this.data={
-        labels: ['Hombres', 'Mujeres'],
+        labels: ['Hombres', 'Mujeres', 'Otros'],
         datasets: [{
             label: 'cantidad',
             data: [],
@@ -73,6 +73,7 @@
                 console.log(element.disciplina) //todoss los console log son testss
                 this.data.datasets[0].data.push(element.hombres)
                 this.data.datasets[0].data.push(element.mujeres)
+                this.data.datasets[0].data.push(element.otros)
                 console.log("contenido labels: ", this.data.labels)
                 console.log("contenido data: ", this.data.datasets[0].data)
                 this.myChart2.update()

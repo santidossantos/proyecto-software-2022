@@ -27,6 +27,14 @@
             <a class="nav-link" href="/payment">Pagos</a>
           </li>
         {% endif%}
+        <li class="nav-item px-2">
+          {% if 'localhost' in request.url %}
+            {% set url = 'localhost:8080' %}
+          {% else %}
+            {% set url = 'grupo02.proyecto2022.linti.unlp.edu.ar'  %}
+          {% endif %}
+          <a class="nav-link" href="http://{{url}}/#/estadisticas">Estadisticas</a>
+        </li>
         {% if has_permission("config_index") %}
           <li class="nav-item px-2">
             <a class="nav-link" href="{{ url_for('config.config_form') }}">Configuración</a>

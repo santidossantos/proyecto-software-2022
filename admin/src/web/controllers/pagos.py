@@ -63,24 +63,13 @@ def result(id, id_pago):
     costo_disciplines = associates.cost_disciplines(id, mes)
     costo_total = payment.costo_total(costo_disciplines, mes)
     todasDisciplinas = associates.getDisciplinas(id, mes)
-    auxAnio=2100
-    auxMes=13
-    #recorro pending_payments
-    if pending_payments:
-        for pen in pending_payments:
-        #me quedo con el pago con menor año y menor mes
-            if pen.mesNum < auxMes and pen.AnioNum <= auxAnio:
-                auxAnio = pen.AnioNum
-                auxMes = pen.mesNum
-                auxPago = pen
-        #ya obtuve el pago con menor año y menor mes
-        mesActual = datetime.datetime.now().month
-        anioActual = datetime.datetime.now().year
-        #chequear si el pago que se quiere pagar es del mes anterior o del mismo mes, sino no se puede pagar
-        if (pago.mesNum > mesActual and pago.AnioNum >= anioActual):
+    mesActual = datetime.datetime.now().month
+    anioActual = datetime.datetime.now().year
+    #chequear si el pago que se quiere pagar es del mes anterior o del mismo mes, sino no se puede pagar
+    if (pago.mesNum > mesActual and pago.AnioNum >= anioActual):
             flash("Error! No se puede pagar una cuota siguiente al mes actual", "error")
             return redirect(url_for("payment.show", id=id))
-        elif pago == auxPago:
+    elif pago == pending_payments:
                 return render_template(
                     "payment/report.html",
                     associate=associate,
@@ -89,9 +78,9 @@ def result(id, id_pago):
                     id_pago=id_pago,
                     todasDisciplinas=todasDisciplinas,
                 )
-        else:
-            flash("Error! Debe pagar las cuotas vencidas en orden", "error")
-            return redirect(url_for("payment.show", id=id))
+    else:
+        flash("Error! Debe pagar las cuotas vencidas en orden", "error")
+        return redirect(url_for("payment.show", id=id))
     return redirect(url_for("payment.show", id=id))
 
 

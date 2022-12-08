@@ -4,7 +4,6 @@
       <img src="../assets/logovillaelisa.png" alt="" />
     </div>
     <div class="text-center mt-4 name">Iniciar Sesion</div>
-    <p v-if="($store.state.error_msg != '')">{{ 'Error' }}</p>
     <form class="p-3 mt-3" @submit.prevent="register">
       <div class="form-field d-flex align-items-center">
         <span class="far fa-user"></span>
@@ -17,6 +16,8 @@
       </div>
       <input class="btn mt-3" type="submit" value="Login">
     </form>
+
+    <p v-if="($store.state.error_msg != '')">{{ this.displayError() }}</p>
 
   </div>
 </template>
@@ -35,6 +36,7 @@ export default {
   },
 
   methods: {
+
     register() {
       const formData = {
         username: this.username,
@@ -53,6 +55,14 @@ export default {
           console.log('hola')
         });
     },
+
+    displayError() {
+      this.$toast.error(this.$store.state.error_msg, {
+        position: "bottom",
+        duration: 5000
+      });
+    },
+    
   },
 };
 </script>

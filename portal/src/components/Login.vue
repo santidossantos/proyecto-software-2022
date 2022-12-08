@@ -4,6 +4,7 @@
       <img src="../assets/logovillaelisa.png" alt="" />
     </div>
     <div class="text-center mt-4 name">Iniciar Sesion</div>
+    <p v-if="($store.state.error_msg != '')">{{ 'Error' }}</p>
     <form class="p-3 mt-3" @submit.prevent="register">
       <div class="form-field d-flex align-items-center">
         <span class="far fa-user"></span>
@@ -16,6 +17,7 @@
       </div>
       <input class="btn mt-3" type="submit" value="Login">
     </form>
+
   </div>
 </template>
 
@@ -38,14 +40,18 @@ export default {
         username: this.username,
         password: this.password,
       };
-      this.errores = this.$store.dispatch("login", formData)
-      if (this.errores) {
-        this.$toast.show("Nombre de usuario o contraseña incorrecta", {
-          type: "error",
-          position: "bottom",
-          duration: 8000,
+
+      this.$store.dispatch("login", formData).
+        then((response) => {
+
+          console.log(response)
+
+
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log('hola')
         });
-      }
     },
   },
 };

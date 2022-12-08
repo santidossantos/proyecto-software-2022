@@ -2,10 +2,10 @@ from src.core.disciplines.discipline import Discipline
 from src.core.associates.associate import associates_disciplines
 from src.core.database import db
 from src.core.payment.payment import Payment
-
+from sqlalchemy import asc
 
 def list_disciplines(page_num, per_page):
-    return Discipline.query.paginate(page_num, per_page, True)
+    return Discipline.query.order_by(asc(Discipline.id)).paginate(page_num, per_page, True)
 
 
 def list_disciplines_plain():

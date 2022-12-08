@@ -41,6 +41,16 @@ api_blueprint.register_blueprint(api_auth_blueprint)
 
 
 def JSON_serialized_response(records, serializer):
+    """Returns a JSON response of the records given and the serializer schema specified
+
+    Args:
+        records (db.model): Model to serializer
+        serializer (Schema): Marshmallow Schema serializer
+
+    Returns:
+        string: JSON Formatted String
+    """
+
     resp = make_response(jsonify(serializer.dump(records)))
     resp.headers["Content-Type: application/json"] = "*"
     return resp
@@ -62,6 +72,8 @@ def get_defaulters():
 @me_blueprint.get("/disciplines")
 @jwt_required()
 def get_disciplines_by_id():
+    """This API returns an JSON Formatted string given an access token of all
+    the disciplines that an associated has been enrolled"""
     current_user_id = get_jwt_identity()
     records = associates.associated_disciplines(current_user_id)
     serializer = DisciplineSchema(many=True)
@@ -90,6 +102,11 @@ def asociadosMesCant():
 @me_blueprint.get("/payments")
 @jwt_required()
 def get_payments_by_id():
+    """Get all the payments from an associated
+
+    Returns:
+        string: JSON Formatted String
+    """
     current_user_id = get_jwt_identity()
     user = associates.get_associate(current_user_id)
     records = payment.list_assoc_payments_order(user.id)
@@ -156,6 +173,11 @@ def get_license():
 
 @api_blueprint.post("auth")
 def create_token():
+    """Creates JSON Web Token from a post request
+
+    Returns:
+        string: JSON Formatted String
+    """
     username = request.json.get("username", None)
     password = request.json.get("password", None)
     user = auth.find_user_by_user_name(
@@ -165,7 +187,7 @@ def create_token():
         access_token = create_access_token(identity=user.id)
         set_access_cookies(jsonify(), access_token)
         return jsonify({"token": access_token}), 200
-    return jsonify({"msg": "Bad email or password"}), 401
+    return jsonify({"msg": "Usuario o contraseña incorrecta"}), 401
 
 
 @me_blueprint.get("profile")
@@ -187,6 +209,8 @@ def logout():
 
 
 def mesToInt(mesPago):
+    """This function asign an integer value for each month enumerative"""
+
     mes = str(mesPago)
     if mes == "Mes.E":
         return 1
@@ -217,8 +241,7 @@ def mesToInt(mesPago):
 @api_blueprint.post("/SaveArchivo")
 @jwt_required()
 def uploader():
-    print("entre")
-    print(request.files["file"].filename)
+    """This function allows file uploading from a post request"""
     file = request.files["file"]
     file.save(os.path.join("public/archivos", file.filename))
     return jsonify({"msg": "ok"}), 200
@@ -226,17 +249,20 @@ def uploader():
 
 @api_blueprint.get("/listar")
 def listar_archivos_un_dir():
+    """List all files saved in a directory"""
     files_str = listdir("public/archivos")
     return jsonify({"msg": files_str}), 200
 
 
 @api_blueprint.get("/config")
 def get_all_datos_contacts():
+    """Get all active contact information from config module"""
     records = config.get_displayable_contact_info()
     return jsonify({"contacts": records}), 200
 
 
 @api_blueprint.get("/config/porcentaje")
 def get_porcentaje():
+    """Get payment recharge percentaje from config module"""
     records = config.get_recharge_percentaje()
     return jsonify({"porcentaje": records}), 200

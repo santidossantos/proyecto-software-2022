@@ -25,6 +25,16 @@ from flask_jwt_extended import JWTManager
 
 
 def create_app(env="development", static_folder="static"):
+    """Creates the Flask APP and establish its configuration
+
+    Args:
+        env (str, optional): Env Config. Defaults to "development".
+        static_folder (str, optional): Static Folder Location. Defaults to "static".
+
+    Returns:
+        __any__: Flask APP
+    """
+
     app = Flask(__name__, static_folder=static_folder)
   
 

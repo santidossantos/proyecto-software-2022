@@ -8,12 +8,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Genero(enum.Enum):
+    """Enumerative type which defines gender for an user"""
+    
     M = "Masculino"
     F = "Femenino"
     O = "Otro"
 
 
 class DocumentType(enum.Enum):
+    """Enumerative which defines document type for an user"""
+
     DNI = "Documento Nacional de Identidad"
     LE = "Libreta de Enrolamiento"
     LC = "Librera Civica"
@@ -48,6 +52,7 @@ associates_disciplines = db.Table(
 
 
 class Associate(db.Model):
+    """A Class to represent an associated"""
 
     __tablename__ = "associates"
     id = db.Column(db.Integer, primary_key=True, unique=True)
@@ -85,10 +90,6 @@ class Associate(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
-
-    def update(self, **kwargs):
-        for key, value in kwargs.items():
-            setattr(self, key, value)
 
     def update(self, **kwargs):
         for key, value in kwargs.items():

@@ -5,6 +5,7 @@ from src.core.associates.associate import Genero
 
 
 class LicenseSchema(Schema):
+    """A class to represent the JSON format in which an user license will be exported"""
     name = fields.Str()
     last_name = fields.Str()
     dni = fields.Str()

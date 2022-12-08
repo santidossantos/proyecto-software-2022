@@ -7,10 +7,10 @@ roles_permissions = db.Table('roles_permissions',
 )
 
 class Role(db.Model):
+    """A class to represent roles used by the users"""
+
     __tablename__ = 'roles'
 
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(255), unique=True, nullable=False)
     permisos = db.relationship("Permission", secondary=roles_permissions)
-
-# Este archivo no deberia modificarse mas

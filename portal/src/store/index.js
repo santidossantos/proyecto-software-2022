@@ -6,6 +6,7 @@ export default createStore({
   state: {
     username: null,
     token: null,
+    error_msg: ''
   },
   getters: {
     isAuthenticated(state) {
@@ -20,13 +21,18 @@ export default createStore({
     clearAuthData(state) {
       state.username = null;
       state.token = null;
+      state.error_msg = '';
     },
     initializeStore(state) {
       if (localStorage.getItem("username")) {
         state.username = `${localStorage.getItem("username")}`;
         state.token = `${localStorage.getItem("token")}`;
       }
+    },
+    setMsg(state, errorData) {
+      state.error_msg = errorData.error_msg;
     }
+
   },
   actions: {
     login: ({ commit }, authData) => {
@@ -43,12 +49,13 @@ export default createStore({
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("username", authData.username);
             router.replace("perfil");
-          } else {
-            console.log("Login error");
+
           }
         })
         .catch((error) => {
-          console.log(error);
+          commit("setMsg", {
+            error_msg: error.response.data.msg
+          });
         });
     },
     logout: ({ commit }) => {
@@ -65,7 +72,7 @@ export default createStore({
           }
         })
         .catch((error) => {
-          console.log(error);
+          return error
         });
     },
   },

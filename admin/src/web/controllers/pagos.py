@@ -18,6 +18,8 @@ payment_blueprint = Blueprint("payment", __name__, url_prefix="/payment")
 @payment_blueprint.get("/<int:page_num>")
 @permisson_required("payment_index")
 def payment_index(page_num=1):
+    """Returns the payment template"""
+
     search = request.args.get("search_field")
     paginated_users = associates.list_associate(
         page_num=page_num,
@@ -32,6 +34,11 @@ def payment_index(page_num=1):
 @payment_blueprint.route("/show/<id>")
 @permisson_required("payment_show")
 def show(id):
+    """Shows the specific template for do a payment
+
+    Args:
+        id (int): Associated Identifier
+    """
     associate = associates.get_associate(id)
     pending_payments = payment.pending_payments(id)
     # para cada pending_payments se debe calcular el costo total
@@ -56,6 +63,14 @@ def show(id):
 @payment_blueprint.route("/result/<id>/<id_pago>")
 @permisson_required("payment_show")
 def result(id, id_pago):
+    """Given an user id and a payment, this function register a payment for the
+        specified user, and validates that the payments are payed in order
+
+    Args:
+        id (int): User Identifier
+        id_pago (int): Payment Identifier form the template
+
+    """
     pending_payments = payment.payments_impagos(id)
     associate = associates.get_associate(id)
     pago = payment.get_payment(id_pago)
@@ -63,17 +78,21 @@ def result(id, id_pago):
     costo_disciplines = associates.cost_disciplines(id, mes)
     costo_total = payment.costo_total(costo_disciplines, mes)
     todasDisciplinas = associates.getDisciplinas(id, mes)
-    auxAnio=2100
-    auxMes=13
-    if pago == pending_payments:
-        return render_template(
-            "payment/report.html",
-            associate=associate,
-            costo_total=costo_total,
-            month=pago.mes.value,
-            id_pago=id_pago,
-            todasDisciplinas=todasDisciplinas,
-        )
+    mesActual = datetime.datetime.now().month
+    anioActual = datetime.datetime.now().year
+    #chequear si el pago que se quiere pagar es del mes anterior o del mismo mes, sino no se puede pagar
+    if (pago.mesNum > mesActual and pago.AnioNum >= anioActual):
+            flash("Error! No se puede pagar una cuota siguiente al mes actual", "error")
+            return redirect(url_for("payment.show", id=id))
+    elif pago == pending_payments:
+                return render_template(
+                    "payment/report.html",
+                    associate=associate,
+                    costo_total=costo_total,
+                    month=pago.mes.value,
+                    id_pago=id_pago,
+                    todasDisciplinas=todasDisciplinas,
+                )
     else:
         flash("Error! Debe pagar las cuotas vencidas en orden", "error")
         return redirect(url_for("payment.show", id=id))
@@ -119,6 +138,7 @@ def updatePayment(id, id_pago, total):
 
 @payment_blueprint.get("/emitir-certificado/")
 def generate_voucher():
+    """Generates a payment voucher given a Payment Model"""
 
     id = request.args.get("id")
     id_pago = request.args.get("id_pago")

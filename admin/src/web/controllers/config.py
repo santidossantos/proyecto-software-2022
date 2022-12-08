@@ -24,6 +24,7 @@ def config_form():
 @config_blueprint.route("/update-config", methods=["POST", "GET"])
 @permisson_required("config_update")
 def update_config():
+    """Returns the view of config update and do the update in the database"""
 
     params = request.form
     per_page = params["per_page"]

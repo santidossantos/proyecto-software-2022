@@ -2,6 +2,7 @@ from src.core.database import db
 
 
 class Discipline(db.Model):
+    """A class to represent a discipline"""
 
     __tablename__ = "disciplines"
     id = db.Column(db.Integer, primary_key=True, unique=True)

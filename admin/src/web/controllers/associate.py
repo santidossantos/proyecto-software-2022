@@ -22,6 +22,7 @@ associates_blueprint = Blueprint("associates", __name__, url_prefix="/associates
 @associates_blueprint.get("<int:page_num>/<search>/<active>/")
 @permisson_required("member_index")
 def associate_index(page_num=1):
+    """Controller to display the associated index view"""
 
     search = request.args.get("search_field")
     active = request.args.get("active_filter")
@@ -41,6 +42,7 @@ def associate_index(page_num=1):
 @associates_blueprint.route("/create", methods=("GET", "POST"))
 @permisson_required("member_new")
 def create():
+    """Create an associated from a POST request"""
     if request.method == "POST":
         name = request.form.get("name")
         last_name = request.form.get("last_name")
@@ -99,6 +101,7 @@ def create():
 @associates_blueprint.route("/update/<id>", methods=["POST", "GET"])
 @permisson_required("member_update")
 def update(id):
+    """Update an associated from a POST request"""
     if request.method == "POST":
         email = request.form.get("email")
         name = request.form.get("name")
@@ -156,6 +159,7 @@ def update(id):
 @associates_blueprint.route("/show/<id>")
 @permisson_required("member_show")
 def show(id):
+    """Show personal information from an associated, returns a template"""
     associate = associates.get_associate(id=id)
     defaulter = associates.esMoroso(associate.id)
     associate.defaulter = defaulter
@@ -180,6 +184,7 @@ def activate(id):
 
 @associates_blueprint.get("/export/csv")
 def call_csv_exporter():
+    """Call to the util csv exporter. Uses search filters from get url"""
     search_filter = request.args.get("search_field")
     active_filter = request.args.get("active_filter")
     return call_some_exporter("csv", search_filter, active_filter)
@@ -187,6 +192,7 @@ def call_csv_exporter():
 
 @associates_blueprint.get("/export/pdf")
 def call_pdf_exporter():
+    """Call to the util pdf exporter. Uses search filters from get url"""
     search_filter = request.args.get("search_field")
     active_filter = request.args.get("active_filter")
     return call_some_exporter("pdf", search_filter, active_filter)
@@ -194,6 +200,7 @@ def call_pdf_exporter():
 
 @associates_blueprint.get("/export/pdf/generate-license")
 def generate_pdf_license():
+    """Generates a PDF File for the associated license"""
     doc_type = request.args.get("doc_type")
     id_assoc = request.args.get("id_assoc")
     qr_url = request.args.get("qr_url_pdf")

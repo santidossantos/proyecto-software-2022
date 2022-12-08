@@ -16,6 +16,7 @@ discipline_blueprint = Blueprint("disciplines", __name__, url_prefix="/disciplin
 @discipline_blueprint.get("/<int:page_num>")
 @permisson_required("discipline_index")
 def discipline_index(page_num=1):
+    """List all disciplines paginated"""
     paginated_disciplines = disciplines.list_disciplines(page_num=page_num, per_page=config.get_per_page())
     return render_template("disciplines/disciplines_list.html", disciplines=paginated_disciplines)
 

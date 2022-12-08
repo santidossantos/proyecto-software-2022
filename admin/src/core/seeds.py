@@ -8,6 +8,8 @@ from src.core import permissions
 
 
 def run():
+    """Creates all models and tables in the database and fill tables with 
+    testing data"""
 
     config.create()
 

@@ -1,6 +1,7 @@
 import { apiService } from "@/services/api";
 import { createStore } from "vuex";
 import router from "@/router";
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -59,7 +60,14 @@ export default createStore({
         });
     },
     logout: ({ commit }) => {
-      apiService.get('logout')
+
+      axios
+        .get(process.env.VUE_APP_RUTA + "logout", {
+          xsrfCookieName: "csrf_access_token",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         .then((response) => {
           if (response.status === 200) {
             commit("clearAuthData");
@@ -67,13 +75,11 @@ export default createStore({
             localStorage.removeItem("token");
             router.replace("login");
           }
-          else {
-            console.log("No se pudo cerrar sesion");
-          }
         })
-        .catch((error) => {
-          return error
+        .catch((e) => {
+          console.log("No se pudo cerrar sesionn");
         });
+
     },
   },
   modules: {},

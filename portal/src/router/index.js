@@ -58,7 +58,6 @@ const routes = [
     path: "/Estadisticas",
     name: "Estadisticas",
     component: StatisticsView,
-    meta: { requiresAuth: true }
   },
 ];
 

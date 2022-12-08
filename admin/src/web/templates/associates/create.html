@@ -10,9 +10,9 @@
 <div class="form_container">
   <form action="{{ url_for('associates.create') }}" enctype="multipart/form-data" method="post">
     <label class="label" for="name">Nombre*</label>
-    <input class="input_text" type="text" id="email" name="name" />
+    <input class="input_text" type="text" id="email" name="name" required/>
     <label class="label" for="name">Apellido*</label>
-    <input class="input_text" type="text" id="email" name="last_name" />
+    <input class="input_text" type="text" id="email" name="last_name" required/>
     <label class="label" for="name">Tipo de documento*</label>
     <select id="document_type" name="document_type" class="input_select" required>
       {%for tipo in document_type %}
@@ -36,9 +36,9 @@
     <label class="label" for="name">Contraseña*</label>
     <input class="input_text" type="password" id="email" name="password" required/>
     <label class="label" for="name">Teléfono</label>
-    <input type="number" class="input_text" type="text" id="email" name="mobile_number" required/>
-    <br><label class="label" for="name">Foto de perfil</label>
-    <input type="file" class="" name="profile_picture" accept="image/*" required/>
+    <input type="number" class="input_text" type="text" id="email" name="mobile_number"/>
+    <br><label class="label" for="name">Foto de perfil*</label>
+    <input type="file" class="" name="profile_picture" accept="image/*"/>
     <button type="submit" id="submit" class="button_add mt-3">Guardar</button>
   </form>
 </div>

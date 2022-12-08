@@ -4,6 +4,13 @@
   <br><br>
   <ul id="pagination">
 
+    {% if id_disciplina %}
+        {% set  url_inscription = '/' + id_disciplina|string %} 
+    {% else %}
+        {%  set  url_inscription = '' %} 
+    {% endif %}
+    
+
     {% if pagination_items.has_prev %}
     <li>
       <a href="{{url_redirect}}/{{ pagination_items.prev_num }}{{search}}{{active}}" aria-label="Previous">
@@ -16,7 +23,7 @@
     {% if page_num %}
         {% if page_num != pagination_items.page %}
             <li>
-              <a href="{{url_redirect}}/{{ page_num }}{{search}}{{active}}">{{ page_num }}</a>
+              <a href="{{url_redirect}}/{{ page_num }}{{search}}{{active}}{{ url_inscription }}">{{ page_num }}</a>
             </li>
         {% else %}
             <li>
@@ -28,7 +35,7 @@
 
     {% if pagination_items.has_next %}
     <li>
-      <a href="{{url_redirect}}/{{ pagination_items.next_num }}{{search}}{{active}}" aria-label="Previous">
+      <a href="{{url_redirect}}/{{ pagination_items.next_num }}{{search}}{{active}}{{ url_inscription }}" aria-label="Previous">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>

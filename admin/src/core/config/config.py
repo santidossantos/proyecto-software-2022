@@ -2,6 +2,8 @@ from src.core.database import db
 from src.core import config
 
 class Config(db.Model):
+    """A class to represent the configuration table, it would contains global
+    values to be called all arround the system"""
 
     __tablename__ = "configuration"
     id = db.Column(db.Integer, primary_key=True, unique=True)

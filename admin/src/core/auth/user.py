@@ -11,6 +11,8 @@ users_roles = db.Table(
 
 
 class User(db.Model):
+    """A class to represent an user like an administrator or an operator"""
+
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, unique=True)

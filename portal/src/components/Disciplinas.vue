@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { apiService } from "@/services/api";
 import DisciplinasList from "./DisciplinasList.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -14,8 +14,8 @@ export default {
     };
   },
   async created() {
-    apiService
-      .get("club/disciplines")
+    axios
+      .get(process.env.VUE_APP_RUTA + "club/disciplines")
       .then((response) => {
         this.disciplinas = response.data;
       })

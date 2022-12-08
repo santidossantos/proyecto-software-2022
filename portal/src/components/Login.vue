@@ -14,18 +14,15 @@
         <span class="fas fa-key"></span>
         <input v-model="password" class="form-input" type="password" id="password" placeholder="Contraseña" />
       </div>
-      <input class="btn mt-3" type="submit" value="Login">
+      <input class="btn mt-3" type="submit" value="Login" @click="displayError">
     </form>
-
-    <p v-if="($store.state.error_msg != '')">{{ this.displayError() }}</p>
-
   </div>
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
+
   data() {
     return {
       token: "",
@@ -43,26 +40,20 @@ export default {
         password: this.password,
       };
 
-      this.$store.dispatch("login", formData).
-        then((response) => {
-
-          console.log(response)
-
-
-        })
-        .catch((error) => {
-          console.log(error);
-          console.log('hola')
-        });
+      this.$store.dispatch("login", formData);
     },
 
     displayError() {
-      this.$toast.error(this.$store.state.error_msg, {
-        position: "bottom",
-        duration: 5000
-      });
+      setTimeout(() => {
+        if (this.$store.state.error_msg != '') {
+          this.$toast.error(this.$store.state.error_msg, {
+            max: 1,
+            position: "bottom",
+            duration: 2000,
+          });
+        }
+      }, "200")
     },
-    
   },
 };
 </script>

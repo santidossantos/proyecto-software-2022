@@ -103,5 +103,3 @@ def disciplinesCantInscriptions():
     print(array)
     return array
 
-
-

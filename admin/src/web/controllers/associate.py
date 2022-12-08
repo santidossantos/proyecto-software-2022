@@ -39,6 +39,7 @@ def associate_index(page_num=1):
     )
 
 
+
 @associates_blueprint.route("/create", methods=("GET", "POST"))
 @permisson_required("member_new")
 def create():

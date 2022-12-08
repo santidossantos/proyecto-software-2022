@@ -37,6 +37,7 @@ def authenticate():
                 flash("Email o clave incorrecta", "error")
                 return render_template("auth/login.html")
 
+       
         if not user:
             flash("Email o clave incorrecta", "error")
             return render_template("auth/login.html")

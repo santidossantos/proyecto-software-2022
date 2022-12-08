@@ -308,7 +308,7 @@ def cantidadInscripcionesPorMes():
         # obtengo el numero de mes de la fecha de inscripcion
         mes = asociado.create_at.month
         # agrego el numero de mes al array
-        meses[mes] = meses[mes] + 1
+        meses[mes-1] = meses[mes-1] + 1
         # defino array con el nomrbe de cada mes
         nombresMeses = [
             "Enero",

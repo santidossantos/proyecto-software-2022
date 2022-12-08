@@ -96,7 +96,6 @@ def result(id, id_pago):
     else:
         flash("Error! Debe pagar las cuotas vencidas en orden", "error")
         return redirect(url_for("payment.show", id=id))
-    return redirect(url_for("payment.show", id=id))
 
 
 def mesToInt(mesPago):

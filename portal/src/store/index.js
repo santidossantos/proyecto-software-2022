@@ -76,15 +76,9 @@ export default createStore({
             router.replace("login");
           }
         })
-<<<<<<< HEAD
-        .catch((error) => {
-          return error
-=======
         .catch((e) => {
           console.log("No se pudo cerrar sesion");
->>>>>>> development
         });
-
     },
   },
   modules: {},

@@ -24,4 +24,11 @@ export default {
   font-family: "Share Tech", sans-serif;
   position: relative;
 }
+
+@media screen and (max-width: 869px) {
+  .home {
+    height: 100%;
+  }
+}
+
 </style>

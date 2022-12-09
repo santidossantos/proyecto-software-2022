@@ -1,17 +1,11 @@
 <template>
   <h1 class="title">Estadisticas</h1>
-  <div class="page-content page-container">
-    <div class="padding d-flex justify-content-center">
-      <div class="row container d-flex justify-content-center">
-        <div class="est">
-          <Estadisticas />
-          <EstadisticasGenero />
-          <EstadisticasInscripciones />
-        </div>
-      </div>
-    </div>
-    <hr class="hr" />
+  <div class="est">
+    <Estadisticas />
+    <EstadisticasGenero />
+    <EstadisticasInscripciones />
   </div>
+  <hr class="hr" />
 </template>
 
 <script>

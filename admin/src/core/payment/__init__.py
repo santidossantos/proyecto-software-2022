@@ -41,11 +41,11 @@ def payments_impagos(id):
     # filtrar aquellos pagos que esten impagos ordenados descendentemente por año y mes
     return Payment.query.filter_by(associated_id=id).filter_by(state="I").order_by(desc(Payment.AnioNum)).order_by(desc(Payment.mesNum)).first()
 
-def costo_total(costo_disciplines,mes):
+def costo_total(costo_disciplines,mes,anio):
     now = datetime.now()
     config = Config.query.first()
     total = config.month_value + costo_disciplines
-    if ((now.day >= 1 and now.day <= 10 and mes == now.month) or (mes > now.month)):
+    if ((now.day >= 1 and now.day <= 10 and mes == now.month and anio==now.year)):
         return total
     else:
         return total + (int(total * (config.recharge_percentaje / 100)))

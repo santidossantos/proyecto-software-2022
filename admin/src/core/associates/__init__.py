@@ -119,10 +119,10 @@ def usWithUserDni(dni):
 
 
 def delete_user(id):
-    user = Associate.query.get(id)
-    user.active = not user.active
+    associate = get_associate(id)
+    associate.active = False
     db.session.commit()
-    return user
+    return associate
 
 
 def usWithUserEmail(email):

@@ -46,7 +46,7 @@
   <p v-else>No se ecnontraron resultados</p>
   <div class="section_comprobante">
     <h3>Subir Comprobante</h3>
-    <input ref="fileInput" type="file" @change="previewFiles($event)" />
+    <input class= "text" ref="fileInput" type="file" @change="previewFiles($event)" />
     <button class="btn btn-success" @click="submitFiles">guardar</button>
   </div>
 </template>
@@ -215,6 +215,9 @@ export default {
 </script>
 
 <style>
+.text{
+  font-size: 14px;
+}
 .hidden {
   display: none;
 }
@@ -232,4 +235,11 @@ export default {
   gap: 1rem;
   margin: auto;
 }
+
+@media screen and (max-width: 869px) {
+  .section_comprobante {
+    width: 100%;
+  }
+}
+
 </style>

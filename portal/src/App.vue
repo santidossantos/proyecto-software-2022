@@ -1,6 +1,6 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark">
-    <router-link class="navbar-brand fs-2" to="/">Home</router-link>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-center">
+    <router-link class="navbar-brand" to="/">Home</router-link>
     <router-link class="navbar-brand" to="/disciplinas"
       >Disciplinas</router-link
     >
@@ -62,9 +62,6 @@ export default {
   color: #000203;
 }
 
-nav {
-  padding: 30px;
-}
 
 nav a {
   color: #2c3e50;

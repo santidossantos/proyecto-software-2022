@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <PromptPwa/>
     <Home />
   </div>
 </template>
@@ -7,12 +8,14 @@
 <script>
 // @ is an alias to /src
 import Home from "@/components/Home.vue";
+import PromptPwa from "@/components/PromptPwa.vue";
 
 export default {
   name: "HomeView",
   components: {
     Home,
-  },
+    PromptPwa
+},
 };
 </script>
 

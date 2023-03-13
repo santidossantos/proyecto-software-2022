@@ -1,4 +1,5 @@
 <template>
+  
   <div class="d">
     <div class="content-home">
       <section class="textHome">

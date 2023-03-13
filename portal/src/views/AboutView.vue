@@ -1,6 +1,6 @@
 <template>
-    <h1 class="title">Listado de Disciplinas</h1>
-    <Disciplinas />
+  <h1 class="title">Listado de Disciplinas</h1>
+  <Disciplinas />
 </template>
 
 <script>

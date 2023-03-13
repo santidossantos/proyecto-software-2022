@@ -1,5 +1,5 @@
 <template>
-    <MiPerfil />
+  <MiPerfil />
 </template>
 
 <script>

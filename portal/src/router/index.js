@@ -29,13 +29,13 @@ const routes = [
     path: "/payment",
     name: "payment",
     component: PaymentView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/perfil",
     name: "Perfil",
     component: MiPerfilView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
   {
     path: "/carnet",
@@ -43,13 +43,12 @@ const routes = [
     component: LicenseView,
   },
   {
-   
     path: "/me/disciplinas",
     name: "DisciplinasMe",
     component: MisDisciplinasView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
   },
-    {
+  {
     path: "/login",
     name: "login",
     component: LoginView,
@@ -67,15 +66,15 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(route => route.meta.requiresAuth)) {
+  if (to.matched.some((route) => route.meta.requiresAuth)) {
     if (!store.state.username) {
-      next('/login')
+      next("/login");
     } else {
-      next()
+      next();
     }
   } else {
-    next()
+    next();
   }
-})
+});
 
 export default router;

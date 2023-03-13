@@ -7,22 +7,37 @@
     <form class="p-3 mt-3" @submit.prevent="register">
       <div class="form-field d-flex align-items-center">
         <span class="far fa-user"></span>
-        <input v-model="username" class="form-input" type="text" id="username" required
-          placeholder="Nombre de usuario" />
+        <input
+          v-model="username"
+          class="form-input"
+          type="text"
+          id="username"
+          required
+          placeholder="Nombre de usuario"
+        />
       </div>
       <div class="form-field d-flex align-items-center">
         <span class="fas fa-key"></span>
-        <input v-model="password" class="form-input" type="password" id="password" placeholder="Contraseña" />
+        <input
+          v-model="password"
+          class="form-input"
+          type="password"
+          id="password"
+          placeholder="Contraseña"
+        />
       </div>
-      <input class="btn mt-3" type="submit" value="Login" @click="displayError">
+      <input
+        class="btn mt-3"
+        type="submit"
+        value="Login"
+        @click="displayError"
+      />
     </form>
   </div>
 </template>
 
 <script>
-
 export default {
-
   data() {
     return {
       token: "",
@@ -33,7 +48,6 @@ export default {
   },
 
   methods: {
-
     register() {
       const formData = {
         username: this.username,
@@ -45,14 +59,17 @@ export default {
 
     displayError() {
       setTimeout(() => {
-        if (this.$store.state.error_msg != '' && this.$store.state.token === null) {
+        if (
+          this.$store.state.error_msg != "" &&
+          this.$store.state.token === null
+        ) {
           this.$toast.error(this.$store.state.error_msg, {
             max: 1,
             position: "bottom",
             duration: 2000,
           });
         }
-      }, "200")
+      }, "200");
     },
   },
 };

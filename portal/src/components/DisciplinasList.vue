@@ -32,7 +32,7 @@ export default {
 </script>
 
 <style>
-.table-content{
+.table-content {
   padding: 1rem 4rem;
 }
 </style>

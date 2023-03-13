@@ -27,7 +27,9 @@
               </div>
               <div class="col-sm-8 div-card">
                 <div class="card-block">
-                  <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Carnet Digital</h6>
+                  <h6 class="m-b-20 p-b-5 b-b-default f-w-600">
+                    Carnet Digital
+                  </h6>
                   <div class="row">
                     <div class="col-sm-6">
                       <p class="m-b-10 f-w-600">Email</p>
@@ -35,27 +37,37 @@
                     </div>
                     <div class="col-sm-6">
                       <p class="m-b-10 f-w-600">Teléfono</p>
-                      <h6 class="text-muted f-w-400">{{ associated.mobile_number }}</h6>
+                      <h6 class="text-muted f-w-400">
+                        {{ associated.mobile_number }}
+                      </h6>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-6">
-                      <p class="m-b-10 f-w-600">{{ associated.document_type }}</p>
+                      <p class="m-b-10 f-w-600">
+                        {{ associated.document_type }}
+                      </p>
                       <h6 class="text-muted f-w-400">{{ associated.dni }}</h6>
                     </div>
                     <div class="col-sm-6">
                       <p class="m-b-10 f-w-600">N° Socio</p>
-                      <h6 class="text-muted f-w-400">{{ associated.member_number }}</h6>
+                      <h6 class="text-muted f-w-400">
+                        {{ associated.member_number }}
+                      </h6>
                     </div>
                   </div>
                   <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600"></h6>
                   <div class="row">
                     <div class="col-sm-6">
                       <p class="m-b-10 f-w-600">Estado</p>
-                        <h6 style="color : red" v-if="associated.defaulter">Moroso</h6>
-                        <h6 style="color : green" v-else>Al día</h6>
+                      <h6 style="color: red" v-if="associated.defaulter">
+                        Moroso
+                      </h6>
+                      <h6 style="color: green" v-else>Al día</h6>
                       <p class="m-b-10 f-w-600">Fecha Alta</p>
-                      <h6 class="text-muted f-w-400">{{ associated.create_at }}</h6>
+                      <h6 class="text-muted f-w-400">
+                        {{ associated.create_at }}
+                      </h6>
                     </div>
 
                     <div class="col-sm-6 mt-3">
@@ -97,7 +109,6 @@ export default {
     };
   },
 
-
   async created() {
     axios
       .get(process.env.VUE_APP_RUTA + "me/license", {
@@ -111,8 +122,9 @@ export default {
         this.imagen = response.data.profile_picture
           .replace("b&#39;", "")
           .replace("&#39;", "");
-        document.getElementById("img").src = "data:image/png;base64," + this.imagen;
-        this.QRValue += this.associated.id
+        document.getElementById("img").src =
+          "data:image/png;base64," + this.imagen;
+        this.QRValue += this.associated.id;
       })
       .catch((e) => {
         this.errores.push(e);

@@ -1,5 +1,8 @@
 <template>
-  <p>Pagando las cuotas despues del dia 10 se incluye un recargo del {{ this.recargoo }}%</p>
+  <p>
+    Pagando las cuotas despues del dia 10 se incluye un recargo del
+    {{ this.recargoo }}%
+  </p>
   <table v-if="payment.status == null" class="table table-hover">
     <thead>
       <tr>
@@ -11,20 +14,34 @@
     <tbody>
       <tr v-for="(pay, index) in payment" :key="index">
         <td>{{ meses[pay.mes] }}</td>
-        <td v-if="pay.total == 0">{{ total / this.payment.length + recargo(total / this.payment.length, pay.mes) }}</td>
+        <td v-if="pay.total == 0">
+          {{
+            total / this.payment.length +
+            recargo(total / this.payment.length, pay.mes)
+          }}
+        </td>
         <td v-if="pay.total != 0">{{ pay.total }}</td>
         <td>
-          <button class="btn btn-success" v-if="pay.total == 0"
-            @click="registerPayment(pay.mes, (total / this.payment.length + recargo(total / this.payment.length, pay.mes)))">
+          <button
+            class="btn btn-success"
+            v-if="pay.total == 0"
+            @click="
+              registerPayment(
+                pay.mes,
+                total / this.payment.length +
+                  recargo(total / this.payment.length, pay.mes)
+              )
+            "
+          >
             Pagar
           </button>
-          <button class="btn btn-info" v-if="pay.total != 0" @click="
-            emitirComporbante(
-              meses[pay.mes],
-              pay.total,
-              pay.nroComprobante
-            )
-          ">
+          <button
+            class="btn btn-info"
+            v-if="pay.total != 0"
+            @click="
+              emitirComporbante(meses[pay.mes], pay.total, pay.nroComprobante)
+            "
+          >
             Emitir comprobante
           </button>
         </td>
@@ -46,7 +63,12 @@
   <p v-else>No se ecnontraron resultados</p>
   <div class="section_comprobante">
     <h3>Subir Comprobante</h3>
-    <input class= "text" ref="fileInput" type="file" @change="previewFiles($event)" />
+    <input
+      class="text"
+      ref="fileInput"
+      type="file"
+      @change="previewFiles($event)"
+    />
     <button class="btn btn-success" @click="submitFiles">guardar</button>
   </div>
 </template>
@@ -142,10 +164,9 @@ export default {
       const date = new Date().toLocaleDateString();
       const [day, month, year] = date.split("/");
       console.log(day);
-      if ((mesDeHoy === mesApagar && day > 10) || (mesApagar < mesDeHoy))
+      if ((mesDeHoy === mesApagar && day > 10) || mesApagar < mesDeHoy)
         return total * (this.recargoo / 100);
-      else
-        return 0;
+      else return 0;
     },
     previewFiles(event) {
       this.comprobante = event.target.files[0];
@@ -158,10 +179,9 @@ export default {
       let InstFormData = new FormData();
       InstFormData.append("file", this.comprobante);
       console.log(InstFormData);
-      axios
+      axios;
       apiService
-        .post(process.env.VUE_APP_RUTA + "SaveArchivo",
-          InstFormData )
+        .post(process.env.VUE_APP_RUTA + "SaveArchivo", InstFormData)
         .then((response) => {
           console.log("File upload successful!");
           this.$refs.fileInput.value = "";
@@ -215,7 +235,7 @@ export default {
 </script>
 
 <style>
-.text{
+.text {
   font-size: 14px;
 }
 .hidden {
@@ -241,5 +261,4 @@ export default {
     width: 100%;
   }
 }
-
 </style>

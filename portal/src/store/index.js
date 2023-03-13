@@ -7,7 +7,7 @@ export default createStore({
   state: {
     username: null,
     token: null,
-    error_msg: ''
+    error_msg: "",
   },
   getters: {
     isAuthenticated(state) {
@@ -22,7 +22,7 @@ export default createStore({
     clearAuthData(state) {
       state.username = null;
       state.token = null;
-      state.error_msg = '';
+      state.error_msg = "";
     },
     initializeStore(state) {
       if (localStorage.getItem("username")) {
@@ -32,8 +32,7 @@ export default createStore({
     },
     setMsg(state, errorData) {
       state.error_msg = errorData.error_msg;
-    }
-
+    },
   },
   actions: {
     login: ({ commit }, authData) => {
@@ -50,17 +49,15 @@ export default createStore({
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("username", authData.username);
             router.replace("perfil");
-
           }
         })
         .catch((error) => {
           commit("setMsg", {
-            error_msg: error.response.data.msg
+            error_msg: error.response.data.msg,
           });
         });
     },
     logout: ({ commit }) => {
-
       axios
         .get(process.env.VUE_APP_RUTA + "logout", {
           xsrfCookieName: "csrf_access_token",

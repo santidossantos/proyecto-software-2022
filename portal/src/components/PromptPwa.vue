@@ -1,18 +1,17 @@
 <!-- PWAPrompt.vue -->
 <template>
   <br />
-  <div v-if="shown" class="btn btn-warning btn-sm">
+  <div v-if="shown" class="alert">
     ¿Desea instalar la aplicación?
 
-    <div class="promt">
-      <button class="btn btn-success btn-sm" @click="installPWA">
+      <button class="btn btn-success btn-sm me-1" @click="installPWA">
         Instalar
       </button>
       
-      <button class="btn btn-danger btn-sm" @click="dismissPrompt">
+      <button class="btn btn-secondary btn-sm" @click="dismissPrompt">
         No, gracias
       </button>
-    </div>
+   
 
   </div>
 </template>
@@ -40,10 +39,9 @@ export default {
       this.installEvent.prompt()
       this.installEvent.userChoice.then((choice) => {
         this.dismissPrompt() // Hide the prompt once the user's clicked
-        if (choice.outcome === 'accepted') {
+        if (choice.outcome === 'accepted' ) {
           // Do something additional if the user chose to install
         } else {
-          // Do something additional if the user declined
         }
       })
     },
@@ -53,9 +51,16 @@ export default {
 
 <style>
 
-.btn btn-info btn-sm {
-    margin-right: 3px;
-    margin-left: 3px;
+.alert {
+  display: revert;
+  font-size: 1rem;
+  background-color: bisque;
+  padding: 0;
+}
+
+.button-container {
+  justify-content: space-between;
+  margin: 2px;
 }
 
 </style>

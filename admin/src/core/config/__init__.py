@@ -25,6 +25,12 @@ def update_config(**kwargs):
     db.session.commit()
     return True
 
+def update_config_by_id(id, **kwargs):
+    config = Config.query.get(id)
+    config.update(**kwargs)
+    db.session.commit()
+    return True
+
 
 def get_per_page():
     return int(get_config().per_page)

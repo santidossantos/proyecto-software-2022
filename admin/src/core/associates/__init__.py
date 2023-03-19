@@ -125,6 +125,13 @@ def delete_user(id):
     return associate
 
 
+def delete_user_physical(id):
+    associate = get_associate(id)
+    db.session.delete(associate)
+    db.session.commit()
+    return associate
+
+
 def usWithUserEmail(email):
     return Associate.query.filter_by(email=email).first()
 

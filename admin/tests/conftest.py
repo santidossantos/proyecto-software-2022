@@ -32,7 +32,7 @@ def fixture_auth(app):
             password = '1234'
         )
 
-        role_admin = permissions.get_admin_role()
+        role_admin = permissions.get_role_by_name("admin")
         auth.update_roles(user, [role_admin])
 
         yield user

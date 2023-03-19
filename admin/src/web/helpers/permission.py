@@ -51,7 +51,6 @@ def has_role_by_id(id, rol):
     return False
 
 
-
 def permisson_required(*argumentos):
     def decorator(func):
         @wraps(func)

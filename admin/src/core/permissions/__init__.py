@@ -17,6 +17,5 @@ def create_role(**kwargs):
     return role
 
 
-def get_admin_role():
-    return Role.query.filter_by(nombre="admin").first()
-    
+def get_role_by_name(role_name):
+    return Role.query.filter_by(nombre=role_name).first()

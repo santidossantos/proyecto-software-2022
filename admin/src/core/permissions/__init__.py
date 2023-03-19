@@ -15,5 +15,8 @@ def create_role(**kwargs):
     db.session.add(role)
     db.session.commit()
     return role
-    
+
+
+def get_admin_role():
+    return Role.query.filter_by(nombre="admin").first()
     

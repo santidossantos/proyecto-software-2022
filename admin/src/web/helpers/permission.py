@@ -42,6 +42,15 @@ def has_role(rol):
         return True
     return False
 
+def has_role_by_id(id, rol):
+    user = User.query.filter_by(id=id).first()
+    res = Role.query.filter_by(nombre=rol).first()
+
+    if res in user.roles:
+        return True
+    return False
+
+
 
 def permisson_required(*argumentos):
     def decorator(func):

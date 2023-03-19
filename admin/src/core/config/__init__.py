@@ -8,6 +8,12 @@ def create(**kwargs):
     db.session.commit()
     return config
 
+def delete(id):
+    config = Config.query.get(id)
+    db.session.delete(config)
+    db.session.commit()
+    return config
+
 
 def get_config():
     config = Config.query.first()

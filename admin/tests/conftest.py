@@ -3,7 +3,7 @@ from app import create_app
 from src.core import auth
 from src.core import disciplines
 from src.core import permissions
-from src.core import associates
+from src.core import config
 
 
 @pytest.fixture
@@ -58,3 +58,23 @@ def fixture_disciplines(app):
        yield discipline
 
        disciplines.delete_discipline(discipline.id)
+
+
+
+@pytest.fixture()
+def fixture_config(app):
+
+    with app.app_context():
+        config_obj = config.create(
+            per_page=1, 
+            is_pay_table_active = True,
+            contact_information = "Twitter",
+            payment_voucher_text = "Texo Recibo de Pago",
+            month_value =  2500,
+            recharge_percentaje = 5,
+        )
+
+        yield config_obj
+
+        config.delete(config_obj.id)
+    

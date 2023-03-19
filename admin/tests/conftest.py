@@ -1,7 +1,9 @@
 import pytest
 from app import create_app
 from src.core import auth
+from src.core import disciplines
 from src.core import permissions
+from src.core import associates
 
 
 @pytest.fixture
@@ -40,4 +42,19 @@ def fixture_auth(app):
         auth.delete_user(user.id)
 
 
-     
+@pytest.fixture()
+def fixture_disciplines(app):
+
+    with app.app_context():
+       discipline = disciplines.create_discipline(
+            name = "Hockey",
+            category = "Categoria 1",
+            nameInstructors = "Juan, Pedro, Martina",
+            daysAndHours = "Lunes 10AM",
+            monthlyCost = 3500,
+            active = True,
+       )
+
+       yield discipline
+
+       disciplines.delete_discipline(discipline.id)

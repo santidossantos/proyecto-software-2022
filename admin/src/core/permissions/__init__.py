@@ -15,5 +15,7 @@ def create_role(**kwargs):
     db.session.add(role)
     db.session.commit()
     return role
-    
-    
+
+
+def get_role_by_name(role_name):
+    return Role.query.filter_by(nombre=role_name).first()

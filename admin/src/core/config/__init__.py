@@ -8,6 +8,12 @@ def create(**kwargs):
     db.session.commit()
     return config
 
+def delete(id):
+    config = Config.query.get(id)
+    db.session.delete(config)
+    db.session.commit()
+    return config
+
 
 def get_config():
     config = Config.query.first()
@@ -16,6 +22,12 @@ def get_config():
 
 def update_config(**kwargs):
     get_config().update(**kwargs)
+    db.session.commit()
+    return True
+
+def update_config_by_id(id, **kwargs):
+    config = Config.query.get(id)
+    config.update(**kwargs)
     db.session.commit()
     return True
 
